@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanjiclub | Dashboard</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="style/base.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 col-lg-3">
+                <nav class="nav flex-column">
+                    <img class="nav-brand" src="img/icon.png">
+                    <hr>
+                    <span class="nav-header">Menu</span>
+                    <a class="nav-link active" href="#">Dashboard</a>
+                    <a class="nav-link" href="#">Practice</a>
+                    <a class="nav-link" href="#">Editor</a>
+                    <a class="nav-link" href="#">Import</a>
+                    <hr>
+                    <span class="nav-header">Options</span>
+                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="#">Log out</a>
+                </nav>
+            </div>
+
+            <div class="col-md-8 col-lg-9">
+                <h1>Dashboard</h1>
+                <hr>
+
+                <div class="shadow-lg p-3 bg-white mt-5 rounded">
+                    <div class="card-body">
+                        <h2>Welcome back, {{ user.name }}</h2>
+                        You are on a 10 day streak!
+                    </div>
+                </div>
+
+                <div class="row mt-5 pl-2 pr-2">
+                    <div class="col">
+                        <div class="shadow-lg p-3 bg-success text-white rounded">
+                            <div class="card-body">
+                                <h2>589</h2>
+                                Strong words
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="shadow-lg p-3 bg-warning text-white rounded">
+                            <div class="card-body">
+                                <h2>29</h2>
+                                Medium words
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="shadow-lg p-3 bg-danger text-white rounded">
+                            <div class="card-body">
+                                <h2>14</h2>
+                                Weak words
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

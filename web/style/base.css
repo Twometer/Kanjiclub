@@ -1,0 +1,27 @@
+body {
+    padding-top: 50px;
+    background: #f6f6f6;
+}
+
+.nav-link.active {
+    color: white;
+    margin-right: 35px;
+    background-color: var(--blue);
+    border-radius: .25rem;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
+
+.nav-header {
+    color: #a2a9b1;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.nav-brand {
+    margin: 10px;
+    width: 64px;
+    height: 64px;
+}
