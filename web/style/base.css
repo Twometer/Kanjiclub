@@ -25,3 +25,35 @@ body {
     width: 64px;
     height: 64px;
 }
+
+.mobile-nav {
+    display: none;
+}
+
+@media (max-width: 767.98px) {
+    .mobile-nav {
+        display: flex;
+    }
+    body {
+        padding-top: 70px;
+    }
+    .offscreen-collapse {
+        position: fixed;
+        z-index: 10;
+        background: white;
+        padding: 25px;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+        top: 56px;
+        right: 100%;
+        bottom: 0;
+        width: 55%;
+        transition-duration: .3s;
+    }
+    .offscreen-collapse.open {
+        transform: translateX(100%);
+        transition-duration: .3s;
+    }
+    .nav-link.active {
+        margin-right: 0;
+    }
+}

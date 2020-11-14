@@ -9,3 +9,10 @@ h1 {
     color: white;
     font-weight: 100;
 }
+
+.form-check-label {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
