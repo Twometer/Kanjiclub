@@ -1,6 +1,8 @@
 # Stats API
 
-### `GET /api/stats`: Stats overview
+## `GET /api/stats`
+Stats overview
+
 ```json
 {
 	"streak": 0,
@@ -10,7 +12,9 @@
 }
 ```
 
-### `GET /api/stats/{wordStrength}`: Retrieve all words with that strength
+## `GET /api/stats/{wordStrength}`
+Retrieve all words with that strength
+
 ```json
 {
 	"words": [ WordInfo ]

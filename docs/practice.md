@@ -1,6 +1,8 @@
 # Practice API
 
-### `POST /api/practice/new`: New practice
+## `POST /api/practice/new`
+New practice
+
 ```json
 {
 	"lessons": [ String ]
@@ -12,7 +14,9 @@
 }
 ```
 
-### `POST /api/practice/complete`: On practice completed
+## `POST /api/practice/complete`
+On practice completed
+
 ```json
 {
 	"words": [

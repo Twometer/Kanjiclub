@@ -1,6 +1,8 @@
 # Accounts API
 
-### `POST /api/accounts/new`: Create new account
+## `POST /api/accounts/new`
+Create new account
+
 ```json
 {
 	"email": "",
@@ -9,7 +11,9 @@
 }
 ```
 
-### `POST /api/accounts/login`: Log in 
+## `POST /api/accounts/login`
+Log in 
+
 ```json
 {
 	"user": "",
@@ -22,7 +26,9 @@
 }
 ```
 
-### `GET /api/accounts/me`: Info about myself
+## `GET /api/accounts/me`
+Info about myself
+
 ```json
 {
 	"token": "",

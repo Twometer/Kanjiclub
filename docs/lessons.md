@@ -1,13 +1,17 @@
 # Lessons API
 
-### `GET /api/lessons`: Get all lessons
+## `GET /api/lessons`
+Get all lessons
+
 ```json
 {
 	"lessons": [ LessonInfo ]
 }
 ```
 
-### `POST /api/lessons/new`: Create new lesson
+## `POST /api/lessons/new`
+Create new lesson
+
 ```json
 {
 	"name": ""
@@ -19,11 +23,13 @@
 }
 ```
 
-### `POST /api/lessons/{lessonId}/import`: Import vocabulary into lesson
+## `POST /api/lessons/{lessonId}/import`
+Import vocabulary into lesson
+
 Direct upload of binary vocab data
 
 
-### `LessonInfo` Object
+## `LessonInfo`
 ```json
 {
 	"id": "",

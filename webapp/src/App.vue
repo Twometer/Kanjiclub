@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-4 col-lg-3">
                     <nav class="nav flex-column offscreen-collapse">
-                        <img class="nav-brand" src="img/icon.png" />
+                        <img class="nav-brand" src="img/logo.png" />
                         <hr />
                         <span class="nav-header">Menu</span>
                         <router-link class="nav-link" to="/">Dashboard</router-link>
