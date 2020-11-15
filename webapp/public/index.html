@@ -32,6 +32,9 @@
             $('[data-toggle="offscreen"]').on('click', function () {
                 $('.offscreen-collapse').toggleClass('open');
             });
+            $('.nav-link').on('click', function() {
+                $('.offscreen-collapse').removeClass('open');
+            });
         })
     </script>
 </body>
