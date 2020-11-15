@@ -21,7 +21,7 @@
                         <hr />
                         <span class="nav-header">Menu</span>
                         <router-link class="nav-link" to="/">Dashboard</router-link>
-                        <router-link class="nav-link" to="/practice">Practice</router-link>
+                        <router-link class="nav-link" to="/lessons">Lessons</router-link>
                         <router-link class="nav-link" to="/edit">Edit</router-link>
                         <router-link class="nav-link" to="/import">Import</router-link>
                         <hr />

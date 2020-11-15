@@ -37,5 +37,5 @@
 </template>
 
 <style scoped>
-    @import url("auth.css");
+    @import url("../assets/auth.css");
 </style>
