@@ -1,9 +1,26 @@
+var config = require("../config.json");
 var express = require("express");
+var session = require('express-session')
+var database = require('./database.js')
+const MongoStore = require('connect-mongo')(session);
+
 var app = express()
 
-app.listen(9080, () => {
-    console.log("Server running on port 9080");
+/* Configure Express */
+app.set('trust proxy', 1)
+app.use(session({
+    secret: config.session.secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: config.session.secure },
+    store: new MongoStore({ mongooseConnection: database.getConnection() })
+}))
+
+app.listen(config.network.port, () => {
+    console.log("Server running on port " + config.network.port);
 })
+
+database.connect(config.db.url)
 
 /* Accounts API */
 app.post("/api/accounts/new", (req, res, next) => {

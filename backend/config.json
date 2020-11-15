@@ -1,0 +1,12 @@
+{
+    "network":  {
+        "port": 9080
+    },
+    "session": {
+        "secret": "secret",
+        "secure": false
+    },
+    "db": {
+        "url": "mongodb://localhost:27017/kanjiclub"
+    }
+}
