@@ -1,0 +1,32 @@
+html,
+body {
+    height: 100%;
+}
+
+h1 {
+    margin-bottom: 35px;
+    color: white;
+    font-weight: 100;
+}
+
+.form-check-label {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.auth-bg {
+    position: fixed;
+    z-index: 500;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background: linear-gradient(
+        45deg,
+        rgba(168, 48, 242, 1) 0%,
+        rgba(93, 134, 254, 1) 100%
+    );
+}

@@ -1,32 +1,43 @@
 <template>
     <div id="app">
-        <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
+        <nav
+            class="navbar fixed-top navbar-light bg-light mobile-nav"
+            style="height: 56px"
+        >
+            <button
+                class="navbar-toggler p-0 border-0"
+                type="button"
+                data-toggle="offscreen"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                    <nav class="nav flex-column offscreen-collapse">
+                        <img class="nav-brand" src="img/icon.png" />
+                        <hr />
+                        <span class="nav-header">Menu</span>
+                        <router-link class="nav-link" to="/">Dashboard</router-link>
+                        <router-link class="nav-link" to="/practice">Practice</router-link>
+                        <router-link class="nav-link" to="/edit">Edit</router-link>
+                        <router-link class="nav-link" to="/import">Import</router-link>
+                        <hr />
+                        <span class="nav-header">Options</span>
+                        <router-link class="nav-link" to="/profile">Profile</router-link>
+                        <a class="nav-link" href="#">Log out</a>
+                    </nav>
+                </div>
+
+                <div class="col-md-8 col-lg-9">
+                    <router-view />
+                </div>
+            </div>
         </div>
-        <router-view />
     </div>
 </template>
 
 <style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-}
-
-#nav {
-    padding: 30px;
-}
-
-#nav a {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-    color: #42b983;
-}
 </style>

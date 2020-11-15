@@ -3,12 +3,17 @@ body {
     background: #f6f6f6;
 }
 
+.nav-link {
+    transition-duration: .25s;
+    margin-right: 35px;
+    transition: .15s;
+}
 .nav-link.active {
     color: white;
-    margin-right: 35px;
     background-color: var(--blue);
     border-radius: .25rem;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    transition: .15s;
 }
 
 .nav-header {
@@ -47,13 +52,14 @@ body {
         right: 100%;
         bottom: 0;
         width: 55%;
+        min-width: 145px;
         transition-duration: .3s;
     }
     .offscreen-collapse.open {
         transform: translateX(100%);
         transition-duration: .3s;
     }
-    .nav-link.active {
+    .nav-link {
         margin-right: 0;
     }
 }
