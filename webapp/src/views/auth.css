@@ -18,7 +18,7 @@ h1 {
 
 .auth-bg {
     position: fixed;
-    z-index: 500;
+    z-index: 1050;
     top: 0;
     bottom: 0;
     left: 0;

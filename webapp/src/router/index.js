@@ -11,6 +11,26 @@ const routes = [
         component: Dashboard
     },
     {
+        path: "/practice",
+        name: "Practice",
+        component: () => import('../views/Practice.vue')
+    },
+    {
+        path: "/edit",
+        name: "Edit",
+        component: () => import('../views/Edit.vue')
+    },
+    {
+        path: "/import",
+        name: "Import",
+        component: () => import('../views/Import.vue')
+    },
+    {
+        path: "/profile",
+        name: "Profile",
+        component: () => import('../views/Profile.vue')
+    },
+    {
         path: "/login",
         name: "Login",
         component: () => import('../views/Login.vue')
@@ -19,7 +39,7 @@ const routes = [
         path: "/register",
         name: "Register",
         component: () => import('../views/Register.vue')
-    }
+    },
 ];
 
 const router = new VueRouter({

@@ -14,7 +14,7 @@
     </div>
 </template>
 
-<style scoped>
+<style>
 .col-md {
     margin-bottom: 20px;
 }
