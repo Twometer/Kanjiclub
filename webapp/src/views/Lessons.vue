@@ -9,9 +9,9 @@
             </router-link>
         </p>
         <div>
-            <ul class="list-group">
+            <ul class="list-group shadow">
                 <li class="list-group-item active">Lorem ipsum</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Dapibus ac fidibus in</li>
                 <li class="list-group-item">Morbi leo risus</li>
                 <li class="list-group-item">Porta ac consectetur ac</li>
                 <li class="list-group-item">Vestibulum at eros</li>

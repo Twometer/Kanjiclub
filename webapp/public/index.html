@@ -29,12 +29,23 @@
 
     <script>
         $(function () {
-            $('[data-toggle="offscreen"]').on('click', function () {
+            $('[data-toggle="offscreen"]').on('click', function (e) {
                 $('.offscreen-collapse').toggleClass('open');
+                e.stopPropagation();
             });
-            $('.nav-link').on('click', function() {
-                $('.offscreen-collapse').removeClass('open');
+
+            $('.nav-link').on('click', closeNavbar);
+
+            $(document).on('click', function(e) {
+                if (e.target.nodeName === 'NAV' || e.target.parentNode.nodeName === 'NAV') {
+                    return;
+                }
+                closeNavbar();
             });
+            
+            function closeNavbar(e) {
+                $('.offscreen-collapse').removeClass('open')
+            }
         })
     </script>
 </body>

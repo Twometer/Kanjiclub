@@ -25,8 +25,8 @@
                         <router-link class="nav-link" to="/edit">Edit</router-link>
                         <router-link class="nav-link" to="/import">Import</router-link>
                         <hr />
-                        <span class="nav-header">Options</span>
-                        <router-link class="nav-link" to="/profile">Profile</router-link>
+                        <span class="nav-header">User</span>
+                        <router-link class="nav-link" to="/options">Options</router-link>
                         <a class="nav-link" href="#">Log out</a>
                     </nav>
                 </div>

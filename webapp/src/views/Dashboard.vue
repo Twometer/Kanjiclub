@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <WordStats weak="5" medium="10" strong="159" />
+        <WordStats weak=5 medium=10 strong=159 />
     </div>
 </template>
 

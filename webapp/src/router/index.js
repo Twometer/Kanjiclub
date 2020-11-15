@@ -31,9 +31,9 @@ const routes = [
         component: () => import('../views/Import.vue')
     },
     {
-        path: "/profile",
-        name: "Profile",
-        component: () => import('../views/Profile.vue')
+        path: "/options",
+        name: "Options",
+        component: () => import('../views/Options.vue')
     },
     {
         path: "/login",

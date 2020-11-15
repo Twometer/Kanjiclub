@@ -63,3 +63,14 @@ body {
         margin-right: 0;
     }
 }
+
+.lang-jp {
+    font-family: "Noto Sans CJK JP", sans-serif;
+}
+
+.form-check-label {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
