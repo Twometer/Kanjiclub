@@ -31,7 +31,6 @@ Info about myself
 
 ```json
 {
-	"token": "",
 	"username": "",
 	"email": ""
 }

@@ -23,6 +23,18 @@ Create new lesson
 }
 ```
 
+## `PUT /api/lessons/{lessonId}`
+Rename lesson
+
+```json
+{
+	"name": ""
+}
+```
+
+## `DELETE /api/lessons/{lessonId}`
+Delete a session
+
 ## `POST /api/lessons/{lessonId}/import`
 Import vocabulary into lesson
 
