@@ -42,5 +42,11 @@
             <input type="checkbox" class="form-check-input" id="ignoreCase" />
             <label class="form-check-label" for="ignoreCase">Ignore case in native language</label>
         </div>
+
+        <h3 class="mt-5">About</h3>
+        <hr />
+        <p>Kanjiclub version 0.1.0</p>
+        <p class="text-muted">made by <a href="https://github.com/Twometer/Kanjiclub">Twometer</a></p>
+        <p class="text-muted">Icons by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> flaticon.com</a></p>
     </div>
 </template>

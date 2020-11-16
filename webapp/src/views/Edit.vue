@@ -8,18 +8,20 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">English</th>
-                        <th scope="col">Kana</th>
-                        <th scope="col">Kanji</th>
+                        <th scope="col">Foreign</th>
+                        <th scope="col">Synonyms</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Native</th>
                         <th scope="col">Comment</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="index in 50" :key="index">
                         <th scope="row">{{ index }}</th>
-                        <td>vegetable</td>
-                        <td class="lang-jp">やさい</td>
                         <td class="lang-jp">野菜</td>
+                        <td class="lang-jp">やさい</td>
+                        <td></td>
+                        <td>vegetable</td>
                         <td class="lang-jp"></td>
                     </tr>
                 </tbody>

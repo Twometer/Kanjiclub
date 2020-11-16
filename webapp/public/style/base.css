@@ -80,3 +80,16 @@ body {
     cursor: pointer;
     user-select: none;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(1, 1, 1, 0);
+}
