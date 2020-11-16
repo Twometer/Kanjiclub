@@ -12,14 +12,16 @@
                     </svg>
                 </span>
             </div>
-            <input type="text" class="form-control" id="search" placeholder="Search...">
+            <input type="text" class="form-control" id="search" placeholder="Search..." autocomplete="off">
         </div>
 
         <ul class="list-group shadow">
-            <li class="list-group-item list-group-item-action">Lorem ipsum</li>
-            <li class="list-group-item list-group-item-action">Dapibus ac fidibus in</li>
-            <li class="list-group-item list-group-item-action">Morbi leo risus</li>
-            <li class="list-group-item list-group-item-action">Porta ac consectetur ac</li>
+            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/ar.svg" class="shadow rounded-circle mr-2" width="25"> Arabic</li>
+            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/de.svg" class="shadow rounded-circle mr-2" width="25"> German</li>
+            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/hi.svg" class="shadow rounded-circle mr-2" width="25"> Hindi</li>
+            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/jp.svg" class="shadow rounded-circle mr-2" width="25"> Japanese</li>
+            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/pl.svg" class="shadow rounded-circle mr-2" width="25"> Polish</li>
+            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/pt.svg" class="shadow rounded-circle mr-2" width="25"> Portuguese</li>
         </ul>
 
     </div>
