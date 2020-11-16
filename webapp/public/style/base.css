@@ -54,6 +54,7 @@ body {
         width: 55%;
         min-width: 145px;
         transition-duration: .3s;
+        overflow-x: hidden;
     }
     .offscreen-collapse.open {
         transform: translateX(100%);
@@ -73,4 +74,9 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+}
+
+.list-group-item-action {
+    cursor: pointer;
+    user-select: none;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="lessons">
+    <div class="practice-select">
         <h1>Practice</h1>
         <hr />
         <p class="lead clearfix">
@@ -10,11 +10,11 @@
         </p>
         <div>
             <ul class="list-group shadow">
-                <li class="list-group-item active">Lorem ipsum</li>
-                <li class="list-group-item">Dapibus ac fidibus in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                <li class="list-group-item list-group-item-action active">Lorem ipsum</li>
+                <li class="list-group-item list-group-item-action">Dapibus ac fidibus in</li>
+                <li class="list-group-item list-group-item-action">Morbi leo risus</li>
+                <li class="list-group-item list-group-item-action">Porta ac consectetur ac</li>
+                <li class="list-group-item list-group-item-action">Vestibulum at eros</li>
             </ul>
         </div>
         <div class="text-center mt-5"></div>

@@ -24,5 +24,12 @@ A generic response only signifies a status using HTTP status codes, without a JS
 ## Endpoints
 - `/api/accounts`
 - `/api/stats`
+- `/api/languages`
 - `/api/lessons`
+- `/api/words`
 - `/api/practice`
+
+## Relations
+- An account has languages and stats
+- A language has lessons
+- A lesson has words

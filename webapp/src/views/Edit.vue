@@ -32,13 +32,16 @@
         </div>
 
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="English" />
+            <input type="text" class="form-control" placeholder="Foreign" />
         </div>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Kana" />
+            <input type="text" class="form-control" placeholder="Synonyms" />
         </div>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Kanji" />
+            <input type="text" class="form-control" placeholder="Gender" />
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Native" />
         </div>
         <div class="input-group mb-3">
             <textarea class="form-control" placeholder="Comment" rows="4">

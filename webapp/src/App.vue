@@ -17,16 +17,16 @@
             <div class="row">
                 <div class="col-md-4 col-lg-3">
                     <nav class="nav flex-column offscreen-collapse">
-                        <img class="nav-brand" src="img/logo.png" />
+                        <img class="nav-brand" src="/img/logo.png" />
                         <hr />
                         <span class="nav-header">Menu</span>
                         <router-link class="nav-link" to="/">Dashboard</router-link>
-                        <router-link class="nav-link" to="/lessons">Lessons</router-link>
-                        <router-link class="nav-link" to="/edit">Edit</router-link>
+                        <router-link class="nav-link" to="/practice/select">Practice</router-link>
+                        <router-link class="nav-link" to="/edit/select">Edit</router-link>
                         <router-link class="nav-link" to="/import">Import</router-link>
                         <hr />
                         <span class="nav-header">User</span>
-                        <router-link class="nav-link" to="/options">Options</router-link>
+                        <router-link class="nav-link" to="/settings">Settings</router-link>
                         <a class="nav-link" href="#">Log out</a>
                     </nav>
                 </div>

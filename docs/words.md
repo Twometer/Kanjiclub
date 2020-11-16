@@ -9,23 +9,24 @@ Get words in lesson
 }
 ```
 
-## `POST /api/words/{lessonId}/new`
+## `POST /api/words/new`
 New word in lesson
 
 Send `WordInfo`
 
-## `PUT /api/words/{lessonId}/{wordId}`
+## `PUT /api/words/{wordId}`
 Update word in lesson
 
 Send `WordInfo` with only the values that should be changed
 
-## `DELETE /api/words/{lessonId}/{wordId}`
+## `DELETE /api/words/{wordId}`
 Delete word from lesson
 
 ## `WordInfo`
 ```json
 {
 	"id": "",
+	"lesson": "",
 	"createdOn": "",
 	"lastPracticed": "",
 	"strength": "weak",
