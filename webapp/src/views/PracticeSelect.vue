@@ -2,12 +2,15 @@
     <div class="practice-select">
         <h1>Practice</h1>
         <hr />
-        <p class="lead clearfix">
+        <div class="lead clearfix mb-3">
             <span class="d-inline-block pt-1">Select lessons you want to practice</span>
-            <router-link to="/practice">
-                <button class="btn btn-success float-right">Go!</button>
-            </router-link>
-        </p>
+            <div class="d-inline-block float-right">
+                <button class="btn btn-secondary mr-3">Select all</button>
+                <router-link to="/practice">
+                    <button class="btn btn-success go">Go!</button>
+                </router-link>
+            </div>
+        </div>
         <div>
             <ul class="list-group shadow">
                 <li class="list-group-item list-group-item-action active">Lorem ipsum</li>
@@ -22,7 +25,7 @@
 </template>
 
 <style scoped>
-button {
-    padding: 6px 24px;
+button.go {
+    padding: 6px 20px;
 }
 </style>

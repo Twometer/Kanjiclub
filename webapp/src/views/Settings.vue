@@ -11,7 +11,12 @@
         </h3>
         <hr />
         <ul class="list-group shadow clearfix">
-            <li class="list-group-item active">Japanese</li>
+            <li class="list-group-item active">
+                Japanese
+                <button class="btn btn-secondary btn-sm float-right disabled" disabled>
+                    Current
+                </button>
+            </li>
             <li class="list-group-item">
                 English
                 <button class="btn btn-secondary btn-sm float-right">
@@ -50,3 +55,7 @@
         <p class="text-muted">Icons by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> flaticon.com</a></p>
     </div>
 </template>
+
+<style scoped>
+
+</style>

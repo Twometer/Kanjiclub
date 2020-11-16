@@ -3,7 +3,7 @@
         <h1>Edit</h1>
         <hr />
         <p class="lead clearfix">
-            <span class="d-inline-block pt-1">Select lessons you want to edit</span>
+            <span class="d-inline-block pt-1">Select lesson you want to edit</span>
             <button class="btn btn-success float-right">New lesson</button>
         </p>
         <div>
