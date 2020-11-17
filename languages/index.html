@@ -233,8 +233,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-list-of-languages" class="md-nav__link">
-    Get list of languages
+  <a href="#get-list-of-the-users-languages" class="md-nav__link">
+    Get list of the users languages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-list-of-all-supported-languages" class="md-nav__link">
+    Get list of all supported languages
   </a>
   
 </li>
@@ -337,8 +344,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-list-of-languages" class="md-nav__link">
-    Get list of languages
+  <a href="#get-list-of-the-users-languages" class="md-nav__link">
+    Get list of the users languages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-list-of-all-supported-languages" class="md-nav__link">
+    Get list of all supported languages
   </a>
   
 </li>
@@ -365,12 +379,19 @@
     &quot;languageCode&quot;: &quot;&quot;
 }
 </code></pre>
-<h2 id="get-list-of-languages">Get list of languages</h2>
+<h2 id="get-list-of-the-users-languages">Get list of the users languages</h2>
 <pre><code>GET /api/languages
 </code></pre>
-<pre><code class="language-json">{
-    &quot;languages&quot;: []
-}
+<pre><code class="language-json">[ &quot;languageCode&quot; ]
+</code></pre>
+<h2 id="get-list-of-all-supported-languages">Get list of all supported languages</h2>
+<pre><code>GET /api/languages/all
+</code></pre>
+<pre><code class="language-json">[
+    {
+        &quot;&lt;code&gt;&quot;: &quot;&lt;name&gt;&quot;
+    }
+]
 </code></pre>
                 
               

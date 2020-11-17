@@ -191,9 +191,52 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Database
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" class="md-nav__link md-nav__link--active">
       Database
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#accounts" class="md-nav__link">
+    Accounts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lessons" class="md-nav__link">
+    Lessons
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#words" class="md-nav__link">
+    Words
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -287,6 +330,35 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#accounts" class="md-nav__link">
+    Accounts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lessons" class="md-nav__link">
+    Lessons
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#words" class="md-nav__link">
+    Words
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -299,6 +371,57 @@
                 
                 
                 <h1 id="database">Database</h1>
+<h2 id="accounts">Accounts</h2>
+<pre><code class="language-json">{
+    &quot;_id&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;&quot;,
+    &quot;username&quot;: &quot;&quot;,
+    &quot;password&quot;: &quot;&quot;,
+    &quot;createdOn&quot;: Date,
+    &quot;languages&quot;: [],
+    &quot;stats&quot;: {
+        &quot;lastLogin&quot;: Date,
+        &quot;lastPractice&quot;: Date,
+        &quot;streak&quot;: Number
+    },
+    &quot;settings&quot;: {
+        &quot;currentLanguage&quot;: &quot;&quot;,
+        &quot;includeSynonyms&quot;: true,
+        &quot;randomizeDir&quot;: true,
+        &quot;ignoreCase&quot;: true
+    }
+}
+</code></pre>
+<h2 id="lessons">Lessons</h2>
+<pre><code class="language-json">{
+    &quot;_id&quot;: &quot;&quot;,
+    &quot;name&quot;: &quot;&quot;,
+    &quot;account&quot;: Account.id,
+    &quot;language&quot;: &quot;&quot;,
+    &quot;createdOn&quot;: Date
+}
+</code></pre>
+<h2 id="words">Words</h2>
+<pre><code class="language-json">{
+    &quot;_id&quot;: &quot;&quot;,
+    &quot;account&quot;: Account.id,
+    &quot;language&quot;: &quot;&quot;,
+    &quot;lesson&quot;: Lesson.id,
+    &quot;createdOn&quot;: &quot;&quot;,
+    &quot;strength&quot;: &quot;weak&quot;,
+    &quot;stats&quot;: {
+        &quot;lastPracticed&quot;: Date,
+        &quot;previouslyCorrect&quot;: false
+    },
+    &quot;data&quot;: {
+        &quot;foreign&quot;: &quot;&quot;,
+        &quot;synonym&quot;: &quot;&quot;,
+        &quot;gender&quot;: &quot;&quot;,
+        &quot;native&quot;: &quot;&quot;,
+        &quot;comment&quot;: &quot;&quot;
+    }
+}
+</code></pre>
                 
               
               

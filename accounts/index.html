@@ -216,6 +216,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#log-out" class="md-nav__link">
+    Log out
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-settings" class="md-nav__link">
     Get settings
   </a>
@@ -358,6 +365,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#log-out" class="md-nav__link">
+    Log out
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-settings" class="md-nav__link">
     Get settings
   </a>
@@ -394,6 +408,10 @@
     &quot;password&quot;: &quot;&quot;
 }
 </code></pre>
+<pre><code class="language-json">{
+    &quot;reason&quot;: &quot;&quot;
+}
+</code></pre>
 <h2 id="log-in">Log in</h2>
 <pre><code>POST /api/accounts/login
 </code></pre>
@@ -402,12 +420,17 @@
     &quot;password&quot;: &quot;&quot;
 }
 </code></pre>
+<h2 id="log-out">Log out</h2>
+<pre><code>POST /api/accounts/logout
+</code></pre>
 <h2 id="get-settings">Get settings</h2>
 <pre><code>GET /api/accounts/me
 </code></pre>
 <pre><code class="language-json">{
     &quot;currentLanguage&quot;: &quot;&quot;,
-    &quot;practiceOptions&quot;: PracticeOptions
+    &quot;includeSynonyms&quot;: true,
+    &quot;randomizeDir&quot;: true,
+    &quot;ignoreCase&quot;: true
 }
 </code></pre>
 <h2 id="change-settings">Change settings</h2>
@@ -415,7 +438,9 @@
 </code></pre>
 <pre><code class="language-json">{
     &quot;currentLanguage&quot;: &quot;&quot;,
-    &quot;practiceOptions&quot;: PracticeOptions
+    &quot;includeSynonyms&quot;: true,
+    &quot;randomizeDir&quot;: true,
+    &quot;ignoreCase&quot;: true
 }
 </code></pre>
                 

@@ -286,8 +286,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#fetch-words" class="md-nav__link">
-    Fetch words
+  <a href="#get-words" class="md-nav__link">
+    Get words
   </a>
   
 </li>
@@ -344,8 +344,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#fetch-words" class="md-nav__link">
-    Fetch words
+  <a href="#get-words" class="md-nav__link">
+    Get words
   </a>
   
 </li>
@@ -386,9 +386,9 @@
                 
                 <h1 id="words-api">Words API</h1>
 <p>Words are identified using their randomly generated word id</p>
-<h2 id="fetch-words">Fetch words</h2>
+<h2 id="get-words">Get words</h2>
 <p>To get all words in a lesson, omit <code>strength</code>, and to get all words with a specific strength, omit <code>lesson</code>.</p>
-<pre><code>GET /api/words?strength={wordStrength}&amp;lesson={lessonId}
+<pre><code>GET /api/words?lang={languageCode}&amp;strength={wordStrength}&amp;lesson={lessonId}
 </code></pre>
 <pre><code class="language-json">{
     &quot;words&quot;: [ WordInfo ]
@@ -397,7 +397,16 @@
 <h2 id="create-word">Create word</h2>
 <pre><code>POST /api/words/new
 </code></pre>
-<pre><code>{ WordInfo }
+<pre><code>{
+    &quot;lesson&quot;: &quot;&quot;,
+    &quot;data&quot;: {
+        &quot;foreign&quot;: &quot;&quot;,
+        &quot;synonym&quot;: &quot;&quot;,
+        &quot;gender&quot;: &quot;&quot;,
+        &quot;native&quot;: &quot;&quot;,
+        &quot;comment&quot;: &quot;&quot;
+    }
+}
 </code></pre>
 <pre><code>{
     &quot;id&quot;: &quot;&quot;
@@ -406,7 +415,15 @@
 <h2 id="update-word">Update word</h2>
 <pre><code>PUT /api/words/{wordId}
 </code></pre>
-<pre><code>{ WordInfo }
+<pre><code>{
+    &quot;data&quot;: {
+        &quot;foreign&quot;: &quot;&quot;,
+        &quot;synonym&quot;: &quot;&quot;,
+        &quot;gender&quot;: &quot;&quot;,
+        &quot;native&quot;: &quot;&quot;,
+        &quot;comment&quot;: &quot;&quot;
+    }
+}
 </code></pre>
 <h2 id="delete-word">Delete word</h2>
 <pre><code>DELETE /api/words/{wordId}
