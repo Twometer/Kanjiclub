@@ -18,9 +18,7 @@ GET /api/languages
 ```
 
 ```json
-{
-	"languages": []
-}
+[ "languageCode" ]
 ```
 
 ## Get list of all supported languages

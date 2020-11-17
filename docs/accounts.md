@@ -30,6 +30,10 @@ POST /api/accounts/login
 }
 ```
 
+## Log out
+```
+POST /api/accounts/logout
+```
 
 ## Get settings
 ```
@@ -39,7 +43,9 @@ GET /api/accounts/me
 ```json
 {
 	"currentLanguage": "",
-	"practiceOptions": PracticeOptions
+	"includeSynonyms": true,
+	"randomizeDir": true,
+	"ignoreCase": true
 }
 ```
 
@@ -51,6 +57,8 @@ PUT /api/accounts/me
 ```json
 {
 	"currentLanguage": "",
-	"practiceOptions": PracticeOptions
+	"includeSynonyms": true,
+	"randomizeDir": true,
+	"ignoreCase": true
 }
 ```
