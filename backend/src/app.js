@@ -1,4 +1,6 @@
-var config = require("../config.json");
+var config = require("../conf/kanjiclub.json");
+var languages = require("../conf/languages.json");
+
 var express = require("express");
 var session = require('express-session')
 var database = require('./database.js')
@@ -35,6 +37,23 @@ app.get("/api/accounts/me", (req, res, next) => {
 
 })
 
+app.put("/api/accounts/me", (req, res, next) => {
+
+})
+
+/* Languages API */
+app.post("/api/languages/new", (req, res, next) => {
+
+})
+
+app.get("/api/languages", (req, res, next) => {
+
+})
+
+app.get("/api/languages/all", (req, res, next) => {
+    res.json(languages)
+})
+
 /* Lessons API */
 app.get("/api/lessons", (req, res, next) => {
 
@@ -57,11 +76,11 @@ app.post("/api/lessons/:lessonId/import", (req, res, next) => {
 })
 
 /* Practice API */
-app.post("/api/practice/new", (req, res, next) => {
+app.post("/api/practice/:languageCode/new", (req, res, next) => {
 
 })
 
-app.post("/api/practice/complete", (req, res, next) => {
+app.post("/api/practice/:languageCode/complete", (req, res, next) => {
 
 })
 
@@ -70,23 +89,19 @@ app.get("/api/stats", (req, res, next) => {
 
 })
 
-app.get("/api/stats/:wordStrength", (req, res, next) => {
-
-})
-
 /* Words API */
-app.get("/api/words/:lessonId", (req, res, next) => {
+app.get("/api/words", (req, res, next) => {
 
 })
 
-app.post("/api/words/:lessonId/new", (req, res, next) => {
+app.post("/api/words/new", (req, res, next) => {
 
 })
 
-app.put("/api/words/:lessonId/:wordId", (req, res, next) => {
+app.put("/api/words/:wordId", (req, res, next) => {
 
 })
 
-app.delete("/api/words/:lessonId/:wordId", (req, res, next) => {
+app.delete("/api/words/:wordId", (req, res, next) => {
 
 })

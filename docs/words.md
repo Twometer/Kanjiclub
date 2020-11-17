@@ -15,7 +15,7 @@ GET /api/words?strength={wordStrength}&lesson={lessonId}
 
 ## Create word
 ```
-POST /api/words/new
+POST /api/words/new?lesson={lessonId}
 ```
 ```
 { WordInfo }

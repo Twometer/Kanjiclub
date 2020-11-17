@@ -12,7 +12,7 @@ POST /api/languages/new
 }
 ```
 
-## Get list of languages
+## Get list of the users languages
 ```
 GET /api/languages
 ```
@@ -21,4 +21,17 @@ GET /api/languages
 {
 	"languages": []
 }
+```
+
+## Get list of all supported languages
+```
+GET /api/languages/all
+```
+
+```json
+[
+	{
+		"<code>": "<name>"
+	}
+]
 ```

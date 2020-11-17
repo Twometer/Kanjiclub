@@ -12,6 +12,11 @@ POST /api/accounts/new
 	"password": ""
 }
 ```
+```json
+{
+	"reason": ""
+}
+```
 
 ## Log in
 ```
