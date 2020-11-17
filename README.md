@@ -3,7 +3,7 @@ Open Source web based vocabulary training
 
 Check out the app at [kanjiclub.tk](https://kanjiclub.tk)
 
-Read the docs on [GitHub pages](https://twometer.github.io/kanjiclub)
+Read the docs on [GitHub pages](https://twometer.github.io/Kanjiclub)
 
 ### Host it yourself
 NGINX tutorial or something
