@@ -1,35 +1,31 @@
 # Overview
 
-## About
-Kanjiclub is a cloud-based open source tool for learning vocabulary (primarily Japanese).
+## About the app
+Kanjiclub is an open-source cloud app for vocabulary training. Go to [kanjiclub.tk](https://kanjiclub.tk) to try it out for yourself.
 
-## API Doc Formatting
-HTTP requests are formatted like this:
+## Web API
+All pages that end with "API" document REST API endpoints. HTTP requests will be formatted like this:
 
-`METHOD /url/to/endpoint`
-Description
-
+### Formatting
+**Endpoint name**  
+Optional description
 ```
-request
+METHOD /endpoint/url
 ```
 ```
-response
+optional request body
+```
+```
+optional response body
 ```
 
-If no response is defined, then the generic response is used
+### Generic responses
+A generic response is an HTTP response without a body. The status of the reply should be in the HTTP status code. Generic responses are omitted from the docs.
 
-## Generic response
-A generic response only signifies a status using HTTP status codes, without a JSON body.
-
-## Endpoints
+### Endpoints
 - `/api/accounts`
 - `/api/stats`
 - `/api/languages`
 - `/api/lessons`
 - `/api/words`
 - `/api/practice`
-
-## Relations
-- An account has languages and stats
-- A language has lessons
-- A lesson has words

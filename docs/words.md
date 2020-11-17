@@ -1,45 +1,40 @@
 # Words API
 
-## `GET /api/words/{lessonId}`
-Get words in lesson
+Words are identified using their randomly generated word id
 
+## Fetch words
+To get all words in a lesson, omit `strength`, and to get all words with a specific strength, omit `lesson`.
+```
+GET /api/words?strength={wordStrength}&lesson={lessonId}
+```
 ```json
 {
 	"words": [ WordInfo ]
 }
 ```
 
-## `POST /api/words/new`
-New word in lesson
-
-Send `WordInfo`
-
-## `PUT /api/words/{wordId}`
-Update word in lesson
-
-Send `WordInfo` with only the values that should be changed
-
-## `DELETE /api/words/{wordId}`
-Delete word from lesson
-
-## `WordInfo`
-```json
+## Create word
+```
+POST /api/words/new
+```
+```
+{ WordInfo }
+```
+```
 {
-	"id": "",
-	"lesson": "",
-	"createdOn": "",
-	"lastPracticed": "",
-	"strength": "weak",
-	"content": {
-		"native": "",
-		"kana": "",
-		"kanji": "",
-		"comment": ""
-	}
+	"id": ""
 }
 ```
 
-## `WordStrength`
-- weak
-- medium
-- strong
+## Update word
+```
+PUT /api/words/{wordId}
+```
+```
+{ WordInfo }
+```
+
+## Delete word
+```
+DELETE /api/words/{wordId}
+```

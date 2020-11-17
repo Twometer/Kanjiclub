@@ -1,7 +1,9 @@
 # Accounts API
 
-## `POST /api/accounts/new`
-Create new account
+## Create account
+```
+POST /api/accounts/new
+```
 
 ```json
 {
@@ -11,8 +13,10 @@ Create new account
 }
 ```
 
-## `POST /api/accounts/login`
-Log in 
+## Log in
+```
+POST /api/accounts/login
+```
 
 ```json
 {
@@ -20,18 +24,28 @@ Log in
 	"password": ""
 }
 ```
+
+
+## Get settings
+```
+GET /api/accounts/me
+```
+
 ```json
 {
-	"token": ""
+	"currentLanguage": "",
+	"practiceOptions": PracticeOptions
 }
 ```
 
-## `GET /api/accounts/me`
-Info about myself
+## Change settings
+```
+PUT /api/accounts/me
+```
 
 ```json
 {
-	"username": "",
-	"email": ""
+	"currentLanguage": "",
+	"practiceOptions": PracticeOptions
 }
 ```

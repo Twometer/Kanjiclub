@@ -1,21 +1,36 @@
 # Practice API
 
-## `POST /api/practice/new`
-New practice
+The practice API is used to generate a new test for the user. Practices are not persisted to the database, only their results.
+
+## Generate new practice
+```
+POST /api/practice/{languageCode}/new
+```
 
 ```json
 {
-	"lessons": [ String ]
+	"target": "lesson",
+	"lessons": [ lessonId ]
+}
+
+OR
+
+{
+	"target": "word_group",
+	"strength": "weak"
 }
 ```
+
 ```json
 {
 	"words": [ WordInfo ]
 }
 ```
 
-## `POST /api/practice/complete`
-On practice completed
+## Practice completed
+```
+POST /api/practice/{languageCode}/complete
+```
 
 ```json
 {
@@ -24,4 +39,3 @@ On practice completed
 	]
 }
 ```
-Generic response
