@@ -1,5 +1,6 @@
 const utils = require('../util/utils.js');
 const hash = require('../util/hash.js');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = (app, db) => {
 
@@ -90,7 +91,7 @@ module.exports = (app, db) => {
 
         const body = req.body;
         db.Account.findOne({ _id: req.session.accountId }, (err, account) => {
-            utils.copyIfExists(body, account.settings);
+            utils.copyNonNull(body, account.settings);
             account.save();
             return res.status(200).send();
         })

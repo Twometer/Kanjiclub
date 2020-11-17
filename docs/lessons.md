@@ -29,14 +29,15 @@ POST /api/lessons/new
 }
 ```
 
-## Rename lesson
+## Edit lesson
 ```
 PUT /api/lessons/{lessonId}
 ```
 
 ```json
 {
-	"name": ""
+	"name": "",
+	"language": "newLanguageCode"
 }
 ```
 
