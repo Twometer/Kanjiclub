@@ -12,6 +12,7 @@
     "stats": {
         "lastLogin": Date,
         "lastPractice": Date,
+        "streak": Number
     },
     "settings": {
         "currentLanguage": "",
