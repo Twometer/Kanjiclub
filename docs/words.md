@@ -2,7 +2,7 @@
 
 Words are identified using their randomly generated word id
 
-## Fetch words
+## Get words
 To get all words in a lesson, omit `strength`, and to get all words with a specific strength, omit `lesson`.
 ```
 GET /api/words?strength={wordStrength}&lesson={lessonId}
@@ -15,7 +15,7 @@ GET /api/words?strength={wordStrength}&lesson={lessonId}
 
 ## Create word
 ```
-POST /api/words/new?lesson={lessonId}
+POST /api/words/new
 ```
 ```
 { WordInfo }

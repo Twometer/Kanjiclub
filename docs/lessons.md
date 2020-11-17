@@ -14,12 +14,13 @@ GET /api/lessons?lang={languageCode}
 
 ## Create lesson
 ```
-POST /api/lessons/new?lang={languageCode}
+POST /api/lessons/new
 ```
 
 ```json
 {
-	"name": ""
+	"name": "",
+	"language": "languageCode"
 }
 ```
 ```json
