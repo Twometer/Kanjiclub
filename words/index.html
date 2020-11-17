@@ -183,8 +183,44 @@
 
 
   <li class="md-nav__item">
+    <a href="../database/" class="md-nav__link">
+      Database
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../languages/" class="md-nav__link">
+      Languages API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../lessons/" class="md-nav__link">
       Lessons API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../objects/" class="md-nav__link">
+      API objects
     </a>
   </li>
 
@@ -250,43 +286,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#get-apiwordslessonid" class="md-nav__link">
-    GET /api/words/{lessonId}
+  <a href="#fetch-words" class="md-nav__link">
+    Fetch words
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-apiwordslessonidnew" class="md-nav__link">
-    POST /api/words/{lessonId}/new
+  <a href="#create-word" class="md-nav__link">
+    Create word
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#put-apiwordslessonidwordid" class="md-nav__link">
-    PUT /api/words/{lessonId}/{wordId}
+  <a href="#update-word" class="md-nav__link">
+    Update word
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#delete-apiwordslessonidwordid" class="md-nav__link">
-    DELETE /api/words/{lessonId}/{wordId}
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wordinfo" class="md-nav__link">
-    WordInfo
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wordstrength" class="md-nav__link">
-    WordStrength
+  <a href="#delete-word" class="md-nav__link">
+    Delete word
   </a>
   
 </li>
@@ -322,43 +344,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#get-apiwordslessonid" class="md-nav__link">
-    GET /api/words/{lessonId}
+  <a href="#fetch-words" class="md-nav__link">
+    Fetch words
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-apiwordslessonidnew" class="md-nav__link">
-    POST /api/words/{lessonId}/new
+  <a href="#create-word" class="md-nav__link">
+    Create word
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#put-apiwordslessonidwordid" class="md-nav__link">
-    PUT /api/words/{lessonId}/{wordId}
+  <a href="#update-word" class="md-nav__link">
+    Update word
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#delete-apiwordslessonidwordid" class="md-nav__link">
-    DELETE /api/words/{lessonId}/{wordId}
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wordinfo" class="md-nav__link">
-    WordInfo
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wordstrength" class="md-nav__link">
-    WordStrength
+  <a href="#delete-word" class="md-nav__link">
+    Delete word
   </a>
   
 </li>
@@ -377,40 +385,32 @@
                 
                 
                 <h1 id="words-api">Words API</h1>
-<h2 id="get-apiwordslessonid"><code>GET /api/words/{lessonId}</code></h2>
-<p>Get words in lesson</p>
+<p>Words are identified using their randomly generated word id</p>
+<h2 id="fetch-words">Fetch words</h2>
+<p>To get all words in a lesson, omit <code>strength</code>, and to get all words with a specific strength, omit <code>lesson</code>.</p>
+<pre><code>GET /api/words?strength={wordStrength}&amp;lesson={lessonId}
+</code></pre>
 <pre><code class="language-json">{
     &quot;words&quot;: [ WordInfo ]
 }
 </code></pre>
-<h2 id="post-apiwordslessonidnew"><code>POST /api/words/{lessonId}/new</code></h2>
-<p>New word in lesson</p>
-<p>Send <code>WordInfo</code></p>
-<h2 id="put-apiwordslessonidwordid"><code>PUT /api/words/{lessonId}/{wordId}</code></h2>
-<p>Update word in lesson</p>
-<p>Send <code>WordInfo</code> with only the values that should be changed</p>
-<h2 id="delete-apiwordslessonidwordid"><code>DELETE /api/words/{lessonId}/{wordId}</code></h2>
-<p>Delete word from lesson</p>
-<h2 id="wordinfo"><code>WordInfo</code></h2>
-<pre><code class="language-json">{
-    &quot;id&quot;: &quot;&quot;,
-    &quot;createdOn&quot;: &quot;&quot;,
-    &quot;lastPracticed&quot;: &quot;&quot;,
-    &quot;strength&quot;: &quot;weak&quot;,
-    &quot;content&quot;: {
-        &quot;native&quot;: &quot;&quot;,
-        &quot;kana&quot;: &quot;&quot;,
-        &quot;kanji&quot;: &quot;&quot;,
-        &quot;comment&quot;: &quot;&quot;
-    }
+<h2 id="create-word">Create word</h2>
+<pre><code>POST /api/words/new
+</code></pre>
+<pre><code>{ WordInfo }
+</code></pre>
+<pre><code>{
+    &quot;id&quot;: &quot;&quot;
 }
 </code></pre>
-<h2 id="wordstrength"><code>WordStrength</code></h2>
-<ul>
-<li>weak</li>
-<li>medium</li>
-<li>strong</li>
-</ul>
+<h2 id="update-word">Update word</h2>
+<pre><code>PUT /api/words/{wordId}
+</code></pre>
+<pre><code>{ WordInfo }
+</code></pre>
+<h2 id="delete-word">Delete word</h2>
+<pre><code>DELETE /api/words/{wordId}
+</code></pre>
                 
               
               

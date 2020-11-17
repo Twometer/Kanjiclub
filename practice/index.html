@@ -183,8 +183,44 @@
 
 
   <li class="md-nav__item">
+    <a href="../database/" class="md-nav__link">
+      Database
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../languages/" class="md-nav__link">
+      Languages API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../lessons/" class="md-nav__link">
       Lessons API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../objects/" class="md-nav__link">
+      API objects
     </a>
   </li>
 
@@ -226,15 +262,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#post-apipracticenew" class="md-nav__link">
-    POST /api/practice/new
+  <a href="#generate-new-practice" class="md-nav__link">
+    Generate new practice
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-apipracticecomplete" class="md-nav__link">
-    POST /api/practice/complete
+  <a href="#practice-completed" class="md-nav__link">
+    Practice completed
   </a>
   
 </li>
@@ -294,15 +330,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#post-apipracticenew" class="md-nav__link">
-    POST /api/practice/new
+  <a href="#generate-new-practice" class="md-nav__link">
+    Generate new practice
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-apipracticecomplete" class="md-nav__link">
-    POST /api/practice/complete
+  <a href="#practice-completed" class="md-nav__link">
+    Practice completed
   </a>
   
 </li>
@@ -321,25 +357,35 @@
                 
                 
                 <h1 id="practice-api">Practice API</h1>
-<h2 id="post-apipracticenew"><code>POST /api/practice/new</code></h2>
-<p>New practice</p>
+<p>The practice API is used to generate a new test for the user. Practices are not persisted to the database, only their results.</p>
+<h2 id="generate-new-practice">Generate new practice</h2>
+<pre><code>POST /api/practice/{languageCode}/new
+</code></pre>
 <pre><code class="language-json">{
-    &quot;lessons&quot;: [ String ]
+    &quot;target&quot;: &quot;lesson&quot;,
+    &quot;lessons&quot;: [ lessonId ]
+}
+
+OR
+
+{
+    &quot;target&quot;: &quot;word_group&quot;,
+    &quot;strength&quot;: &quot;weak&quot;
 }
 </code></pre>
 <pre><code class="language-json">{
     &quot;words&quot;: [ WordInfo ]
 }
 </code></pre>
-<h2 id="post-apipracticecomplete"><code>POST /api/practice/complete</code></h2>
-<p>On practice completed</p>
+<h2 id="practice-completed">Practice completed</h2>
+<pre><code>POST /api/practice/{languageCode}/complete
+</code></pre>
 <pre><code class="language-json">{
     &quot;words&quot;: [
         { &quot;wordId&quot;: &quot;&quot;, &quot;correct&quot;: false }
     ]
 }
 </code></pre>
-<p>Generic response</p>
                 
               
               
@@ -358,7 +404,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../lessons/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../objects/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -367,7 +413,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Lessons API
+                API objects
               </div>
             </div>
           </a>

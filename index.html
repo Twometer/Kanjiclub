@@ -190,30 +190,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#about" class="md-nav__link">
-    About
+  <a href="#about-the-app" class="md-nav__link">
+    About the app
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#api-doc-formatting" class="md-nav__link">
-    API Doc Formatting
+  <a href="#web-api" class="md-nav__link">
+    Web API
+  </a>
+  
+    <nav class="md-nav" aria-label="Web API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formatting" class="md-nav__link">
+    Formatting
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#generic-response" class="md-nav__link">
-    Generic response
+        
+          <li class="md-nav__item">
+  <a href="#generic-responses" class="md-nav__link">
+    Generic responses
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#endpoints" class="md-nav__link">
     Endpoints
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -242,8 +255,44 @@
 
 
   <li class="md-nav__item">
+    <a href="database/" class="md-nav__link">
+      Database
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="languages/" class="md-nav__link">
+      Languages API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="lessons/" class="md-nav__link">
       Lessons API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="objects/" class="md-nav__link">
+      API objects
     </a>
   </li>
 
@@ -308,30 +357,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#about" class="md-nav__link">
-    About
+  <a href="#about-the-app" class="md-nav__link">
+    About the app
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#api-doc-formatting" class="md-nav__link">
-    API Doc Formatting
+  <a href="#web-api" class="md-nav__link">
+    Web API
+  </a>
+  
+    <nav class="md-nav" aria-label="Web API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formatting" class="md-nav__link">
+    Formatting
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#generic-response" class="md-nav__link">
-    Generic response
+        
+          <li class="md-nav__item">
+  <a href="#generic-responses" class="md-nav__link">
+    Generic responses
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#endpoints" class="md-nav__link">
     Endpoints
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -349,24 +411,28 @@
                 
                 
                 <h1 id="overview">Overview</h1>
-<h2 id="about">About</h2>
-<p>Kanjiclub is a cloud-based open source tool for learning vocabulary (primarily Japanese).</p>
-<h2 id="api-doc-formatting">API Doc Formatting</h2>
-<p>HTTP requests are formatted like this:</p>
-<p><code>METHOD /url/to/endpoint</code>
-Description</p>
-<pre><code>request
+<h2 id="about-the-app">About the app</h2>
+<p>Kanjiclub is an open-source cloud app for vocabulary training. Go to <a href="https://kanjiclub.tk">kanjiclub.tk</a> to try it out for yourself.</p>
+<h2 id="web-api">Web API</h2>
+<p>All pages that end with "API" document REST API endpoints. HTTP requests will be formatted like this:</p>
+<h3 id="formatting">Formatting</h3>
+<p><strong>Endpoint name</strong><br />
+Optional description</p>
+<pre><code>METHOD /endpoint/url
 </code></pre>
-<pre><code>response
+<pre><code>optional request body
 </code></pre>
-<p>If no response is defined, then the generic response is used</p>
-<h2 id="generic-response">Generic response</h2>
-<p>A generic response only signifies a status using HTTP status codes, without a JSON body.</p>
-<h2 id="endpoints">Endpoints</h2>
+<pre><code>optional response body
+</code></pre>
+<h3 id="generic-responses">Generic responses</h3>
+<p>A generic response is an HTTP response without a body. The status of the reply should be in the HTTP status code. Generic responses are omitted from the docs.</p>
+<h3 id="endpoints">Endpoints</h3>
 <ul>
 <li><code>/api/accounts</code></li>
 <li><code>/api/stats</code></li>
+<li><code>/api/languages</code></li>
 <li><code>/api/lessons</code></li>
+<li><code>/api/words</code></li>
 <li><code>/api/practice</code></li>
 </ul>
                 

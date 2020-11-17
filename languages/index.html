@@ -14,7 +14,7 @@
     
     
       
-        <title>Stats API - Kanjiclub</title>
+        <title>Languages API - Kanjiclub</title>
       
     
     
@@ -57,7 +57,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#stats-api" class="md-skip">
+        <a href="#languages-api" class="md-skip">
           Skip to content
         </a>
       
@@ -86,7 +86,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Stats API
+              Languages API
             
           </span>
         </div>
@@ -193,11 +193,56 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../languages/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Languages API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Languages API
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#add-new-language" class="md-nav__link">
+    Add new language
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-list-of-languages" class="md-nav__link">
+    Get list of languages
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -241,49 +286,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Stats API
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../stats/" class="md-nav__link">
       Stats API
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#stats-summary" class="md-nav__link">
-    Stats summary
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -323,8 +330,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#stats-summary" class="md-nav__link">
-    Stats summary
+  <a href="#add-new-language" class="md-nav__link">
+    Add new language
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-list-of-languages" class="md-nav__link">
+    Get list of languages
   </a>
   
 </li>
@@ -342,16 +356,20 @@
               
                 
                 
-                <h1 id="stats-api">Stats API</h1>
-<p>The stats API is used to fetch statistical information about the users learning progress.</p>
-<h2 id="stats-summary">Stats summary</h2>
-<pre><code>GET /api/stats
+                <h1 id="languages-api">Languages API</h1>
+<p>Languages are identified by their language code, which is a 2-letter ISO code (<code>ISO-639-1</code>)</p>
+<h2 id="add-new-language">Add new language</h2>
+<pre><code>POST /api/languages/new
 </code></pre>
 <pre><code class="language-json">{
-    &quot;streak&quot;: 0,
-    &quot;strong&quot;: 0,
-    &quot;medium&quot;: 0,
-    &quot;weak&quot;: 0
+    &quot;languageCode&quot;: &quot;&quot;
+}
+</code></pre>
+<h2 id="get-list-of-languages">Get list of languages</h2>
+<pre><code>GET /api/languages
+</code></pre>
+<pre><code class="language-json">{
+    &quot;languages&quot;: []
 }
 </code></pre>
                 
@@ -372,7 +390,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../practice/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../database/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -381,19 +399,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Practice API
+                Database
               </div>
             </div>
           </a>
         
         
-          <a href="../words/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../lessons/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Words API
+                Lessons API
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

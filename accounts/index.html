@@ -202,22 +202,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#post-apiaccountsnew" class="md-nav__link">
-    POST /api/accounts/new
+  <a href="#create-account" class="md-nav__link">
+    Create account
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-apiaccountslogin" class="md-nav__link">
-    POST /api/accounts/login
+  <a href="#log-in" class="md-nav__link">
+    Log in
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-apiaccountsme" class="md-nav__link">
-    GET /api/accounts/me
+  <a href="#get-settings" class="md-nav__link">
+    Get settings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-settings" class="md-nav__link">
+    Change settings
   </a>
   
 </li>
@@ -235,8 +242,44 @@
 
 
   <li class="md-nav__item">
+    <a href="../database/" class="md-nav__link">
+      Database
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../languages/" class="md-nav__link">
+      Languages API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../lessons/" class="md-nav__link">
       Lessons API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../objects/" class="md-nav__link">
+      API objects
     </a>
   </li>
 
@@ -301,22 +344,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#post-apiaccountsnew" class="md-nav__link">
-    POST /api/accounts/new
+  <a href="#create-account" class="md-nav__link">
+    Create account
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-apiaccountslogin" class="md-nav__link">
-    POST /api/accounts/login
+  <a href="#log-in" class="md-nav__link">
+    Log in
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-apiaccountsme" class="md-nav__link">
-    GET /api/accounts/me
+  <a href="#get-settings" class="md-nav__link">
+    Get settings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-settings" class="md-nav__link">
+    Change settings
   </a>
   
 </li>
@@ -335,30 +385,37 @@
                 
                 
                 <h1 id="accounts-api">Accounts API</h1>
-<h2 id="post-apiaccountsnew"><code>POST /api/accounts/new</code></h2>
-<p>Create new account</p>
+<h2 id="create-account">Create account</h2>
+<pre><code>POST /api/accounts/new
+</code></pre>
 <pre><code class="language-json">{
     &quot;email&quot;: &quot;&quot;,
     &quot;username&quot;: &quot;&quot;,
     &quot;password&quot;: &quot;&quot;
 }
 </code></pre>
-<h2 id="post-apiaccountslogin"><code>POST /api/accounts/login</code></h2>
-<p>Log in </p>
+<h2 id="log-in">Log in</h2>
+<pre><code>POST /api/accounts/login
+</code></pre>
 <pre><code class="language-json">{
     &quot;user&quot;: &quot;&quot;,
     &quot;password&quot;: &quot;&quot;
 }
 </code></pre>
+<h2 id="get-settings">Get settings</h2>
+<pre><code>GET /api/accounts/me
+</code></pre>
 <pre><code class="language-json">{
-    &quot;token&quot;: &quot;&quot;
+    &quot;currentLanguage&quot;: &quot;&quot;,
+    &quot;practiceOptions&quot;: PracticeOptions
 }
 </code></pre>
-<h2 id="get-apiaccountsme"><code>GET /api/accounts/me</code></h2>
-<p>Info about myself</p>
+<h2 id="change-settings">Change settings</h2>
+<pre><code>PUT /api/accounts/me
+</code></pre>
 <pre><code class="language-json">{
-    &quot;username&quot;: &quot;&quot;,
-    &quot;email&quot;: &quot;&quot;
+    &quot;currentLanguage&quot;: &quot;&quot;,
+    &quot;practiceOptions&quot;: PracticeOptions
 }
 </code></pre>
                 
@@ -394,13 +451,13 @@
           </a>
         
         
-          <a href="../lessons/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../database/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Lessons API
+                Database
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
