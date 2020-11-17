@@ -9,7 +9,8 @@ exports.Account = mongoose.model('Account', {
     languages: [ String ],
     stats: {
         lastLogin: Date,
-        lastPractice: Date
+        lastPractice: Date,
+        streak: { type: Number, default: 0 }
     },
     settings: {
         currentLanguage: String,
