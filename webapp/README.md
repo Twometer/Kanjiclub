@@ -1,11 +1,12 @@
-# kanjiclub
+# Kanjiclub web app
+This folder contains the VueJS frontend
 
 ## Project setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Start hot-reloading development server
 ```
 npm run serve
 ```
@@ -19,6 +20,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
