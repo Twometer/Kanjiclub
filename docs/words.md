@@ -5,7 +5,7 @@ Words are identified using their randomly generated word id
 ## Get words
 To get all words in a lesson, omit `strength`, and to get all words with a specific strength, omit `lesson`.
 ```
-GET /api/words?strength={wordStrength}&lesson={lessonId}
+GET /api/words?lang={languageCode}&strength={wordStrength}&lesson={lessonId}
 ```
 ```json
 {
@@ -18,7 +18,16 @@ GET /api/words?strength={wordStrength}&lesson={lessonId}
 POST /api/words/new
 ```
 ```
-{ WordInfo }
+{
+	"lesson": "",
+	"data": {
+		"foreign": "",
+		"synonym": "",
+		"gender": "",
+		"native": "",
+		"comment": ""
+	}
+}
 ```
 ```
 {
@@ -31,7 +40,15 @@ POST /api/words/new
 PUT /api/words/{wordId}
 ```
 ```
-{ WordInfo }
+{
+	"data": {
+		"foreign": "",
+		"synonym": "",
+		"gender": "",
+		"native": "",
+		"comment": ""
+	}
+}
 ```
 
 ## Delete word

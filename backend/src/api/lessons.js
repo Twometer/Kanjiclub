@@ -47,7 +47,7 @@ module.exports = (app, db) => {
                 language: body.language
             })
             lesson.save();
-            return res.status(200).send();
+            return res.json({ id: lesson._id });
         })
     })
 
