@@ -382,7 +382,12 @@
 <h2 id="get-list-of-the-users-languages">Get list of the users languages</h2>
 <pre><code>GET /api/languages
 </code></pre>
-<pre><code class="language-json">[ &quot;languageCode&quot; ]
+<pre><code class="language-json">[ 
+    {
+        &quot;code&quot;: &quot;languageCode&quot;,
+        &quot;name&quot;: &quot;languageName&quot;
+    }
+]
 </code></pre>
 <h2 id="get-list-of-all-supported-languages">Get list of all supported languages</h2>
 <pre><code>GET /api/languages/all

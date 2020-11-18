@@ -223,8 +223,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-settings" class="md-nav__link">
-    Get settings
+  <a href="#get-info-about-user" class="md-nav__link">
+    Get info about user
   </a>
   
 </li>
@@ -372,8 +372,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-settings" class="md-nav__link">
-    Get settings
+  <a href="#get-info-about-user" class="md-nav__link">
+    Get info about user
   </a>
   
 </li>
@@ -423,18 +423,21 @@
 <h2 id="log-out">Log out</h2>
 <pre><code>POST /api/accounts/logout
 </code></pre>
-<h2 id="get-settings">Get settings</h2>
+<h2 id="get-info-about-user">Get info about user</h2>
 <pre><code>GET /api/accounts/me
 </code></pre>
 <pre><code class="language-json">{
-    &quot;currentLanguage&quot;: &quot;&quot;,
-    &quot;includeSynonyms&quot;: true,
-    &quot;randomizeDir&quot;: true,
-    &quot;ignoreCase&quot;: true
+    &quot;username&quot;: &quot;&quot;,
+    &quot;settings&quot;: {
+        &quot;currentLanguage&quot;: &quot;&quot;,
+        &quot;includeSynonyms&quot;: true,
+        &quot;randomizeDir&quot;: true,
+        &quot;ignoreCase&quot;: true
+    }
 }
 </code></pre>
 <h2 id="change-settings">Change settings</h2>
-<pre><code>PUT /api/accounts/me
+<pre><code>PUT /api/accounts/settings
 </code></pre>
 <pre><code class="language-json">{
     &quot;currentLanguage&quot;: &quot;&quot;,
