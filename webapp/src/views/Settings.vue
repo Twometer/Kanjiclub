@@ -105,5 +105,7 @@ export default {
 </script>
 
 <style scoped>
-
+.btn-sm {
+    width: 54px;
+}
 </style>
