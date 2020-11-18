@@ -35,23 +35,26 @@ POST /api/accounts/login
 POST /api/accounts/logout
 ```
 
-## Get settings
+## Get info about user
 ```
 GET /api/accounts/me
 ```
 
 ```json
 {
-	"currentLanguage": "",
-	"includeSynonyms": true,
-	"randomizeDir": true,
-	"ignoreCase": true
+	"username": "",
+	"settings": {
+		"currentLanguage": "",
+		"includeSynonyms": true,
+		"randomizeDir": true,
+		"ignoreCase": true
+	}
 }
 ```
 
 ## Change settings
 ```
-PUT /api/accounts/me
+PUT /api/accounts/settings
 ```
 
 ```json

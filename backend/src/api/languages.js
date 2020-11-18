@@ -24,6 +24,10 @@ module.exports = (app, db) => {
                     return res.status(409).json({ "reason": "Language already exists" })
                 } else {
                     account.languages.push(body.languageCode);
+
+                    if (account.settings.currentLanguage == null)
+                        account.settings.currentLanguage = body.languageCode;
+
                     account.save();
                     return res.status(200).send();
                 }

@@ -27,7 +27,7 @@
                         <hr />
                         <span class="nav-header">User</span>
                         <router-link class="nav-link" to="/settings">Settings</router-link>
-                        <a class="nav-link" href="#">Log out</a>
+                        <a class="nav-link" href="#" v-on:click="handleLogout">Log out</a>
                     </nav>
                 </div>
 
@@ -38,6 +38,21 @@
         </div>
     </div>
 </template>
+
+<script>
+import { mapActions } from "vuex";
+
+export default {
+    methods: {
+        ...mapActions(["LogOut"]),
+        
+        async handleLogout() {
+            await this.LogOut();
+            this.$router.push("/login");
+        }
+    }
+}
+</script>
 
 <style>
 </style>

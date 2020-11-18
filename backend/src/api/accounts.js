@@ -80,11 +80,14 @@ module.exports = (app, db) => {
         }
 
         db.Account.findOne({ _id: req.session.accountId }, (err, account) => {
-            return res.json(account.settings);
+            return res.json({
+                username: account.username,
+                settings: account.settings
+            });
         })
     })
 
-    app.put("/api/accounts/me", (req, res, next) => {
+    app.put("/api/accounts/settings", (req, res, next) => {
         if (!req.session.loggedIn) {
             return res.status(401).send();
         }

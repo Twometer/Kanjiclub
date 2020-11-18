@@ -6,7 +6,9 @@
             <h1>漢字 club</h1>
             <div class="shadow-lg p-3 bg-white rounded" style="width: 18rem">
                 <div class="card-body">
-                    <form>
+                    <form @submit.prevent="submit">
+                        <div class="alert alert-warning" v-if="error != null">{{ error }}</div>
+
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input
@@ -14,6 +16,7 @@
                                 class="form-control"
                                 type="text"
                                 placeholder="Username"
+                                v-model="form.username"
                             />
                         </div>
 
@@ -24,6 +27,7 @@
                                 class="form-control"
                                 type="password"
                                 placeholder="Password"
+                                v-model="form.password"
                             />
                         </div>
 
@@ -32,6 +36,7 @@
                                 type="checkbox"
                                 class="form-check-input"
                                 id="rememberMe"
+                                v-model="form.rememberMe"
                             />
                             <label class="form-check-label" for="rememberMe"
                                 >Remember me</label
@@ -50,6 +55,47 @@
         </div>
     </div>
 </template>
+
+<script>
+import { mapActions } from "vuex";
+
+function checkFormEmpty(obj) {
+    for (let key in obj)
+        if (obj[key].trim() === '')
+            return true;
+    return false;
+}
+
+export default {
+    name: "Login",
+    components: {},
+    data() {
+        return {
+            form: {
+                username: "",
+                password: "",
+            },
+            error: null
+        }
+    },
+    methods: {
+        ...mapActions(["Login"]),
+        async submit() {
+            if (checkFormEmpty(this.form)) {
+                return;
+            }
+
+            try {
+                this.error = null;
+                await this.Login(this.form);
+                this.$router.push("/");
+            } catch (e) {
+                this.error = "Invalid credentials"
+            }
+        }
+    }
+}
+</script>
 
 <style scoped>
     @import url("../assets/auth.css");

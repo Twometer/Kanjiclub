@@ -4,12 +4,17 @@ const express = require("express");
 const session = require('express-session')
 const bodyParser = require('body-parser');
 const MongoStore = require('connect-mongo')(session);
+const cors = require('cors');
 
 const db = require('./database.js');
 
 /* Configure Express */
 var app = express()
 app.set('trust proxy', 1)
+
+// Debug CORS
+app.use(cors({credentials: true, origin: 'http://localhost:8080'}))
+
 app.use(bodyParser.json());
 app.use(session({
     secret: config.session.secret,
