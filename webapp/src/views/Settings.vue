@@ -10,6 +10,11 @@
             </router-link>
         </h3>
         <hr />
+
+        <div class="alert alert-danger" v-if="error">
+            Could not switch language. Please try again later.
+        </div>
+
         <ul class="list-group shadow clearfix" v-if="!loading">
             <li class="list-group-item" v-for="language in languages" :key="language.code" :class="{ active: language.code == currentLanguage}">
                 {{ language.name }}
@@ -52,7 +57,7 @@
 </template>
 
 <script>
-import Api from '@/services/api'
+import axios from 'axios'
 import Spinner from '@/components/Spinner.vue'
 
 export default {
@@ -60,7 +65,8 @@ export default {
     data() {
         return {
             loading: true,
-            languages: []
+            languages: [],
+            error: false
         };
     },
     components: {
@@ -75,12 +81,24 @@ export default {
         }
     },
     async mounted() {
-        this.languages = (await Api.Languages.get()).data;
+        await this.$store.dispatch('GetUserLanguages');
+        this.languages = this.$store.getters.UserLanguages;
         this.loading = false;
     },
     methods: {
-        switchLanguage(lang) {
-            console.log("Switching to", lang)
+        async switchLanguage(code) {
+            this.loading = true;
+            console.log("Switching to", code);
+            try {
+                await axios.put('accounts/settings', {currentLanguage: code});
+            } catch {
+                this.error = true;
+                this.loading = false;
+                return;
+            }
+            await this.$store.dispatch('GetUserInfo');
+            await this.$store.dispatch('GetUserLanguages');
+            this.$router.push('/');
         }
     }
 };

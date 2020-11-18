@@ -12,12 +12,16 @@
                     </svg>
                 </span>
             </div>
-            <input type="text" class="form-control" id="search" placeholder="Search..." autocomplete="off">
+            <input type="text" class="form-control" id="search" placeholder="Search..." autocomplete="off" v-model="query">
+        </div>
+
+        <div class="alert alert-danger" v-if="error">
+            Could not create language. Please try again later.
         </div>
 
         <ul class="list-group shadow mb-5" v-if="!loading">
-            <li class="list-group-item list-group-item-action" v-for="(name,code) in languages" :key="(name, code)">
-                <img :src="'/img/flags/' + getFlagImage(code)" class="shadow rounded-circle mr-2" width="25"> {{ name }}
+            <li class="list-group-item list-group-item-action" v-for="lang in filteredLanguages" :key="lang.code" v-on:click="createLanguage(lang.code)">
+                <img :src="'/img/flags/' + getFlagImage(lang.code)" class="shadow rounded-circle mr-2" width="25"> {{ lang.name }}
             </li>
         </ul>
         <spinner v-if="loading"/>
@@ -35,8 +39,24 @@ export default {
     data() {
         return {
             loading: true,
-            languages: {}
+            error: false,
+            languages: {},
+            query: ""
         };
+    },
+    computed: {
+        filteredLanguages() {
+            var userLanguages = this.$store.getters.UserLanguages;
+            return Object.keys(this.languages)
+                .map(k => { return { code: k, name: this.languages[k] } })
+                .filter(lang => {
+                    for (let existingLanguage of userLanguages)
+                        if (existingLanguage.code == lang.code)
+                            return false;
+
+                    return lang.name.toLowerCase().indexOf(this.query.toLowerCase()) != -1;
+                })
+        }
     },
     components: {
         Spinner
@@ -44,13 +64,24 @@ export default {
     async mounted() {
         this.languages = (await Api.Languages.getSupported()).data;
         this.loading = false;
-        
     },
     methods: {
         getFlagImage(code) {
             if (flags.default.includes(code))
                 return code + '.svg';
             else return 'world.svg';
+        },
+
+        async createLanguage(code) {
+            try {
+                this.loading = true;
+                await Api.Languages.new(code);
+                await this.$store.dispatch('GetUserLanguages');
+                this.$router.push("/settings");
+            } catch(e) {
+                this.loading = false;
+                this.error = true;
+            }
         }
     }
 }
