@@ -50,6 +50,9 @@ export default {
             await this.LogOut();
             this.$router.push("/login");
         }
+    },
+    mounted() {
+        this.$store.dispatch('GetUserInfo')
     }
 }
 </script>

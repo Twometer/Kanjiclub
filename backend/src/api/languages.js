@@ -43,7 +43,12 @@ module.exports = (app, db) => {
         }
 
         db.Account.findOne({ _id: req.session.accountId }, (err, account) => {
-            return res.json(account.languages);
+            return res.json(account.languages.map(function (code) {
+                return {
+                    code: code,
+                    name: languages[code]
+                }
+            }));
         })
     })
 

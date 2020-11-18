@@ -11,18 +11,38 @@
                 </router-link>
             </div>
         </div>
-        <div>
+        <div v-if="!loading">
             <ul class="list-group shadow">
-                <li class="list-group-item list-group-item-action active">Lorem ipsum</li>
-                <li class="list-group-item list-group-item-action">Dapibus ac fidibus in</li>
-                <li class="list-group-item list-group-item-action">Morbi leo risus</li>
-                <li class="list-group-item list-group-item-action">Porta ac consectetur ac</li>
-                <li class="list-group-item list-group-item-action">Vestibulum at eros</li>
+                <li class="list-group-item list-group-item-action" v-for="lesson in lessons" :key="lesson.name"> {{ lesson.name }} </li>
             </ul>
         </div>
-        <div class="text-center mt-5"></div>
+        <Spinner v-if="loading" />
     </div>
 </template>
+
+<script>
+import Api from '@/services/api'
+import Spinner from '@/components/Spinner.vue';
+
+export default {
+    name: 'PracticeSelect',
+    data() {
+        return {
+            loading: true,
+            lessons: []
+        };
+    },
+    components: {
+        Spinner,
+    },
+    async mounted () {
+        let lang = this.$store.getters.Language;
+        this.lessons = (await Api.Lessons.get(lang)).data;
+        this.loading = false;
+    }
+};
+</script>
+
 
 <style scoped>
 button.go {

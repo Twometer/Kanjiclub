@@ -6,7 +6,7 @@ const state = {
 
 const getters = {
     User: state => state.user,
-    Language: state => state.user.settings.language
+    Language: state => state.user.settings.currentLanguage
 };
 
 const actions = {
