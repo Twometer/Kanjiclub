@@ -21,7 +21,7 @@
 
                 <!-- Visual-only button for current language -->
                 <button class="btn btn-secondary btn-sm float-right disabled" disabled v-if="language.code == currentLanguage">
-                    Current
+                    Active
                 </button>
 
                 <button class="btn btn-secondary btn-sm float-right" v-if="language.code != currentLanguage" v-on:click="switchLanguage(language.code)">
