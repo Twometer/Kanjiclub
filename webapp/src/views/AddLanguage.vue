@@ -15,14 +15,43 @@
             <input type="text" class="form-control" id="search" placeholder="Search..." autocomplete="off">
         </div>
 
-        <ul class="list-group shadow">
-            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/ar.svg" class="shadow rounded-circle mr-2" width="25"> Arabic</li>
-            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/de.svg" class="shadow rounded-circle mr-2" width="25"> German</li>
-            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/hi.svg" class="shadow rounded-circle mr-2" width="25"> Hindi</li>
-            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/jp.svg" class="shadow rounded-circle mr-2" width="25"> Japanese</li>
-            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/pl.svg" class="shadow rounded-circle mr-2" width="25"> Polish</li>
-            <li class="list-group-item list-group-item-action"><img src="@/assets/flags/pt.svg" class="shadow rounded-circle mr-2" width="25"> Portuguese</li>
+        <ul class="list-group shadow mb-5" v-if="!loading">
+            <li class="list-group-item list-group-item-action" v-for="(name,code) in languages" :key="(name, code)">
+                <img :src="'/img/flags/' + getFlagImage(code)" class="shadow rounded-circle mr-2" width="25"> {{ name }}
+            </li>
         </ul>
+        <spinner v-if="loading"/>
 
     </div>
 </template>
+
+<script>
+import Api from '@/services/api'
+import Spinner from '../components/Spinner.vue';
+import * as flags from '@/assets/flags.json'
+
+export default {
+    name: 'AddLanguage',
+    data() {
+        return {
+            loading: true,
+            languages: {}
+        };
+    },
+    components: {
+        Spinner
+    },
+    async mounted() {
+        this.languages = (await Api.Languages.getSupported()).data;
+        this.loading = false;
+        
+    },
+    methods: {
+        getFlagImage(code) {
+            if (flags.default.includes(code))
+                return code + '.svg';
+            else return 'world.svg';
+        }
+    }
+}
+</script>
