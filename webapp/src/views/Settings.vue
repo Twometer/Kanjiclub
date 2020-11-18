@@ -24,7 +24,7 @@
                     Active
                 </button>
 
-                <button class="btn btn-secondary btn-sm float-right" v-if="language.code != currentLanguage" v-on:click="switchLanguage(language.code)">
+                <button class="btn btn-primary btn-sm float-right" v-if="language.code != currentLanguage" v-on:click="switchLanguage(language.code)">
                     Switch
                 </button>
             </li>

@@ -1,6 +1,6 @@
 <template>
     <div class="add-language">
-        <h1>Add new language</h1>
+        <h1>Add language</h1>
         <hr />
 
         <div class="input-group mb-4 shadow">
@@ -19,15 +19,23 @@
             Could not create language. Please try again later.
         </div>
 
-        <ul class="list-group shadow mb-5" v-if="!loading">
+        <ul class="list-group shadow mb-5 select-panel" v-if="!loading">
             <li class="list-group-item list-group-item-action" v-for="lang in filteredLanguages" :key="lang.code" v-on:click="createLanguage(lang.code)">
                 <img :src="'/img/flags/' + getFlagImage(lang.code)" class="shadow rounded-circle mr-2" width="25"> {{ lang.name }}
             </li>
         </ul>
+
         <spinner v-if="loading"/>
 
     </div>
 </template>
+
+<style scoped>
+.select-panel {
+    overflow-y: auto;
+    max-height: 500px;
+}
+</style>
 
 <script>
 import Api from '@/services/api'
