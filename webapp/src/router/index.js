@@ -26,7 +26,7 @@ const routes = [
         component: () => import('../views/EditSelect.vue')
     },
     {
-        path: "/edit",
+        path: "/edit/:lessonId",
         name: "Edit",
         component: () => import('../views/Edit.vue')
     },
@@ -55,6 +55,11 @@ const routes = [
         name: "Register",
         component: () => import('../views/Register.vue')
     },
+    {
+        path: "*",
+        name: "NotFound",
+        component: () => import('../views/PageNotFound.vue')
+    }
 ];
 
 const router = new VueRouter({
