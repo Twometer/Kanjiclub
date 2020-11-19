@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import Api from '@/services/api'
 import Spinner from '@/components/Spinner.vue';
 
 export default {
@@ -36,8 +35,8 @@ export default {
         Spinner,
     },
     async mounted () {
-        let lang = this.$store.getters.Language;
-        this.lessons = (await Api.Lessons.get(lang)).data;
+        await this.$store.dispatch('GetLessons');
+        this.lessons = this.$store.getters.Lessons;
         this.loading = false;
     }
 };

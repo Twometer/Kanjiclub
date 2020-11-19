@@ -37,7 +37,7 @@
             $('.nav-link').on('click', closeNavbar);
 
             $(document).on('click', function(e) {
-                if (e.target.nodeName === 'NAV' || e.target.parentNode.nodeName === 'NAV') {
+                if (e.target.nodeName === 'NAV' || (e.target.parentNode != null && e.target.parentNode.nodeName === 'NAV')) {
                     return;
                 }
                 closeNavbar();

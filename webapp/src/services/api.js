@@ -21,6 +21,27 @@ export default {
         new(code) {
             return axios.post('languages/new', { languageCode: code })
         }
+    },
+
+    Words: {
+        getByLesson(lang, lessonId) {
+            return axios.get('words', { params: { lang: lang, lesson: lessonId } })
+        },
+        getByStrength(lang, strength) {
+            return axios.get('words', { params: { lang: lang, strength: strength } })
+        },
+        create(lessonId, data) {
+            return axios.post('words/new', {
+                lesson: lessonId,
+                data: data
+            })
+        },
+        edit(wordId, data) {
+            return axios.put(`words/${wordId}`, { data: data })
+        },
+        delete(wordId) {
+            return axios.delete(`words/${wordId}`)
+        }
     }
 
 

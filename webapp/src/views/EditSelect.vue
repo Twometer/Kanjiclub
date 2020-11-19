@@ -15,15 +15,16 @@
             </button>
         </p>
         <div v-if="!loading">
-            <ul class="list-group shadow">
-                <li
+            <div class="list-group shadow">
+                <router-link
                     class="list-group-item list-group-item-action"
                     v-for="lesson in lessons"
                     :key="lesson.name"
+                    :to="{ name: 'Edit', params: { lessonId: lesson.id } }"
                 >
                     {{ lesson.name }}
-                </li>
-            </ul>
+                </router-link>
+            </div>
         </div>
         <Spinner v-if="loading" />
 
@@ -85,8 +86,8 @@
 </template>
 
 <script>
-import Api from '@/services/api';
 import Spinner from '@/components/Spinner.vue';
+import Api from '../services/api'
 
 export default {
     name: 'EditSelect',
@@ -117,8 +118,8 @@ export default {
         },
 
         async reload() {
-            let lang = this.$store.getters.Language;
-            this.lessons = (await Api.Lessons.get(lang)).data;
+            await this.$store.dispatch('GetLessons');
+            this.lessons = this.$store.getters.Lessons;
             this.loading = false;
         },
     },
