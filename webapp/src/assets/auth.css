@@ -3,7 +3,7 @@ body {
     height: 100%;
 }
 
-h1 {
+h1.auth-header {
     margin-bottom: 35px;
     color: white;
     font-weight: 100;

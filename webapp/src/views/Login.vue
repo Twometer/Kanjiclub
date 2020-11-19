@@ -3,7 +3,7 @@
         <div
             class="container h-100 d-flex align-items-center justify-content-center flex-column"
         >
-            <h1>漢字 club</h1>
+            <h1 class="auth-header">漢字 club</h1>
             <div class="shadow-lg p-3 bg-white rounded" style="width: 18rem">
                 <div class="card-body">
                     <form @submit.prevent="submit">
