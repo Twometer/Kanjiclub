@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <WordStats v-if="!loading" v-bind:weak="stats.weak" v-bind:medium="stats.medium" v-bind:strong="stats.strong" />
+        <WordStats v-if="!loading" v-bind:weak="stats.weak" v-bind:medium="stats.medium" v-bind:strong="stats.strong" v-on:select="showStrengthDetails"/>
         <Spinner v-if="loading"/>
     </div>
 </template>
@@ -48,6 +48,11 @@ export default {
         let response = await axios.get('stats');
         this.stats = response.data;
         this.loading = false
+    },
+    methods: {
+        showStrengthDetails(strength) {
+            this.$router.push({ name: 'Words', params: { strength: strength } });
+        }
     }
 };
 </script>

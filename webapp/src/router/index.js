@@ -11,8 +11,13 @@ const routes = [
         component: Dashboard
     },
     {
+        path: "/words/:strength",
+        name: "Words",
+        component: () => import('../views/Words.vue')
+    },
+    {
         path: "/practice/select",
-        name: "Select lessons to practice",
+        name: "PracticeSelect",
         component: () => import('../views/PracticeSelect.vue')
     },
     {
@@ -22,7 +27,7 @@ const routes = [
     },
     {
         path: "/edit/select",
-        name: "Select lessons to edit",
+        name: "EditSelect",
         component: () => import('../views/EditSelect.vue')
     },
     {
@@ -37,7 +42,7 @@ const routes = [
     },
     {
         path: "/language",
-        name: "Add language",
+        name: "AddLanguage",
         component: () => import('../views/AddLanguage.vue')
     },
     {
