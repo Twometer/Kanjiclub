@@ -5,6 +5,9 @@ export default {
     Lessons: {
         get(lang) {
             return axios.get('lessons', { params: { lang: lang } })
+        },
+        create(name, lang) {
+            return axios.post('lessons/new', { name: name, language: lang })
         }
     },
 
