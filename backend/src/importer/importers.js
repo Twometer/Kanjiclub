@@ -1,7 +1,8 @@
 const dataUriToBuffer = require('data-uri-to-buffer');
 
 const importers = {
-    'vocab': require('./vocabImporter.js')
+    'vocab': require('./vocabImporter.js'),
+    'vhf': require('./vhfImporter.js')
 }
 
 module.exports.import = async function(ext, lessonName, dataUri) {
