@@ -1,6 +1,7 @@
 {
     "network":  {
-        "port": 9080
+        "port": 9080,
+        "corsOrigin": "http://localhost:8080"
     },
     "session": {
         "secret": "secret",

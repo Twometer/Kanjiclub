@@ -6,7 +6,7 @@
             <span class="d-inline-block pt-1">Select lessons you want to practice</span>
             <div class="d-inline-block float-right">
                 <button class="btn btn-secondary mr-3" v-on:click="toggleAll">{{ allSelected ? 'Deselect all' : 'Select all' }}</button>
-                <button class="btn btn-success go" v-on:click="createPractice">Go!</button>
+                <button class="btn btn-success go" v-on:click="createPractice" :class="{ disabled: !anySelected }" :disabled="!anySelected">Go!</button>
             </div>
         </div>
         <div v-if="!loading">
@@ -33,6 +33,9 @@ export default {
     computed: {
         allSelected() {
             return this.lessons.length > 0 && this.selected.length == this.lessons.length;
+        },
+        anySelected() {
+            return this.selected.length;
         }
     },
     components: {
@@ -56,11 +59,12 @@ export default {
             else 
                 this.selected = this.lessons.map(l => l.id);
         },
-        createPractice() {
+        async createPractice() {
             if (this.selected.length == 0)
                 return;
 
-            // TODO call backend
+            await this.$store.dispatch('NewPractice', { target: 'lesson', lessons: this.selected })
+            this.$router.push('/practice');
         }
     }
 };

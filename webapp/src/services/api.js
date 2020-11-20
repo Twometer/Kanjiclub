@@ -48,6 +48,12 @@ export default {
         delete(wordId) {
             return axios.delete(`words/${wordId}`)
         }
+    },
+
+    Practice: {
+        new(lang, payload) {
+            return axios.post(`practice/${lang}/new`, payload)
+        }
     }
 
 
