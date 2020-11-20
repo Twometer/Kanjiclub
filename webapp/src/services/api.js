@@ -8,6 +8,9 @@ export default {
         },
         create(name, lang) {
             return axios.post('lessons/new', { name: name, language: lang })
+        },
+        import(filename, lang, data) {
+            return axios.post('lessons/import', { filename: filename, language: lang, content: data })
         }
     },
 

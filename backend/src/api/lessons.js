@@ -1,7 +1,30 @@
+const importers = require('../importer/importers.js');
 const utils = require('../util/utils.js');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = (app, db) => {
+
+    function createLesson(name, accountId, lang) {
+        return new Promise((resolve, reject) => {
+
+            db.Lesson.countDocuments({ name: name, account: accountId, language: lang }, (err, count) => {
+                if (count != 0 || err) {
+                    reject();
+                    return;
+                }
+
+                let lesson = new db.Lesson({
+                    _id: uuidv4(),
+                    name: name,
+                    account: accountId,
+                    language: lang
+                })
+                lesson.save();
+                resolve(lesson._id);
+            })
+
+        });
+    }
 
     app.get("/api/lessons", (req, res, next) => {
         if (!req.session.loggedIn) {
@@ -26,7 +49,7 @@ module.exports = (app, db) => {
         });
     })
 
-    app.post("/api/lessons/new", (req, res, next) => {
+    app.post("/api/lessons/new", async (req, res, next) => {
         if (!req.session.loggedIn) {
             return res.status(401).send();
         }
@@ -36,19 +59,12 @@ module.exports = (app, db) => {
             return res.status(400).send();
         }
 
-        db.Lesson.countDocuments({ name: body.name, account: req.session.accountId, language: body.language }, (err, count) => {
-            if (count != 0)
-                return res.status(403).json({ reason: "Lesson already exists" });
-
-            let lesson = new db.Lesson({
-                _id: uuidv4(),
-                name: body.name,
-                account: req.session.accountId,
-                language: body.language
-            })
-            lesson.save();
-            return res.json({ id: lesson._id });
-        })
+        try {
+            let id = await createLesson(body.name, body.language);
+            return res.json({ id: id });
+        } catch {
+            return res.status(403).json({ reason: "Lesson already exists" });
+        }
     })
 
     app.put("/api/lessons/:lessonId", (req, res, next) => {
@@ -79,11 +95,49 @@ module.exports = (app, db) => {
         })
     })
 
-    app.post("/api/lessons/:lessonId/import", (req, res, next) => {
+    app.post("/api/lessons/import", async (req, res, next) => {
         if (!req.session.loggedIn) {
             return res.status(401).send();
         }
-        // TODO importer
+
+        const body = req.body;
+        if (!body.filename || !body.language || !body.content) {
+            return res.status(400).send();
+        }
+
+        let filename = body.filename;
+        let language = body.language;
+        let dataUri = body.content;
+
+        let extension = filename.substr(filename.lastIndexOf('.') + 1);
+        let lessonName = filename.substr(0, filename.length - extension.length - 1);
+
+        let result = await importers.import(extension, lessonName, dataUri);
+
+        let lessonId;
+        try {
+            lessonId = await createLesson(lessonName, req.session.accountId, language);
+        } catch (e) {
+            return res.status(403).json({ reason: 'Lesson exists' })
+        }
+
+        let wordObjects = result.map(data => {
+            return {
+                _id: uuidv4(),
+                account: req.session.accountId,
+                language: language,
+                lesson: lessonId,
+                strength: 'weak',
+                data: data
+            }
+        });
+
+        db.Word.collection.insertMany(wordObjects, (err, docs) => {
+            if (err) return res.status(500).send();
+            else return res.status(200).send();
+        })
+
+        res.status(result ? 200 : 422).send();
     })
 
 }

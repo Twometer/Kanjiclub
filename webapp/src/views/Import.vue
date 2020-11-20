@@ -16,19 +16,140 @@
                 <li>ebVocab (*.vocab)</li>
             </ul>
         </div>
-        
-        <div class="input-group mb-3 mt-4">
-            <div class="custom-file">
-                <input
-                    type="file"
-                    class="custom-file-input"
-                    id="importFileInput"
-                    multiple
-                />
-                <label class="custom-file-label" for="importFileInput">
-                    Choose files
-                </label>
+
+        <div class="alert alert-success" role="alert" v-if="success">
+            Files successfully imported
+        </div>
+
+        <div class="alert alert-warning" role="alert" v-if="error">
+            You have to select some files first
+        </div>
+
+        <form class="d-flex mb-3 mt-4" @submit.prevent="upload">
+            <div class="input-group flex-grow-1">
+                <div class="custom-file">
+                    <input
+                        type="file"
+                        class="custom-file-input"
+                        id="importFileInput"
+                        multiple
+                        :disabled="loading"
+                        @change="previewFiles"
+                    />
+                    <label class="custom-file-label" for="importFileInput">
+                        Choose files
+                    </label>
+                </div>
+            </div>
+            <button
+                class="btn btn-success ml-3"
+                type="submit"
+                :disabled="loading"
+                :class="{ disabled: loading }"
+            >
+                <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    v-if="loading"
+                ></span>
+                <span v-if="!loading">Import</span>
+            </button>
+        </form>
+
+        <div class="list-group">
+            <div
+                class="list-group-item d-flex justify-content-between align-items-center"
+                v-for="file in files"
+                :key="file.name"
+            >
+                {{ file.name }}
+                <span class="badge badge-primary badge-pill">
+                    {{ stateToString(file.state) }}
+                </span>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import Api from '../services/api'
+
+const UploadState = {
+    NotUploaded: 0,
+    Uploading: 1,
+    Completed: 2,
+    Failed: 3
+}
+
+const StateStrings = ['Not uploaded', 'Uploading...', 'Completed', 'Failed'];
+
+function readFile(file) {
+    return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
+export default {
+    name: 'Import',
+    data() {
+        return {
+            files: [],
+            loading: false,
+            error: false,
+            success: false
+        };
+    },
+    methods: {
+        previewFiles(event) {
+            this.files = [];
+
+            for (let file of event.target.files) {
+                this.files.push({
+                    name: file.name,
+                    state: UploadState.NotUploaded,
+                    obj: file
+                });
+            }
+        },
+        stateToString(state) {
+            return StateStrings[state];
+        },
+        async upload() {
+            if (this.files.length == 0) {
+                this.error = true;
+                return;
+            }
+            this.error = false;
+            this.loading = true;
+
+            let isFail = false;
+
+            for (let file of this.files) {
+                file.state = UploadState.Uploading;
+                try {
+                    await this.uploadFile(file.obj);
+                    file.state = UploadState.Completed;
+                } catch {
+                    file.state = UploadState.Failed;
+                    isFail = true;
+                }
+            }
+
+            this.loading = false;
+
+            if (!isFail) {
+                this.files = [];
+                this.success = true;
+            }
+        },
+        async uploadFile(file) {
+            let data = await readFile(file);
+            let lang = this.$store.getters.Language;
+            await Api.Lessons.import(file.name, lang, data);
+        }
+    },
+};
+</script>

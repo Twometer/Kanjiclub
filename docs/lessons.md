@@ -48,6 +48,12 @@ DELETE /api/lessons/{lessonId}
 
 ## Import vocabulary
 ```
-POST /api/lessons/{lessonId}/import
+POST /api/lessons/import
 ```
-POST body should be raw binary data of the imported file.
+```json
+{
+	"filename": "",
+	"language": "languageCode",
+	"content": "<base64>"
+}
+```

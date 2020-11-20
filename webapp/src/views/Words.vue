@@ -10,7 +10,7 @@
         </h1>
         <hr />
         <spinner v-if="loading" />
-        <div class="list-group" v-if="!loading">
+        <div class="list-group mb-5" v-if="!loading">
             <div class="list-group-item" v-for="word in words" :key="word.id">
                 <h5 class="lang-jp">{{ word.data.foreign }} {{ word.data.synonym != null ? `(${word.data.synonym})` : '' }}</h5>
                 {{ word.data.native }}
