@@ -431,9 +431,14 @@
 <pre><code>DELETE /api/lessons/{lessonId}
 </code></pre>
 <h2 id="import-vocabulary">Import vocabulary</h2>
-<pre><code>POST /api/lessons/{lessonId}/import
+<pre><code>POST /api/lessons/import
 </code></pre>
-<p>POST body should be raw binary data of the imported file.</p>
+<pre><code class="language-json">{
+    &quot;filename&quot;: &quot;&quot;,
+    &quot;language&quot;: &quot;languageCode&quot;,
+    &quot;content&quot;: &quot;&lt;dataUri&gt;&quot;
+}
+</code></pre>
                 
               
               
