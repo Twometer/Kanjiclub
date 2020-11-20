@@ -54,6 +54,6 @@ POST /api/lessons/import
 {
 	"filename": "",
 	"language": "languageCode",
-	"content": "<base64>"
+	"content": "<dataUri>"
 }
 ```

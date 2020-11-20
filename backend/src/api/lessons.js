@@ -60,7 +60,7 @@ module.exports = (app, db) => {
         }
 
         try {
-            let id = await createLesson(body.name, body.language);
+            let id = await createLesson(body.name, req.session.accountId, body.language);
             return res.json({ id: id });
         } catch {
             return res.status(403).json({ reason: "Lesson already exists" });
@@ -91,8 +91,13 @@ module.exports = (app, db) => {
 
         const lessonId = req.params.lessonId;
         db.Lesson.deleteOne({ _id: lessonId, account: req.session.accountId }, (err, r) => {
-            return res.status(r.deletedCount == 0 ? 404 : 200).send();
+            if (r.deletedCount == 0) return res.status(404).send();
+
+            db.Word.deleteMany({ lesson: lessonId }, (err, r) => {
+                return res.status(200).send();
+            })
         })
+        
     })
 
     app.post("/api/lessons/import", async (req, res, next) => {

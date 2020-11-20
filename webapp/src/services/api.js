@@ -11,6 +11,9 @@ export default {
         },
         import(filename, lang, data) {
             return axios.post('lessons/import', { filename: filename, language: lang, content: data })
+        },
+        delete(id) {
+            return axios.delete(`lessons/${id}`);
         }
     },
 

@@ -4,7 +4,7 @@
             {{ lessonName }}
             <div class="float-right">
                 <button class="btn btn-dark btn-sm mr-2">Rename</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">Delete</button>
             </div>
             <div class="clearfix"></div>
         </h1>
@@ -60,6 +60,27 @@
                 </textarea>
             </div>
 
+        </div>
+
+        <div id="deleteModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete lesson</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Really delete lesson {{ lessonName }}?</p>
+                    <p><strong class="text-danger">This will delete all words within this lesson and cannot be undone.</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteLesson">Delete</button>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -140,6 +161,10 @@ export default {
                 this.words = this.words.filter(w => w.id != this.currentWord.id);
                 this.deselect();
             }
+        },
+        async deleteLesson() {
+            await Api.Lessons.delete(this.$route.params.lessonId);
+            this.$router.push('/edit/select')
         }
     }
 }
