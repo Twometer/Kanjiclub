@@ -78,10 +78,12 @@ const UploadState = {
     NotUploaded: 0,
     Uploading: 1,
     Completed: 2,
-    Failed: 3
+    AlreadyExists: 3,
+    InvalidFormat: 4,
+    UnknownError: 5
 }
 
-const StateStrings = ['Not uploaded', 'Uploading...', 'Completed', 'Failed'];
+const StateStrings = ['Not uploaded', 'Uploading...', 'Completed', 'Lesson exists', 'Unknown format', 'Failed'];
 
 function readFile(file) {
     return new Promise((resolve, reject) => {
@@ -132,8 +134,17 @@ export default {
                 try {
                     await this.uploadFile(file.obj);
                     file.state = UploadState.Completed;
-                } catch {
-                    file.state = UploadState.Failed;
+                } catch (e) {
+                    switch (e.response.status) {
+                        case 403:
+                            file.state = UploadState.AlreadyExists;
+                            break;
+                        case 422:
+                            file.state = UploadState.InvalidFormat;
+                            break;
+                        default:
+                            file.state = UploadState.Error;
+                    }
                     isFail = true;
                 }
             }
