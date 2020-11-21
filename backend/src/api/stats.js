@@ -1,3 +1,5 @@
+const strength = require('../util/strength.js')
+
 module.exports = (app, db) => {
 
     app.get("/api/stats", async (req, res, next) => {
@@ -6,9 +8,9 @@ module.exports = (app, db) => {
         }
 
         let user = await db.Account.findOne({ _id: req.session.accountId });
-        let weakWords = await db.Word.countDocuments({ account: req.session.accountId, strength: 'weak' });
-        let mediumWords = await db.Word.countDocuments({ account: req.session.accountId, strength: 'medium' });
-        let strongWords = await db.Word.countDocuments({ account: req.session.accountId, strength: 'strong' });
+        let weakWords = await db.Word.countDocuments({ account: req.session.accountId, strength: strength.weak });
+        let mediumWords = await db.Word.countDocuments({ account: req.session.accountId, strength: strength.medium });
+        let strongWords = await db.Word.countDocuments({ account: req.session.accountId, strength: strength.strong });
         res.json({
             streak: user.stats.streak,
             weak: weakWords,

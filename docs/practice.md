@@ -34,8 +34,8 @@ POST /api/practice/{languageCode}/complete
 
 ```json
 {
-	"words": [
-		{ "wordId": "", "result": "ok|wrong|dontknow" }
+	"results": [
+		{ "wordId": "", "attempts": 0 }
 	]
 }
 ```

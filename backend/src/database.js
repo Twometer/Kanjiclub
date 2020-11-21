@@ -34,7 +34,7 @@ exports.Word = mongoose.model('Word', {
     language: String,
     lesson: String,
     createdOn: { type: Date, default: Date.now },
-    strength: String,
+    strength: Number,
     stats: {
         lastPracticed: Date,
         previouslyCorrect: Boolean

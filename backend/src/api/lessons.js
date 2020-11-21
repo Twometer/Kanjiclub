@@ -1,6 +1,7 @@
 const importers = require('../importer/importers.js');
 const utils = require('../util/utils.js');
 const { v4: uuidv4 } = require('uuid');
+const strength = require('../util/strength');
 
 module.exports = (app, db) => {
 
@@ -134,7 +135,7 @@ module.exports = (app, db) => {
                 account: req.session.accountId,
                 language: language,
                 lesson: lessonId,
-                strength: 'weak',
+                strength: strength.weak,
                 data: data
             }
         });

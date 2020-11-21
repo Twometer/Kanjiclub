@@ -1,5 +1,6 @@
 const utils = require('../util/utils.js');
 const { v4: uuidv4 } = require('uuid');
+const strength = require('../util/strength');
 
 module.exports = (app, db) => {
 
@@ -20,16 +21,15 @@ module.exports = (app, db) => {
                     lesson: w.lesson,
                     language: w.language,
                     createdOn: w.createdOn,
-                    strength: w.strength,
+                    strength: strength[w.strength],
                     data: w.data
                 }
             })
 
             return res.json(response);
         }
-
         if (query.strength)
-            db.Word.find({ account: req.session.accountId, language: query.lang, strength: query.strength }, dbCallback)
+            db.Word.find({ account: req.session.accountId, language: query.lang, strength: strength[query.strength] }, dbCallback)
         else if (query.lesson)
             db.Word.find({ account: req.session.accountId, language: query.lang, lesson: query.lesson }, dbCallback)
     })
@@ -52,7 +52,7 @@ module.exports = (app, db) => {
                 account: req.session.accountId,
                 language: lesson.language,
                 lesson: lesson._id,
-                strength: 'weak',
+                strength: strength.weak,
                 data: body.data
             })
             word.save();
