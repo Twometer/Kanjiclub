@@ -38,7 +38,7 @@
             </div>
 
             <div class="btn-bar mb-3 text-center">
-                <button class="btn btn-success mx-2" v-on:click="addOrUpdate">{{ isEditing ? 'Update' : 'Add' }}</button>
+                <button class="btn btn-success mx-2" :class="{ disabled: !canAdd }" :disabled="!canAdd" v-on:click="addOrUpdate">{{ isEditing ? 'Update' : 'Add' }}</button>
                 <button class="btn btn-warning mx-2" v-if="isEditing" v-on:click="deselect()">Cancel edit</button>
                 <button class="btn btn-danger mx-2" :class="{ disabled: !isEditing }" :disabled="!isEditing" v-on:click="remove()">Remove</button>
             </div>
@@ -100,6 +100,10 @@ function cloneWord(word) {
     return { id: word.id, data: clonedData };
 }
 
+function isEmpty(str) {
+    return str == null || str.trim().length == 0;
+}
+
 export default {
   components: { Spinner },
     data() {
@@ -124,7 +128,12 @@ export default {
         },
         isEditing() {
             return this.currentWord.id !== null;
-        }
+        },
+        canAdd() {
+            let foreign = this.currentWord.data.foreign;
+            let native = this.currentWord.data.native;
+            return !isEmpty(foreign) && !isEmpty(native);
+        },
     },
     async mounted() {
         let lang = this.$store.getters.Language;
@@ -142,9 +151,6 @@ export default {
             this.currentWord = makeEmptyWord();
         },
         async addOrUpdate() {
-            if (this.currentWord.data.foreign.trim().length == 0 || this.currentWord.data.native.trim().length == 0)
-                return;
-
             if (this.isEditing) {
                 await Api.Words.edit(this.currentWord.id, this.currentWord.data);
                 this.currentWordItem.data = this.currentWord.data;
