@@ -31,20 +31,24 @@
         </ul>
         <Spinner v-if="loading"/>
 
-        <h3 class="mt-5 clearfix">
-            Practice<button class="btn btn-success float-right">Apply</button>
+        <h3 class="mt-5">
+            Practice
+            <div class="float-right" v-if="settingsChanged">
+                <button class="btn btn-secondary" v-on:click="discardSettings">Cancel</button>
+                <button class="btn btn-primary ml-3" v-on:click="applySettings">Apply</button>
+            </div>
         </h3>
         <hr />
         <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="includeSynonyms" v-bind:checked="settings.includeSynonyms"/>
+            <input type="checkbox" class="form-check-input" id="includeSynonyms" v-model="settings.includeSynonyms"/>
             <label class="form-check-label" for="includeSynonyms">Include synonyms in test</label>
         </div>
         <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="randomizeDir" v-bind:checked="settings.randomizeDir"/>
+            <input type="checkbox" class="form-check-input" id="randomizeDir" v-model="settings.randomizeDir"/>
             <label class="form-check-label" for="randomizeDir">Randomize translation direction</label>
         </div>
         <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="ignoreCase" v-bind:checked="settings.ignoreCase" />
+            <input type="checkbox" class="form-check-input" id="ignoreCase" v-model="settings.ignoreCase" />
             <label class="form-check-label" for="ignoreCase">Ignore case in native language</label>
         </div>
 
@@ -60,21 +64,32 @@
 import axios from 'axios'
 import Spinner from '@/components/Spinner.vue'
 
+function clone(o) {
+    let cloned = {};
+    Object.assign(cloned, o);
+    return cloned;
+}
+
 export default {
     name: 'Settings',
     data() {
         return {
             loading: true,
             languages: [],
-            error: false
+            error: false,
+            settings: clone(this.$store.getters.User.settings)
         };
     },
     components: {
         Spinner
     },
     computed: {
-        settings: function () {
-            return this.$store.getters.User.settings;
+        settingsChanged: function() {
+            let userSettings = this.$store.getters.User.settings;
+            for (let key in userSettings)
+                if (userSettings[key] != this.settings[key])
+                    return true;
+            return false;
         },
         currentLanguage: function() {
             return this.$store.getters.Language;
@@ -88,7 +103,6 @@ export default {
     methods: {
         async switchLanguage(code) {
             this.loading = true;
-            console.log("Switching to", code);
             try {
                 await axios.put('accounts/settings', {currentLanguage: code});
             } catch {
@@ -99,6 +113,13 @@ export default {
             await this.$store.dispatch('GetUserInfo');
             await this.$store.dispatch('GetUserLanguages');
             this.$router.push('/');
+        },
+        async applySettings() {
+            await axios.put('accounts/settings', this.settings);
+            await this.$store.dispatch('GetUserInfo');
+        },
+        discardSettings() {
+            this.settings = clone(this.$store.getters.User.settings);
         }
     }
 };
