@@ -51,8 +51,20 @@ export default {
             this.$router.push("/login");
         }
     },
-    mounted() {
-        this.$store.dispatch('GetUserInfo')
+    async mounted() {
+        if (!this.$store.getters.LoggedIn)
+            return;
+
+        try {
+            await this.$store.dispatch('GetUserInfo')
+        } catch (e) {
+            if (e.response.status == 401) {
+                await this.$store.dispatch('ResetUser');
+                this.$router.push("/login");
+            } else {
+                console.warn("Unknown failure while getting user info")
+            }
+        }
     }
 }
 </script>

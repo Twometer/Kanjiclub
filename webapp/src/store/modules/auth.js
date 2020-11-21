@@ -6,7 +6,8 @@ const state = {
 
 const getters = {
     User: state => state.user,
-    Language: state => state.user.settings.currentLanguage
+    Language: state => state.user.settings.currentLanguage,
+    LoggedIn: state => state.user != null
 };
 
 const actions = {
@@ -28,6 +29,10 @@ const actions = {
     async GetUserInfo({ commit }, form) {
         let response = await axios.get('accounts/me', form)
         commit('setUser', response.data)
+    },
+
+    async ResetUser({ commit }) {
+        commit('setUser', null);
     }
 
 };
