@@ -49,7 +49,7 @@
         </div>
         <div class="form-check mb-3">
             <input type="checkbox" class="form-check-input" id="ignoreCase" v-model="settings.ignoreCase" />
-            <label class="form-check-label" for="ignoreCase">Ignore case in native language</label>
+            <label class="form-check-label" for="ignoreCase">Ignore case</label>
         </div>
 
         <h3 class="mt-5">About</h3>

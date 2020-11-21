@@ -13,7 +13,7 @@ const actions = {
     async NewPractice({ getters, commit }, payload) {
         let language = getters.Language;
         let practice = await Api.Practice.new(language, payload);
-        commit('setPractice', practice);
+        commit('setPractice', practice.data);
     },
 
 };

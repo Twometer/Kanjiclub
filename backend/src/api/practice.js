@@ -129,7 +129,8 @@ module.exports = (app, db) => {
             return res.json(words.map(w => {
                 return {
                     id: w._id,
-                    data: w.data
+                    data: w.data,
+                    lesson: w.lesson
                 }
             }));
         });

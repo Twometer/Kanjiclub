@@ -3,7 +3,10 @@
         <div class="alert alert-secondary" v-if="!hasPractice">
             There is currently no active practice
         </div>
-        <div class="progress practice-holder m-auto shadow-sm" v-if="hasPractice">
+        <div
+            class="progress practice-holder m-auto shadow-sm"
+            v-if="hasPractice"
+        >
             <div
                 class="progress-bar bg-success"
                 role="progressbar"
@@ -21,48 +24,298 @@
             <div
                 class="shadow-lg p-3 bg-white mt-5 rounded w-100 practice-holder"
             >
-                <div class="card-body">
-                    <h2 class="lang-jp text-center">{{ currentWord.foreign }}</h2>
+                <div class="card-body d-flex flex-column" v-if="complete">
+                    <h2 class="text-success">Practice complete!</h2>
+
+                    <table>
+                        <tr>
+                            <td class="text-muted">Correct words</td>
+                            <td>{{ correctWords }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Wrong words</td>
+                            <td>{{ wrongWords }}</td>
+                        </tr>
+                    </table>
+
+                    <Button
+                        class="btn-success d-block w-100 mt-auto"
+                        text="Exit"
+                        v-on:click="exit"
+                    />
+                </div>
+                <div
+                    class="card-body d-flex flex-column"
+                    v-if="showsResults && !complete"
+                >
+                    <h2
+                        :class="{
+                            'text-danger': isWrong,
+                            'text-success': !isWrong,
+                        }"
+                    >
+                        {{ isWrong ? 'Wrong' : 'Correct' }}
+                    </h2>
+                    <table>
+                        <tr v-if="currentInput">
+                            <td class="text-muted pb-2">Answer</td>
+                            <td class="pb-2">{{ currentInput }}</td>
+                        </tr>
+                        <tr v-if="currentWord.data.foreign">
+                            <td class="text-muted">Foreign</td>
+                            <td>{{ currentWord.data.foreign }}</td>
+                        </tr>
+                        <tr v-if="currentWord.data.synonym">
+                            <td class="text-muted">Synonyms</td>
+                            <td>{{ currentWord.data.synonym }}</td>
+                        </tr>
+                        <tr v-if="currentWord.data.gender">
+                            <td class="text-muted">Gender</td>
+                            <td>{{ currentWord.data.gender }}</td>
+                        </tr>
+                        <tr v-if="currentWord.data.native">
+                            <td class="text-muted">Native</td>
+                            <td>{{ currentWord.data.native }}</td>
+                        </tr>
+                        <tr v-if="currentWord.data.comment">
+                            <td class="text-muted">Comment</td>
+                            <td>{{ currentWord.data.comment }}</td>
+                        </tr>
+                    </table>
+                    <Button
+                        class="btn-success d-block w-100 mt-auto"
+                        text="Next"
+                        v-on:click="next"
+                    />
+                </div>
+
+                <div class="card-body" v-if="!showsResults && !complete">
+                    <h2 class="lang-jp text-center">{{ currentPrompt }}</h2>
 
                     <div class="input-group">
                         <input
                             type="text"
-                            class="form-control my-5 mx-3"
+                            id="vocabInput"
+                            class="form-control my-5 lang-jp mx-lg-5"
                             placeholder="Translation"
+                            v-model="currentInput"
                         />
                     </div>
 
-                    <button class="btn btn-success d-block w-100">Check</button>
-                    <button class="btn btn-secondary d-block w-100 mt-4">
-                        I don't know
-                    </button>
+                    <Button
+                        class="btn-secondary d-block w-100 mt-2"
+                        text="I don't know"
+                        v-on:click="dontKnow"
+                        :disabled="showsResults"
+                    />
+                    <Button
+                        class="btn-success d-block w-100 mt-3"
+                        text="Check"
+                        v-on:click="check"
+                        :disabled="showsResults"
+                    />
                 </div>
+                <span class="text-muted" v-if="!complete">
+                    Lesson: {{ lesson }}
+                </span>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Vue from 'vue';
+import Button from '@/components/Button.vue';
+import axios from 'axios';
+
+const soundCorrect = new Audio(require('../assets/correct.mp3'));
+const soundWrong = new Audio(require('../assets/wrong.mp3'));
+
+const NATIVE = 0;
+const FOREIGN = 1;
+
 export default {
     name: 'Practice',
     data() {
         return {
-            progress: 0,
-            currentWord: {},
-            hasPractice: true
+            currentIndex: 0,
+            currentPrompt: '',
+            currentPractice: null,
+            currentSolution: '',
+            currentInput: '',
+            currentWord: null,
+            isWrong: false,
+            showsResults: true,
+            expects: NATIVE,
+            complete: false,
         };
     },
-    computed: {},
-    async mounted() {
-        let practice = this.$store.getters.CurrentPractice;
-        if (practice == null) {
-            this.hasPractice = false;
-            return;
-        }
-        
-        this.currentWord = practice[0];
+    components: {
+        Button,
     },
-    methods: {},
+    computed: {
+        hasPractice() {
+            return this.currentPractice != null;
+        },
+        progress() {
+            return (this.currentIndex / this.currentPractice.length) * 100;
+        },
+        lesson() {
+            let lessons = this.$store.getters.Lessons;
+            for (let lesson of lessons)
+                if (lesson.id == this.currentWord.lesson) return lesson.name;
+
+            return null;
+        },
+        correctWords() {
+            return this.currentPractice.filter((w) => w.attempts == 0).length;
+        },
+        wrongWords() {
+            return this.currentPractice.filter((w) => w.attempts > 0).length;
+        },
+    },
+    mounted() {
+        this.currentPractice = this.$store.getters.CurrentPractice;
+        this.next();
+
+        document.onkeyup = function (e) {
+            if (e.keyCode == 13) this.checkOrNext();
+        }.bind(this);
+    },
+    methods: {
+        splitPossibilities(solution) {
+            if (solution == null) return [];
+
+            if (solution.includes(';') || solution.includes('/')) {
+                return solution.split(/[;/]+/);
+            } else {
+                return [solution];
+            }
+        },
+        splitIntoCleanWords(input) {
+            return input
+                .replace(/ *\([^)]*\) */g, '') // Drop everything in parentheses
+                .replace(/[.?!,_-]/g, '') // Drop everything non-alphanumeric
+                .split(/[\s]+/)
+                .map((w) => w.trim())
+                .filter((w) => w.length > 0);
+        },
+        fuzzyMatches(input, solution) {
+            let wordsIn = this.splitIntoCleanWords(input);
+            let wordsRef = this.splitIntoCleanWords(solution);
+            console.log(wordsIn, wordsRef);
+            if (wordsIn.length != wordsRef.length) return false;
+            for (let i = 0; i < wordsIn.length; i++) {
+                if (wordsIn[i] != wordsRef[i]) return false;
+            }
+            return true;
+        },
+        isCorrect(input) {
+            let solution = null;
+            if (this.expects == NATIVE) solution = this.currentWord.data.native;
+            else solution = this.currentWord.data.foreign;
+
+            if (this.$store.getters.User.settings.ignoreCase) {
+                input = input.toLowerCase();
+                solution = solution.toLowerCase();
+            }
+
+            let possibilities = [];
+            possibilities = possibilities.concat(
+                this.splitPossibilities(solution)
+            );
+
+            if (this.expects == FOREIGN) {
+                possibilities = possibilities.concat(
+                    this.splitPossibilities(this.currentWord.data.synonym)
+                );
+            }
+
+            return possibilities.some((s) => this.fuzzyMatches(input, s));
+        },
+        checkOrNext() {
+            if (this.complete) return;
+            if (this.showsResults) this.next();
+            else this.check();
+        },
+        check() {
+            let input = this.currentInput.trim();
+            let correct = this.isCorrect(input);
+            this.handleResult(correct);
+        },
+        dontKnow() {
+            this.handleResult(false);
+        },
+        async exit() {
+            await axios.post(
+                `practice/${this.$store.getters.Language}/complete`,
+                {
+                    results: this.currentPractice.map((w) => {
+                        return { wordId: w.id, attempts: w.attempts };
+                    }),
+                }
+            );
+            this.$store.commit('setPractice', null);
+            this.$router.push('/');
+        },
+        handleResult(correct) {
+            if (this.currentWord.attempts == undefined)
+                this.currentWord.attempts = 0;
+
+            if (correct) {
+                this.isWrong = false;
+                soundCorrect.play();
+            } else {
+                this.isWrong = true;
+                soundWrong.play();
+                this.currentWord.attempts++;
+                if (this.currentWord.attempts < 3)
+                    this.currentPractice.push(this.currentWord);
+            }
+            this.showResults();
+        },
+        showResults() {
+            this.showsResults = true;
+        },
+        next() {
+            let settings = this.$store.getters.User.settings;
+
+            let word = this.currentPractice[this.currentIndex];
+            this.currentIndex++;
+
+            if (word == null) {
+                this.complete = true;
+                return;
+            }
+
+            let translateToForeign = settings.randomizeDir
+                ? Math.random() > 0.5
+                : true;
+            let useSynonym =
+                translateToForeign &&
+                word.data.synonym &&
+                settings.includeSynonyms &&
+                Math.random() > 0.5;
+
+            if (useSynonym) {
+                this.currentPrompt = word.data.synonym;
+                this.expects = NATIVE;
+            } else if (translateToForeign) {
+                this.currentPrompt = word.data.foreign;
+                this.expects = NATIVE;
+            } else {
+                this.currentPrompt = word.data.native;
+                this.expects = FOREIGN;
+            }
+            this.currentInput = '';
+            this.currentWord = word;
+            this.showsResults = false;
+
+            Vue.nextTick().then(() => {
+                document.getElementById('vocabInput').focus();
+            });
+        },
+    },
 };
 </script>
 
@@ -78,6 +331,15 @@ export default {
     background: #e5e5e5;
 }
 .progress-bar {
-    transition-duration: .3s;
+    transition-duration: 0.3s;
+}
+
+.card-body {
+    height: 305px;
+}
+table {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 18px;
 }
 </style>
