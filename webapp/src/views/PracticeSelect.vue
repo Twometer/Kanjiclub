@@ -15,7 +15,7 @@
                     class="btn-secondary mr-3"
                     v-on:click="toggleAll"
                     :text="allSelected ? 'Deselect all' : 'Select all'"
-                    :disabled="!anySelected"
+                    :disabled="lessons.length == 0"
                 />
                 <Button
                     class="btn-success go"
