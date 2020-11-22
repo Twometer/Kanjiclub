@@ -14,7 +14,7 @@ module.exports = (app, db) => {
         let lastPracticed = word.stats.lastPracticed;
         if (lastPracticed == null) return 1.0;
 
-        let timeDiff = Date.now().getTime() - lastPracticed.getTime();
+        let timeDiff = Date.now() - lastPracticed.getTime();
         return Math.min(timeDiff / maxAgeMs, 1.0)
     }
 
@@ -23,7 +23,7 @@ module.exports = (app, db) => {
         let word = words[idx];
 
         let wordAge = getWordAge(word);
-        
+
         // If the word is older than 50% of the 
         // current word set, then there's a 10%
         // chance a different word is selected
@@ -169,11 +169,16 @@ module.exports = (app, db) => {
          *  Wrong once: Degrade by one
          *  Wrong twice: Degrade by two
          */
+
         let results = req.body.results;
         for (let result of results) {
             const strengthOffset = getStrengthOffset(result.attempts);
+
             db.Word.findOne({ _id: result.wordId }, (err, word) => {
-                if (err) return;
+                if (err) {
+                    console.error(err);
+                    return;
+                }
 
                 word.stats.lastPracticed = Date.now()
                 word.strength += strengthOffset;
@@ -183,26 +188,7 @@ module.exports = (app, db) => {
             });
         }
 
-        return res.status(200);
+        return res.status(200).send();
     })
-
-    /**
-     * Notes on implementing the frontend
-     * ==================================
-     * - The frontend is responsible for randomizing translation direction
-     *   and reporting back how often the user failed a particular word.
-     * - The frontend may ask a word a few times:
-     *   1. If the user inputs a translation wrongly, the word will be
-     *      asked again at the end of a lesson, for a max of 3 times.
-     *   2. If the user wants to be asked synoyms, a random synonym
-     *      may be used as the foreign prompt. Foreign input always
-     *      accepts all synonyms as well.
-     *   3. If the user wants to have randomized translation direction,
-     *      a word may appear multiple times, in different directions.
-     *       If this setting is active, a lower number of total words per
-     *      practice may be used. TODO: check if this is neccessary
-     *   4. Maybe we should let the user decide on how large they want
-     *      each indiviudal lesson to be.
-     */
 
 }

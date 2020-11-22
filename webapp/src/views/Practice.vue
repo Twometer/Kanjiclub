@@ -99,6 +99,7 @@
                             class="form-control my-5 lang-jp mx-lg-5"
                             placeholder="Translation"
                             v-model="currentInput"
+                            autocomplete="off"
                         />
                     </div>
 
@@ -134,6 +135,25 @@ const soundWrong = new Audio(require('../assets/wrong.mp3'));
 const NATIVE = 0;
 const FOREIGN = 1;
 
+/**
+ * Notes on implementing the practice frontend
+ * ==================================
+ * - The frontend is responsible for randomizing translation direction
+ *   and reporting back how often the user failed a particular word.
+ * - The frontend may ask a word a few times:
+ *   1. If the user inputs a translation wrongly, the word will be
+ *      asked again at the end of a lesson, for a max of 3 times.
+ *   2. If the user wants to be asked synoyms, a random synonym
+ *      may be used as the foreign prompt. Foreign input always
+ *      accepts all synonyms as well.
+ *   3. If the user wants to have randomized translation direction,
+ *      a word may appear multiple times, in different directions.
+ *       If this setting is active, a lower number of total words per
+ *      practice may be used. TODO: check if this is neccessary
+ *   4. Maybe we should let the user decide on how large they want
+ *      each indiviudal lesson to be.
+ */
+
 export default {
     name: 'Practice',
     data() {
@@ -168,10 +188,12 @@ export default {
             return null;
         },
         correctWords() {
-            return this.currentPractice.filter((w) => w.attempts == 0).length;
+            return this.currentPractice.filter((w) => !w.ref && w.attempts == 0)
+                .length;
         },
         wrongWords() {
-            return this.currentPractice.filter((w) => w.attempts > 0).length;
+            return this.currentPractice.filter((w) => !w.ref && w.attempts > 0)
+                .length;
         },
     },
     mounted() {
@@ -203,7 +225,7 @@ export default {
         fuzzyMatches(input, solution) {
             let wordsIn = this.splitIntoCleanWords(input);
             let wordsRef = this.splitIntoCleanWords(solution);
-            console.log(wordsIn, wordsRef);
+            // console.log(wordsIn, wordsRef);
             if (wordsIn.length != wordsRef.length) return false;
             for (let i = 0; i < wordsIn.length; i++) {
                 if (wordsIn[i] != wordsRef[i]) return false;
@@ -246,17 +268,21 @@ export default {
         dontKnow() {
             this.handleResult(false);
         },
-        async exit() {
+        exit() {
+            this.$router.push('/practice/select');
+        },
+        async handleCompletion() {
             await axios.post(
                 `practice/${this.$store.getters.Language}/complete`,
                 {
-                    results: this.currentPractice.map((w) => {
-                        return { wordId: w.id, attempts: w.attempts };
-                    }),
+                    results: this.currentPractice
+                        .filter((w) => w.ref == undefined)
+                        .map((w) => {
+                            return { wordId: w.id, attempts: w.attempts };
+                        }),
                 }
             );
             this.$store.commit('setPractice', null);
-            this.$router.push('/');
         },
         handleResult(correct) {
             if (this.currentWord.attempts == undefined)
@@ -269,8 +295,9 @@ export default {
                 this.isWrong = true;
                 soundWrong.play();
                 this.currentWord.attempts++;
-                if (this.currentWord.attempts < 3)
-                    this.currentPractice.push(this.currentWord);
+                if (this.currentWord.attempts < 3) {
+                    this.currentPractice.push({ ref: this.currentIndex - 1 });
+                }
             }
             this.showResults();
         },
@@ -285,8 +312,11 @@ export default {
 
             if (word == null) {
                 this.complete = true;
+                this.handleCompletion();
                 return;
             }
+
+            while (word.ref != null) word = this.currentPractice[word.ref];
 
             let translateToForeign = settings.randomizeDir
                 ? Math.random() > 0.5
