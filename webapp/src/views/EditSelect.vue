@@ -28,7 +28,10 @@
         </div>
         <Spinner v-if="loading" />
 
-        <div class="text-muted text-center" v-if="lessons.length == 0 && !loading">
+        <div
+            class="text-muted text-center"
+            v-if="lessons.length == 0 && !loading"
+        >
             You currently don't have any lessons
         </div>
 

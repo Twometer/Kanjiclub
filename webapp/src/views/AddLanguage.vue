@@ -117,6 +117,8 @@ export default {
             try {
                 this.loading = true;
                 await Api.Languages.new(code);
+                if (this.$store.getters.Language == null)
+                    await this.$store.dispatch('GetUserInfo');
                 await this.$store.dispatch('GetUserLanguages');
                 this.$router.push('/settings');
             } catch (e) {

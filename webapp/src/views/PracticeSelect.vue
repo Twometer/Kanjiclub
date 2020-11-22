@@ -25,7 +25,10 @@
                 />
             </div>
         </div>
-        <div class="text-muted text-center" v-if="lessons.length == 0 && !loading">
+        <div
+            class="text-muted text-center"
+            v-if="lessons.length == 0 && !loading"
+        >
             You currently don't have any lessons
         </div>
         <div v-if="!loading">
@@ -56,7 +59,7 @@ export default {
             loading: true,
             lessons: [],
             selected: [],
-            error: false,
+            error: false
         };
     },
     computed: {
@@ -68,11 +71,11 @@ export default {
         },
         anySelected() {
             return this.selected.length;
-        },
+        }
     },
     components: {
         Spinner,
-        Button,
+        Button
     },
     async mounted() {
         await this.$store.dispatch('GetLessons');
@@ -83,13 +86,13 @@ export default {
         toggleLesson(lessonId) {
             this.error = false;
             if (this.selected.includes(lessonId))
-                this.selected = this.selected.filter((l) => l != lessonId);
+                this.selected = this.selected.filter(l => l != lessonId);
             else this.selected.push(lessonId);
         },
         toggleAll() {
             this.error = false;
             if (this.allSelected) this.selected = [];
-            else this.selected = this.lessons.map((l) => l.id);
+            else this.selected = this.lessons.map(l => l.id);
         },
         async createPractice() {
             this.error = false;
@@ -98,7 +101,7 @@ export default {
             try {
                 await this.$store.dispatch('NewPractice', {
                     target: 'lesson',
-                    lessons: this.selected,
+                    lessons: this.selected
                 });
                 this.$router.push('/practice');
             } catch (e) {
@@ -106,8 +109,8 @@ export default {
                     this.error = true;
                 }
             }
-        },
-    },
+        }
+    }
 };
 </script>
 

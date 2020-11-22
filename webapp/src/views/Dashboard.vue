@@ -28,7 +28,6 @@
 </style>
 
 <script>
-// @ is an alias to /src
 import WordStats from '@/components/WordStats.vue';
 import Spinner from '@/components/Spinner.vue';
 import axios from 'axios';
@@ -43,7 +42,8 @@ export default {
     },
     computed: {
         username: function() {
-            return this.$store.getters.User.username;
+            let user = this.$store.getters.User;
+            return user == null ? '' : user.username;
         }
     },
     components: {

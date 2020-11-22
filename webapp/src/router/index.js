@@ -88,9 +88,13 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         // This route is only accessible while logged in
-
         if (!store.getters.LoggedIn) {
             next({ name: 'Login' });
+        } else if (
+            to.name !== 'AddLanguage' &&
+            store.getters.Language == null
+        ) {
+            next({ name: 'AddLanguage' });
         } else {
             next();
         }
