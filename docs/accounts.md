@@ -26,7 +26,8 @@ POST /api/accounts/login
 ```json
 {
 	"user": "",
-	"password": ""
+	"password": "",
+	"rememberMe": false
 }
 ```
 

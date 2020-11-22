@@ -62,7 +62,12 @@
 import { mapActions } from 'vuex';
 
 function checkFormEmpty(obj) {
-    for (let key in obj) if (obj[key].trim() === '') return true;
+    for (let key in obj) {
+        let val = obj[key];
+
+        if (!val.trim) continue;
+        if (val.trim() === '') return true;
+    }
     return false;
 }
 
@@ -73,7 +78,8 @@ export default {
         return {
             form: {
                 username: '',
-                password: ''
+                password: '',
+                rememberMe: false
             },
             error: null
         };

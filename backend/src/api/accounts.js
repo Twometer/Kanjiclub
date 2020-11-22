@@ -4,6 +4,11 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = (app, db) => {
 
+    function cookieRememberMe(cookie) {
+        let month = 30 * 24 * 60 * 60 * 1000;
+        cookie.expires = new Date(Date.now() + month);
+    }
+
     app.post("/api/accounts/new", (req, res, next) => {
         const body = req.body;
 
@@ -53,6 +58,11 @@ module.exports = (app, db) => {
                     req.session.loggedIn = true;
                     req.session.accountId = account._id;
 
+                    if (body.rememberMe) {
+                        req.session.rememberMe = true;
+                        cookieRememberMe(req.session.cookie);
+                    }
+
                     account.stats.lastLogin = Date.now()
                     account.save()
 
@@ -78,6 +88,9 @@ module.exports = (app, db) => {
         if (!req.session.loggedIn) {
             return res.status(401).send();
         }
+
+        if (req.session.rememberMe)
+            cookieRememberMe(req.session.cookie);
 
         db.Account.findOne({ _id: req.session.accountId }, (err, account) => {
             return res.json({
