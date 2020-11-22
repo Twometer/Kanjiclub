@@ -11,30 +11,28 @@ const getters = {
 };
 
 const actions = {
-
     async Register(_, form) {
         await axios.post('accounts/new', form);
     },
 
     async Login({ dispatch }, form) {
-        await axios.post('accounts/login', form)
-        await dispatch('GetUserInfo')
+        await axios.post('accounts/login', form);
+        await dispatch('GetUserInfo');
     },
 
     async LogOut({ commit }) {
-        await axios.post('accounts/logout')
-        commit('setUser', null)
+        await axios.post('accounts/logout');
+        commit('setUser', null);
     },
 
     async GetUserInfo({ commit }, form) {
-        let response = await axios.get('accounts/me', form)
-        commit('setUser', response.data)
+        let response = await axios.get('accounts/me', form);
+        commit('setUser', response.data);
     },
 
     async ResetUser({ commit }) {
         commit('setUser', null);
     }
-
 };
 
 const mutations = {

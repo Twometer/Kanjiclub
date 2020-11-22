@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import Api from '../services/api'
+import Api from '../services/api';
 
 const UploadState = {
     NotUploaded: 0,
@@ -81,14 +81,21 @@ const UploadState = {
     AlreadyExists: 3,
     InvalidFormat: 4,
     UnknownError: 5
-}
+};
 
-const StateStrings = ['Not uploaded', 'Uploading...', 'Completed', 'Lesson exists', 'Unknown format', 'Failed'];
+const StateStrings = [
+    'Not uploaded',
+    'Uploading...',
+    'Completed',
+    'Lesson exists',
+    'Unknown format',
+    'Failed'
+];
 
 function readFile(file) {
     return new Promise((resolve, reject) => {
         let reader = new FileReader();
-        reader.readAsDataURL(file)
+        reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     });
@@ -161,6 +168,6 @@ export default {
             let lang = this.$store.getters.Language;
             await Api.Lessons.import(file.name, lang, data);
         }
-    },
+    }
 };
 </script>

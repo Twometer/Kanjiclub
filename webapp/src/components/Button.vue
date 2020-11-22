@@ -1,7 +1,16 @@
 <template>
-    <button class="btn" :class="{ disabled: disabled }" :disabled="disabled" v-on:click="$emit('click')">
+    <button
+        class="btn"
+        :class="{ disabled: disabled }"
+        :disabled="disabled"
+        v-on:click="$emit('click')"
+    >
         <span v-if="!loading">{{ text }}</span>
-        <span v-if="loading" class="spinner-border spinner-border-sm" role="status"></span>
+        <span
+            v-if="loading"
+            class="spinner-border spinner-border-sm"
+            role="status"
+        ></span>
     </button>
 </template>
 
@@ -12,6 +21,6 @@ export default {
         disabled: Boolean,
         text: String,
         loading: Boolean
-    },
+    }
 };
 </script>

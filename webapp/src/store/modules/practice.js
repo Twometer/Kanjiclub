@@ -1,4 +1,4 @@
-import Api from '@/services/api'
+import Api from '@/services/api';
 
 const state = {
     currentPractice: null
@@ -9,13 +9,11 @@ const getters = {
 };
 
 const actions = {
-
     async NewPractice({ getters, commit }, payload) {
         let language = getters.Language;
         let practice = await Api.Practice.new(language, payload);
         commit('setPractice', practice.data);
-    },
-
+    }
 };
 
 const mutations = {

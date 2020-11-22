@@ -87,7 +87,7 @@
 
 <script>
 import Spinner from '@/components/Spinner.vue';
-import Api from '../services/api'
+import Api from '../services/api';
 
 export default {
     name: 'EditSelect',
@@ -95,11 +95,11 @@ export default {
         return {
             loading: true,
             lessons: [],
-            lessonName: '',
+            lessonName: ''
         };
     },
     components: {
-        Spinner,
+        Spinner
     },
     methods: {
         clearLessonInput() {
@@ -121,11 +121,11 @@ export default {
             await this.$store.dispatch('GetLessons');
             this.lessons = this.$store.getters.Lessons;
             this.loading = false;
-        },
+        }
     },
     async mounted() {
         await this.reload();
-    },
+    }
 };
 </script>
 

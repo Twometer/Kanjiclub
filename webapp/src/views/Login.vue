@@ -7,7 +7,9 @@
             <div class="shadow-lg p-3 bg-white rounded" style="width: 18rem">
                 <div class="card-body">
                     <form @submit.prevent="submit">
-                        <div class="alert alert-warning" v-if="error != null">{{ error }}</div>
+                        <div class="alert alert-warning" v-if="error != null">
+                            {{ error }}
+                        </div>
 
                         <div class="form-group">
                             <label for="username">Username</label>
@@ -57,29 +59,27 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 function checkFormEmpty(obj) {
-    for (let key in obj)
-        if (obj[key].trim() === '')
-            return true;
+    for (let key in obj) if (obj[key].trim() === '') return true;
     return false;
 }
 
 export default {
-    name: "Login",
+    name: 'Login',
     components: {},
     data() {
         return {
             form: {
-                username: "",
-                password: "",
+                username: '',
+                password: ''
             },
             error: null
-        }
+        };
     },
     methods: {
-        ...mapActions(["Login"]),
+        ...mapActions(['Login']),
         async submit() {
             if (checkFormEmpty(this.form)) {
                 return;
@@ -88,15 +88,15 @@ export default {
             try {
                 this.error = null;
                 await this.Login(this.form);
-                this.$router.push("/");
+                this.$router.push('/');
             } catch (e) {
-                this.error = "Invalid credentials"
+                this.error = 'Invalid credentials';
             }
         }
     }
-}
+};
 </script>
 
 <style scoped>
-    @import url("../assets/auth.css");
+@import url('../assets/auth.css');
 </style>

@@ -26,7 +26,7 @@ module.exports = (app, db) => {
 
         // If the word is older than 50% of the 
         // current word set, then there's a 10%
-        // chance a different word is selected
+        // chance another word will be selected
         // instead
         if (wordAge < 0.5 && Math.random() <= 0.1) {
             return pickRandomWord(words);
@@ -98,12 +98,36 @@ module.exports = (app, db) => {
          * the group of words with the selected word strength
          */
 
-        // Query candidate words
-        db.Word.find({
+        // Build word query
+        let query = {
             account: req.session.accountId,
-            language: req.params.languageCode,
-            lesson: { $in: req.body.lessons }
-        }, (err, docs) => {
+            language: req.params.languageCode
+        };
+
+        let body = req.body;
+
+        switch (body.target) {
+            case "lesson":
+                if (!body.lessons)    
+                    return res.status(400).send();
+
+                query.lesson = { $in: body.lessons };
+                break;
+            case "strength":
+                if (!body.strength)    
+                    return res.status(400).send();
+
+                query.strength = strength[body.strength];
+                break;
+            default:
+                return res.status(400).send();
+        }           
+
+        // Load candidate words
+        db.Word.find(query, (err, docs) => {
+            if (err)
+                return res.status(500).send();
+
             // Can't have an empty practice
             if (docs.length == 0)
                 return res.status(404).send();

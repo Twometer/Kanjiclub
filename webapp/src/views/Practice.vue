@@ -51,7 +51,7 @@
                     <h2
                         :class="{
                             'text-danger': isWrong,
-                            'text-success': !isWrong,
+                            'text-success': !isWrong
                         }"
                     >
                         {{ isWrong ? 'Wrong' : 'Correct' }}
@@ -82,6 +82,7 @@
                             <td>{{ currentWord.data.comment }}</td>
                         </tr>
                     </table>
+
                     <Button
                         class="btn-success d-block w-100 mt-auto"
                         text="Next"
@@ -167,11 +168,11 @@ export default {
             isWrong: false,
             showsResults: true,
             expects: NATIVE,
-            complete: false,
+            complete: false
         };
     },
     components: {
-        Button,
+        Button
     },
     computed: {
         hasPractice() {
@@ -188,19 +189,19 @@ export default {
             return null;
         },
         correctWords() {
-            return this.currentPractice.filter((w) => !w.ref && w.attempts == 0)
+            return this.currentPractice.filter(w => !w.ref && w.attempts == 0)
                 .length;
         },
         wrongWords() {
-            return this.currentPractice.filter((w) => !w.ref && w.attempts > 0)
+            return this.currentPractice.filter(w => !w.ref && w.attempts > 0)
                 .length;
-        },
+        }
     },
     mounted() {
         this.currentPractice = this.$store.getters.CurrentPractice;
         this.next();
 
-        document.onkeyup = function (e) {
+        document.onkeyup = function(e) {
             if (e.keyCode == 13) this.checkOrNext();
         }.bind(this);
     },
@@ -219,8 +220,8 @@ export default {
                 .replace(/ *\([^)]*\) */g, '') // Drop everything in parentheses
                 .replace(/[.?!,_-]/g, '') // Drop everything non-alphanumeric
                 .split(/[\s]+/)
-                .map((w) => w.trim())
-                .filter((w) => w.length > 0);
+                .map(w => w.trim())
+                .filter(w => w.length > 0);
         },
         fuzzyMatches(input, solution) {
             let wordsIn = this.splitIntoCleanWords(input);
@@ -253,7 +254,7 @@ export default {
                 );
             }
 
-            return possibilities.some((s) => this.fuzzyMatches(input, s));
+            return possibilities.some(s => this.fuzzyMatches(input, s));
         },
         checkOrNext() {
             if (this.complete) return;
@@ -276,10 +277,10 @@ export default {
                 `practice/${this.$store.getters.Language}/complete`,
                 {
                     results: this.currentPractice
-                        .filter((w) => w.ref == undefined)
-                        .map((w) => {
+                        .filter(w => w.ref == undefined)
+                        .map(w => {
                             return { wordId: w.id, attempts: w.attempts };
-                        }),
+                        })
                 }
             );
             this.$store.commit('setPractice', null);
@@ -344,8 +345,8 @@ export default {
             Vue.nextTick().then(() => {
                 document.getElementById('vocabInput').focus();
             });
-        },
-    },
+        }
+    }
 };
 </script>
 

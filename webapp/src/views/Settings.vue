@@ -16,53 +16,100 @@
         </div>
 
         <ul class="list-group shadow clearfix" v-if="!loading">
-            <li class="list-group-item" v-for="language in languages" :key="language.code" :class="{ active: language.code == currentLanguage}">
+            <li
+                class="list-group-item"
+                v-for="language in languages"
+                :key="language.code"
+                :class="{ active: language.code == currentLanguage }"
+            >
                 {{ language.name }}
 
                 <!-- Visual-only button for current language -->
-                <button class="btn btn-secondary btn-sm float-right disabled" disabled v-if="language.code == currentLanguage">
+                <button
+                    class="btn btn-secondary btn-sm float-right disabled"
+                    disabled
+                    v-if="language.code == currentLanguage"
+                >
                     Active
                 </button>
 
-                <button class="btn btn-primary btn-sm float-right" v-if="language.code != currentLanguage" v-on:click="switchLanguage(language.code)">
+                <button
+                    class="btn btn-primary btn-sm float-right"
+                    v-if="language.code != currentLanguage"
+                    v-on:click="switchLanguage(language.code)"
+                >
                     Switch
                 </button>
             </li>
         </ul>
-        <Spinner v-if="loading"/>
+        <Spinner v-if="loading" />
 
         <h3 class="mt-5">
             Practice
             <div class="float-right" v-if="settingsChanged">
-                <button class="btn btn-secondary" v-on:click="discardSettings">Cancel</button>
-                <button class="btn btn-primary ml-3" v-on:click="applySettings">Apply</button>
+                <button class="btn btn-secondary" v-on:click="discardSettings">
+                    Cancel
+                </button>
+                <button class="btn btn-primary ml-3" v-on:click="applySettings">
+                    Apply
+                </button>
             </div>
         </h3>
         <hr />
         <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="includeSynonyms" v-model="settings.includeSynonyms"/>
-            <label class="form-check-label" for="includeSynonyms">Include synonyms in test</label>
+            <input
+                type="checkbox"
+                class="form-check-input"
+                id="includeSynonyms"
+                v-model="settings.includeSynonyms"
+            />
+            <label class="form-check-label" for="includeSynonyms"
+                >Include synonyms in test</label
+            >
         </div>
         <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="randomizeDir" v-model="settings.randomizeDir"/>
-            <label class="form-check-label" for="randomizeDir">Randomize translation direction</label>
+            <input
+                type="checkbox"
+                class="form-check-input"
+                id="randomizeDir"
+                v-model="settings.randomizeDir"
+            />
+            <label class="form-check-label" for="randomizeDir"
+                >Randomize translation direction</label
+            >
         </div>
         <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="ignoreCase" v-model="settings.ignoreCase" />
+            <input
+                type="checkbox"
+                class="form-check-input"
+                id="ignoreCase"
+                v-model="settings.ignoreCase"
+            />
             <label class="form-check-label" for="ignoreCase">Ignore case</label>
         </div>
 
         <h3 class="mt-5">About</h3>
         <hr />
         <p>{{ $root.AppInfo.name }} version {{ $root.AppInfo.version }}</p>
-        <p class="text-muted">made by <a href="https://github.com/Twometer/Kanjiclub">Twometer</a></p>
-        <p class="text-muted">Icons by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> flaticon.com</a></p>
+        <p class="text-muted">
+            made by <a href="https://github.com/Twometer/Kanjiclub">Twometer</a>
+        </p>
+        <p class="text-muted">
+            Icons by
+            <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+                >Freepik</a
+            >
+            from
+            <a href="https://www.flaticon.com/" title="Flaticon">
+                flaticon.com</a
+            >
+        </p>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-import Spinner from '@/components/Spinner.vue'
+import axios from 'axios';
+import Spinner from '@/components/Spinner.vue';
 
 function clone(o) {
     let cloned = {};
@@ -87,8 +134,7 @@ export default {
         settingsChanged: function() {
             let userSettings = this.$store.getters.User.settings;
             for (let key in userSettings)
-                if (userSettings[key] != this.settings[key])
-                    return true;
+                if (userSettings[key] != this.settings[key]) return true;
             return false;
         },
         currentLanguage: function() {
@@ -104,7 +150,7 @@ export default {
         async switchLanguage(code) {
             this.loading = true;
             try {
-                await axios.put('accounts/settings', {currentLanguage: code});
+                await axios.put('accounts/settings', { currentLanguage: code });
             } catch {
                 this.error = true;
                 this.loading = false;

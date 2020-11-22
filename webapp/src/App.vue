@@ -20,14 +20,26 @@
                         <img class="nav-brand" src="/img/logo.png" />
                         <hr />
                         <span class="nav-header">Menu</span>
-                        <router-link class="nav-link" to="/">Dashboard</router-link>
-                        <router-link class="nav-link" to="/practice/select">Practice</router-link>
-                        <router-link class="nav-link" to="/edit/select">Edit</router-link>
-                        <router-link class="nav-link" to="/import">Import</router-link>
+                        <router-link class="nav-link" to="/"
+                            >Dashboard</router-link
+                        >
+                        <router-link class="nav-link" to="/practice/select"
+                            >Practice</router-link
+                        >
+                        <router-link class="nav-link" to="/edit/select"
+                            >Edit</router-link
+                        >
+                        <router-link class="nav-link" to="/import"
+                            >Import</router-link
+                        >
                         <hr />
                         <span class="nav-header">User</span>
-                        <router-link class="nav-link" to="/settings">Settings</router-link>
-                        <a class="nav-link" href="#" v-on:click="handleLogout">Log out</a>
+                        <router-link class="nav-link" to="/settings"
+                            >Settings</router-link
+                        >
+                        <a class="nav-link" href="#" v-on:click="handleLogout"
+                            >Log out</a
+                        >
                     </nav>
                 </div>
 
@@ -40,34 +52,32 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
     methods: {
-        ...mapActions(["LogOut"]),
-        
+        ...mapActions(['LogOut']),
+
         async handleLogout() {
             await this.LogOut();
-            this.$router.push("/login");
+            this.$router.push('/login');
         }
     },
     async mounted() {
-        if (!this.$store.getters.LoggedIn)
-            return;
+        if (!this.$store.getters.LoggedIn) return;
 
         try {
-            await this.$store.dispatch('GetUserInfo')
+            await this.$store.dispatch('GetUserInfo');
         } catch (e) {
             if (e.response.status == 401) {
                 await this.$store.dispatch('ResetUser');
-                this.$router.push("/login");
+                this.$router.push('/login');
             } else {
-                console.warn("Unknown failure while getting user info")
+                console.warn('Unknown failure while getting user info');
             }
         }
     }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

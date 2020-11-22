@@ -12,60 +12,60 @@ const routes = [
         component: Dashboard
     },
     {
-        path: "/words/:strength",
-        name: "Words",
+        path: '/words/:strength',
+        name: 'Words',
         component: () => import('../views/Words.vue')
     },
     {
-        path: "/practice/select",
-        name: "PracticeSelect",
+        path: '/practice/select',
+        name: 'PracticeSelect',
         component: () => import('../views/PracticeSelect.vue')
     },
     {
-        path: "/practice",
-        name: "Practice",
+        path: '/practice',
+        name: 'Practice',
         component: () => import('../views/Practice.vue')
     },
     {
-        path: "/edit/select",
-        name: "EditSelect",
+        path: '/edit/select',
+        name: 'EditSelect',
         component: () => import('../views/EditSelect.vue')
     },
     {
-        path: "/edit/:lessonId",
-        name: "Edit",
+        path: '/edit/:lessonId',
+        name: 'Edit',
         component: () => import('../views/Edit.vue')
     },
     {
-        path: "/import",
-        name: "Import",
+        path: '/import',
+        name: 'Import',
         component: () => import('../views/Import.vue')
     },
     {
-        path: "/language",
-        name: "AddLanguage",
+        path: '/language',
+        name: 'AddLanguage',
         component: () => import('../views/AddLanguage.vue')
     },
     {
-        path: "/settings",
-        name: "Settings",
+        path: '/settings',
+        name: 'Settings',
         component: () => import('../views/Settings.vue')
     },
     {
-        path: "/login",
-        name: "Login",
+        path: '/login',
+        name: 'Login',
         component: () => import('../views/Login.vue'),
         meta: { unauthorizedOnly: true }
     },
     {
-        path: "/register",
-        name: "Register",
+        path: '/register',
+        name: 'Register',
         component: () => import('../views/Register.vue'),
         meta: { unauthorizedOnly: true }
     },
     {
-        path: "*",
-        name: "NotFound",
+        path: '*',
+        name: 'NotFound',
         component: () => import('../views/PageNotFound.vue')
     }
 ];
@@ -82,19 +82,19 @@ router.beforeEach((to, from, next) => {
         // This route is only accessible while not logged in
 
         if (store.getters.LoggedIn) {
-            next({ name: 'Dashboard' })
+            next({ name: 'Dashboard' });
         } else {
-            next()
+            next();
         }
     } else {
         // This route is only accessible while logged in
 
         if (!store.getters.LoggedIn) {
-            next({ name: 'Login' })
+            next({ name: 'Login' });
         } else {
-            next()
+            next();
         }
     }
-})
+});
 
 export default router;

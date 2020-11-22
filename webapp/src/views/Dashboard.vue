@@ -10,8 +10,14 @@
             </div>
         </div>
 
-        <WordStats v-if="!loading" v-bind:weak="stats.weak" v-bind:medium="stats.medium" v-bind:strong="stats.strong" v-on:select="showStrengthDetails"/>
-        <Spinner v-if="loading"/>
+        <WordStats
+            v-if="!loading"
+            v-bind:weak="stats.weak"
+            v-bind:medium="stats.medium"
+            v-bind:strong="stats.strong"
+            v-on:select="showStrengthDetails"
+        />
+        <Spinner v-if="loading" />
     </div>
 </template>
 
@@ -25,7 +31,7 @@
 // @ is an alias to /src
 import WordStats from '@/components/WordStats.vue';
 import Spinner from '@/components/Spinner.vue';
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
     name: 'Dashboard',
@@ -36,22 +42,25 @@ export default {
         };
     },
     computed: {
-        username: function () {
+        username: function() {
             return this.$store.getters.User.username;
-        },
+        }
     },
     components: {
         WordStats,
-        Spinner,
+        Spinner
     },
-    async mounted () {
+    async mounted() {
         let response = await axios.get('stats');
         this.stats = response.data;
-        this.loading = false
+        this.loading = false;
     },
     methods: {
         showStrengthDetails(strength) {
-            this.$router.push({ name: 'Words', params: { strength: strength } });
+            this.$router.push({
+                name: 'Words',
+                params: { strength: strength }
+            });
         }
     }
 };
