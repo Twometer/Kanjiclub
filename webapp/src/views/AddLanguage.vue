@@ -89,8 +89,10 @@ export default {
                     return { code: k, name: this.languages[k] };
                 })
                 .filter(lang => {
-                    for (let existingLanguage of userLanguages)
-                        if (existingLanguage.code == lang.code) return false;
+                    if (userLanguages != null)
+                        for (let existingLanguage of userLanguages)
+                            if (existingLanguage.code == lang.code)
+                                return false;
 
                     return (
                         lang.name
