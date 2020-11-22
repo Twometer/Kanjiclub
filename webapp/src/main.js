@@ -3,14 +3,12 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import axios from 'axios';
+import config from './config/kanjiclub.json'
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:9080/api/';
+axios.defaults.baseURL = config.apiUrl;
 
-Vue.prototype.AppInfo = {
-    name: 'Kanjiclub',
-    version: '0.1.0'
-};
+Vue.prototype.AppInfo = { version: config.appVer };
 
 Vue.config.productionTip = false;
 

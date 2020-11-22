@@ -69,7 +69,7 @@
 <script>
 import Api from '@/services/api';
 import Spinner from '../components/Spinner.vue';
-import * as flags from '@/assets/flags.json';
+import * as flags from '@/config/flags.json';
 
 export default {
     name: 'AddLanguage',

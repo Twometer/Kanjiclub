@@ -1,4 +1,5 @@
-# Rebuilds the flags json index file
+# Rebuilds the JSON file that list all available
+# country flags.
 
 import os 
 import json
@@ -14,6 +15,6 @@ for name in os.listdir(flags_dir):
 
 result = json.dumps(flags)
 
-file = open(current_dir + "\\src\\assets\\flags.json", "w")
+file = open(current_dir + "\\src\\config\\flags.json", "w")
 file.write(result)
 file.close()
