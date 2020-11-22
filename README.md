@@ -1,6 +1,6 @@
 <img src="webapp\public\img\logo.png" alt="logo" height=80 align="left" />
 
-Kanjiclub is an Open Source web based vocabulary training
+Kanjiclub is an Open Source web based vocabulary training software
 
 Check out the app at [kanjiclub.tk](https://kanjiclub.tk)
 
@@ -10,7 +10,7 @@ Check out the app at [kanjiclub.tk](https://kanjiclub.tk)
 
 To host Kanjiclub yourself, you have to follow the setup instructions in both the `backend` and `frontend` directories.
 
-The generated frontend files can be hosted with NGINX or other web server.
+The generated frontend files can be hosted with NGINX or any other web server.
 
 ## Documentation
 
