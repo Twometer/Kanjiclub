@@ -11,18 +11,22 @@
                 >Select lessons you want to practice</span
             >
             <div class="d-inline-block float-right">
-                <button class="btn btn-secondary mr-3" v-on:click="toggleAll">
-                    {{ allSelected ? 'Deselect all' : 'Select all' }}
-                </button>
-                <button
-                    class="btn btn-success go"
-                    v-on:click="createPractice"
-                    :class="{ disabled: !anySelected }"
+                <Button
+                    class="btn-secondary mr-3"
+                    v-on:click="toggleAll"
+                    :text="allSelected ? 'Deselect all' : 'Select all'"
                     :disabled="!anySelected"
-                >
-                    Go!
-                </button>
+                />
+                <Button
+                    class="btn-success go"
+                    v-on:click="createPractice"
+                    :disabled="!anySelected"
+                    text="Go!"
+                />
             </div>
+        </div>
+        <div class="text-muted text-center" v-if="lessons.length == 0 && !loading">
+            You currently don't have any lessons
         </div>
         <div v-if="!loading">
             <ul class="list-group shadow">
@@ -43,6 +47,7 @@
 
 <script>
 import Spinner from '@/components/Spinner.vue';
+import Button from '@/components/Button.vue';
 
 export default {
     name: 'PracticeSelect',
@@ -51,7 +56,7 @@ export default {
             loading: true,
             lessons: [],
             selected: [],
-            error: false
+            error: false,
         };
     },
     computed: {
@@ -63,10 +68,11 @@ export default {
         },
         anySelected() {
             return this.selected.length;
-        }
+        },
     },
     components: {
-        Spinner
+        Spinner,
+        Button,
     },
     async mounted() {
         await this.$store.dispatch('GetLessons');
@@ -77,13 +83,13 @@ export default {
         toggleLesson(lessonId) {
             this.error = false;
             if (this.selected.includes(lessonId))
-                this.selected = this.selected.filter(l => l != lessonId);
+                this.selected = this.selected.filter((l) => l != lessonId);
             else this.selected.push(lessonId);
         },
         toggleAll() {
             this.error = false;
             if (this.allSelected) this.selected = [];
-            else this.selected = this.lessons.map(l => l.id);
+            else this.selected = this.lessons.map((l) => l.id);
         },
         async createPractice() {
             this.error = false;
@@ -92,7 +98,7 @@ export default {
             try {
                 await this.$store.dispatch('NewPractice', {
                     target: 'lesson',
-                    lessons: this.selected
+                    lessons: this.selected,
                 });
                 this.$router.push('/practice');
             } catch (e) {
@@ -100,8 +106,8 @@ export default {
                     this.error = true;
                 }
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

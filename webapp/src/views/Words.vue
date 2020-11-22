@@ -3,39 +3,21 @@
         <h1>
             {{ this.strengthToString($route.params.strength) }} Words
             <div class="float-right mt-1">
-                <button
-                    class="btn btn-secondary mr-2"
-                    v-on:click="$router.back()"
-                >
-                    Go back
-                </button>
-                <button
-                    class="btn btn-success"
-                    v-if="words.length > 0"
-                    v-on:click="createPractice()"
-                >
-                    Practice
-                </button>
+                <button class="btn btn-secondary mr-2" v-on:click="$router.back()">Go back</button>
+                <button class="btn btn-success" v-if="words.length > 0" v-on:click="createPractice()">Practice</button>
             </div>
             <div class="clearfix"></div>
         </h1>
         <hr />
         <spinner v-if="loading" />
-        <div class="list-group mb-5" v-if="!loading">
+        <div class="list-group mb-5 shadow" v-if="!loading && words.length > 0">
             <div class="list-group-item" v-for="word in words" :key="word.id">
-                <h5 class="lang-jp">
-                    {{ word.data.foreign }}
-                    {{
-                        word.data.synonym != null
-                            ? `(${word.data.synonym})`
-                            : ''
-                    }}
-                </h5>
+                <h5 class="lang-jp">{{ word.data.foreign }} {{ word.data.synonym != null ? `(${word.data.synonym})` : '' }}</h5>
                 {{ word.data.native }}
             </div>
         </div>
         <div v-if="!loading && words.length == 0">
-            <div class="alert alert-secondary">
+            <div class="text-muted text-center">
                 You currently don't have any {{ $route.params.strength }} words
             </div>
         </div>
@@ -43,12 +25,12 @@
 </template>
 
 <script>
-import Api from '../services/api';
+import Api from '../services/api'
 import Spinner from '../components/Spinner.vue';
 const strengthStrings = {
     weak: 'Weak',
     medium: 'Medium',
-    strong: 'Strong'
+    strong: 'Strong',
 };
 
 export default {
@@ -57,7 +39,7 @@ export default {
     data() {
         return {
             loading: true,
-            words: []
+            words: [],
         };
     },
     methods: {
@@ -67,10 +49,7 @@ export default {
         async createPractice() {
             let strength = this.$route.params.strength;
 
-            await this.$store.dispatch('NewPractice', {
-                target: 'strength',
-                strength: strength
-            });
+            await this.$store.dispatch('NewPractice', { target: 'strength', strength: strength })
             this.$router.push('/practice');
         }
     },
@@ -84,6 +63,6 @@ export default {
         let language = this.$store.getters.Language;
         this.words = (await Api.Words.getByStrength(language, strength)).data;
         this.loading = false;
-    }
+    },
 };
 </script>
