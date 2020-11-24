@@ -4,11 +4,12 @@ import router from './router';
 import store from './store';
 import axios from 'axios';
 import config from './config/kanjiclub.json';
+import appInfo from './config/appinfo.json';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = config.apiUrl;
 
-Vue.prototype.AppInfo = { version: config.appVer };
+Vue.prototype.AppInfo = { version: appInfo.appVer };
 
 Vue.config.productionTip = false;
 
