@@ -1,11 +1,13 @@
 import Api from '@/services/api';
 
 const state = {
-    currentPractice: null
+    currentPractice: null,
+    currentSelection: [],
 };
 
 const getters = {
-    CurrentPractice: state => state.currentPractice
+    CurrentPractice: state => state.currentPractice,
+    SelectedPractices: state => state.currentSelection
 };
 
 const actions = {
@@ -19,6 +21,9 @@ const actions = {
 const mutations = {
     setPractice(state, practice) {
         state.currentPractice = practice;
+    },
+    setPracticeSelection(state, selection) {
+        state.currentSelection = selection;
     }
 };
 

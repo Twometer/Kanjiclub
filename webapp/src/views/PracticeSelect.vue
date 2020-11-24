@@ -80,7 +80,12 @@ export default {
     async mounted() {
         await this.$store.dispatch('GetLessons');
         this.lessons = this.$store.getters.Lessons;
+        this.selected = this.$store.getters.SelectedPractices;
         this.loading = false;
+
+        document.onkeyup = function(e) {
+            if (e.keyCode == 13) this.createPractice();
+        }.bind(this);
     },
     methods: {
         toggleLesson(lessonId) {
@@ -88,6 +93,7 @@ export default {
             if (this.selected.includes(lessonId))
                 this.selected = this.selected.filter(l => l != lessonId);
             else this.selected.push(lessonId);
+            this.$store.commit('setPracticeSelection', this.selected);
         },
         toggleAll() {
             this.error = false;

@@ -200,7 +200,6 @@ export default {
     mounted() {
         this.currentPractice = this.$store.getters.CurrentPractice;
         this.next();
-
         document.onkeyup = function(e) {
             if (e.keyCode == 13) this.checkOrNext();
         }.bind(this);
@@ -218,7 +217,7 @@ export default {
         splitIntoCleanWords(input) {
             return input
                 .replace(/ *\([^)]*\) */g, '') // Drop everything in parentheses
-                .replace(/[.?!,_-]/g, '') // Drop everything non-alphanumeric
+                .replace(/[.?!,_\-'":´`]/g, '') // Drop punctuation
                 .split(/[\s]+/)
                 .map(w => w.trim())
                 .filter(w => w.length > 0);
@@ -226,7 +225,6 @@ export default {
         fuzzyMatches(input, solution) {
             let wordsIn = this.splitIntoCleanWords(input);
             let wordsRef = this.splitIntoCleanWords(solution);
-            // console.log(wordsIn, wordsRef);
             if (wordsIn.length != wordsRef.length) return false;
             for (let i = 0; i < wordsIn.length; i++) {
                 if (wordsIn[i] != wordsRef[i]) return false;
@@ -238,15 +236,18 @@ export default {
             if (this.expects == NATIVE) solution = this.currentWord.data.native;
             else solution = this.currentWord.data.foreign;
 
+            input = input.trim();
+            solution = solution.trim();
+
             if (this.$store.getters.User.settings.ignoreCase) {
                 input = input.toLowerCase();
                 solution = solution.toLowerCase();
             }
 
-            let possibilities = [];
-            possibilities = possibilities.concat(
-                this.splitPossibilities(solution)
-            );
+            if (input == solution)
+                return true;
+
+            let possibilities = this.splitPossibilities(solution);
 
             if (this.expects == FOREIGN) {
                 possibilities = possibilities.concat(
@@ -257,8 +258,8 @@ export default {
             return possibilities.some(s => this.fuzzyMatches(input, s));
         },
         checkOrNext() {
-            if (this.complete) return;
-            if (this.showsResults) this.next();
+            if (this.complete) this.exit();
+            else if (this.showsResults) this.next();
             else this.check();
         },
         check() {
