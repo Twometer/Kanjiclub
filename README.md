@@ -8,7 +8,7 @@ Check out the app at [kanjiclub.tk](https://kanjiclub.tk)
 
 ## Host it yourself
 
-To host Kanjiclub yourself, you have to follow the setup instructions in both the `backend` and `frontend` directories.
+To host Kanjiclub yourself, you have to follow the setup instructions in both the `backend` and `webapp` directories.
 
 The generated frontend files can be hosted with NGINX or any other web server.
 
