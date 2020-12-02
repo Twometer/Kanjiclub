@@ -219,22 +219,28 @@ export default {
                 return [solution];
             }
         },
-        splitIntoCleanWords(input) {
+        cleanInput(input) {
             return input
-                .replace(/ *\([^)]*\) */g, '') // Drop everything in parentheses
-                .replace(/[.?!,_\-'":´`]/g, '') // Drop punctuation
-                .split(/[\s]+/)
-                .map((w) => w.trim())
-                .filter((w) => w.length > 0);
+                .replace(/[.?!,_\-'":´`;]/g, '') // Drop punctuation
+                .split(/[\s]+/) // Split to words
+                .map((w) => w.trim()) // Trim
+                .filter((w) => w.length > 0) // Remove empty words
+                .join(' '); // Join back together
         },
         fuzzyMatches(input, solution) {
-            let wordsIn = this.splitIntoCleanWords(input);
-            let wordsRef = this.splitIntoCleanWords(solution);
-            if (wordsIn.length != wordsRef.length) return false;
-            for (let i = 0; i < wordsIn.length; i++) {
-                if (wordsIn[i] != wordsRef[i]) return false;
-            }
-            return true;
+            let cleanIn = this.cleanInput(input);
+
+            // It's correct, if it matches
+            // 1. literally or
+            let cleanRef = this.cleanInput(solution);
+            
+            // 2. matches everything without the optionals or
+            let cleanRefNoOpt = cleanRef.replace(/ *\([^)]*\) */g, '')
+
+            // 3. matches everything without the parentheses
+            let cleanRefNoParen = cleanRef.replace(/[()]*/g, '')
+
+            return cleanIn == cleanRef || cleanIn == cleanRefNoParen || cleanIn == cleanRefNoOpt;
         },
         isCorrect(input) {
             let solution = null;
