@@ -2,7 +2,7 @@ import Api from '@/services/api';
 
 const state = {
     currentPractice: null,
-    currentSelection: [],
+    currentSelection: []
 };
 
 const getters = {

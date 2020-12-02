@@ -51,7 +51,7 @@
                     <h2
                         :class="{
                             'text-danger': isWrong,
-                            'text-success': !isWrong,
+                            'text-success': !isWrong
                         }"
                     >
                         {{ isWrong ? 'Wrong' : 'Correct' }}
@@ -173,11 +173,11 @@ export default {
             isWrong: false,
             showsResults: true,
             expects: NATIVE,
-            complete: false,
+            complete: false
         };
     },
     components: {
-        Button,
+        Button
     },
     computed: {
         hasPractice() {
@@ -194,18 +194,18 @@ export default {
             return null;
         },
         correctWords() {
-            return this.currentPractice.filter((w) => !w.ref && w.attempts == 0)
+            return this.currentPractice.filter(w => !w.ref && w.attempts == 0)
                 .length;
         },
         wrongWords() {
-            return this.currentPractice.filter((w) => !w.ref && w.attempts > 0)
+            return this.currentPractice.filter(w => !w.ref && w.attempts > 0)
                 .length;
-        },
+        }
     },
     mounted() {
         this.currentPractice = this.$store.getters.CurrentPractice;
         this.next();
-        document.onkeyup = function (e) {
+        document.onkeyup = function(e) {
             if (e.keyCode == 13) this.checkOrNext();
         }.bind(this);
     },
@@ -223,8 +223,8 @@ export default {
             return input
                 .replace(/[.?!,_\-'":´`;]/g, '') // Drop punctuation
                 .split(/[\s]+/) // Split to words
-                .map((w) => w.trim()) // Trim
-                .filter((w) => w.length > 0) // Remove empty words
+                .map(w => w.trim()) // Trim
+                .filter(w => w.length > 0) // Remove empty words
                 .join(' '); // Join back together
         },
         fuzzyMatches(input, solution) {
@@ -233,14 +233,18 @@ export default {
             // It's correct, if it matches
             // 1. literally or
             let cleanRef = this.cleanInput(solution);
-            
+
             // 2. matches everything without the optionals or
-            let cleanRefNoOpt = cleanRef.replace(/ *\([^)]*\) */g, '')
+            let cleanRefNoOpt = cleanRef.replace(/ *\([^)]*\) */g, '');
 
             // 3. matches everything without the parentheses
-            let cleanRefNoParen = cleanRef.replace(/[()]*/g, '')
+            let cleanRefNoParen = cleanRef.replace(/[()]*/g, '');
 
-            return cleanIn == cleanRef || cleanIn == cleanRefNoParen || cleanIn == cleanRefNoOpt;
+            return (
+                cleanIn == cleanRef ||
+                cleanIn == cleanRefNoParen ||
+                cleanIn == cleanRefNoOpt
+            );
         },
         isCorrect(input) {
             let solution = null;
@@ -265,13 +269,15 @@ export default {
                 );
             }
 
-            return possibilities.some((s) => this.fuzzyMatches(input, s));
+            return possibilities.some(s => this.fuzzyMatches(input, s));
         },
         forceCorrect() {
             this.isWrong = false;
             this.currentWord.attempts = 0;
             soundCorrect.play();
-            this.currentPractice = this.currentPractice.filter(w => w.ref == null || w.ref !== this.currentIndex - 1);
+            this.currentPractice = this.currentPractice.filter(
+                w => w.ref == null || w.ref !== this.currentIndex - 1
+            );
             this.next();
         },
         checkOrNext() {
@@ -295,10 +301,10 @@ export default {
                 `practice/${this.$store.getters.Language}/complete`,
                 {
                     results: this.currentPractice
-                        .filter((w) => w.ref == undefined)
-                        .map((w) => {
+                        .filter(w => w.ref == undefined)
+                        .map(w => {
                             return { wordId: w.id, attempts: w.attempts };
-                        }),
+                        })
                 }
             );
             this.$store.commit('setPractice', null);
@@ -363,8 +369,8 @@ export default {
             Vue.nextTick().then(() => {
                 document.getElementById('vocabInput').focus();
             });
-        },
-    },
+        }
+    }
 };
 </script>
 
