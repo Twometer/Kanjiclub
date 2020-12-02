@@ -51,7 +51,7 @@
                     <h2
                         :class="{
                             'text-danger': isWrong,
-                            'text-success': !isWrong
+                            'text-success': !isWrong,
                         }"
                     >
                         {{ isWrong ? 'Wrong' : 'Correct' }}
@@ -84,7 +84,12 @@
                     </table>
 
                     <Button
-                        class="btn-success d-block w-100 mt-auto"
+                        class="btn-secondary d-block w-100 mt-auto"
+                        text="This was correct"
+                        v-on:click="forceCorrect"
+                    />
+                    <Button
+                        class="btn-success d-block w-100 mt-2"
                         text="Next"
                         v-on:click="next"
                     />
@@ -105,13 +110,13 @@
                     </div>
 
                     <Button
-                        class="btn-secondary d-block w-100 mt-2"
+                        class="btn-secondary d-block w-100 mt-auto"
                         text="I don't know"
                         v-on:click="dontKnow"
                         :disabled="showsResults"
                     />
                     <Button
-                        class="btn-success d-block w-100 mt-3"
+                        class="btn-success d-block w-100 mt-2"
                         text="Check"
                         v-on:click="check"
                         :disabled="showsResults"
@@ -168,11 +173,11 @@ export default {
             isWrong: false,
             showsResults: true,
             expects: NATIVE,
-            complete: false
+            complete: false,
         };
     },
     components: {
-        Button
+        Button,
     },
     computed: {
         hasPractice() {
@@ -189,18 +194,18 @@ export default {
             return null;
         },
         correctWords() {
-            return this.currentPractice.filter(w => !w.ref && w.attempts == 0)
+            return this.currentPractice.filter((w) => !w.ref && w.attempts == 0)
                 .length;
         },
         wrongWords() {
-            return this.currentPractice.filter(w => !w.ref && w.attempts > 0)
+            return this.currentPractice.filter((w) => !w.ref && w.attempts > 0)
                 .length;
-        }
+        },
     },
     mounted() {
         this.currentPractice = this.$store.getters.CurrentPractice;
         this.next();
-        document.onkeyup = function(e) {
+        document.onkeyup = function (e) {
             if (e.keyCode == 13) this.checkOrNext();
         }.bind(this);
     },
@@ -219,8 +224,8 @@ export default {
                 .replace(/ *\([^)]*\) */g, '') // Drop everything in parentheses
                 .replace(/[.?!,_\-'":´`]/g, '') // Drop punctuation
                 .split(/[\s]+/)
-                .map(w => w.trim())
-                .filter(w => w.length > 0);
+                .map((w) => w.trim())
+                .filter((w) => w.length > 0);
         },
         fuzzyMatches(input, solution) {
             let wordsIn = this.splitIntoCleanWords(input);
@@ -244,8 +249,7 @@ export default {
                 solution = solution.toLowerCase();
             }
 
-            if (input == solution)
-                return true;
+            if (input == solution) return true;
 
             let possibilities = this.splitPossibilities(solution);
 
@@ -255,7 +259,14 @@ export default {
                 );
             }
 
-            return possibilities.some(s => this.fuzzyMatches(input, s));
+            return possibilities.some((s) => this.fuzzyMatches(input, s));
+        },
+        forceCorrect() {
+            this.isWrong = false;
+            this.currentWord.attempts = 0;
+            soundCorrect.play();
+            this.currentPractice = this.currentPractice.filter(w => w.ref == null || w.ref !== this.currentIndex - 1);
+            this.next();
         },
         checkOrNext() {
             if (this.complete) this.exit();
@@ -278,10 +289,10 @@ export default {
                 `practice/${this.$store.getters.Language}/complete`,
                 {
                     results: this.currentPractice
-                        .filter(w => w.ref == undefined)
-                        .map(w => {
+                        .filter((w) => w.ref == undefined)
+                        .map((w) => {
                             return { wordId: w.id, attempts: w.attempts };
-                        })
+                        }),
                 }
             );
             this.$store.commit('setPractice', null);
@@ -346,8 +357,8 @@ export default {
             Vue.nextTick().then(() => {
                 document.getElementById('vocabInput').focus();
             });
-        }
-    }
+        },
+    },
 };
 </script>
 
