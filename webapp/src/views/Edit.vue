@@ -3,7 +3,13 @@
         <h1>
             {{ lessonName }}
             <div class="float-right">
-                <button class="btn btn-dark btn-sm mr-2">Rename</button>
+                <button
+                    class="btn btn-dark btn-sm mr-2"
+                    data-toggle="modal"
+                    data-target="#lessonNameModal"
+                >
+                    Rename
+                </button>
                 <button
                     class="btn btn-danger btn-sm"
                     data-toggle="modal"
@@ -162,6 +168,52 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="lessonNameModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Rename lesson</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input
+                                id="lessonName"
+                                class="form-control"
+                                type="text"
+                                placeholder="Enter new name"
+                                v-model="newLessonName"
+                            />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                            v-on:click="clearNewName()"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-success"
+                            data-dismiss="modal"
+                            v-on:click="renameLesson()"
+                        >
+                            Rename
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -200,7 +252,8 @@ export default {
             loading: true,
             words: [],
             currentWord: makeEmptyWord(),
-            currentWordItem: null
+            currentWordItem: null,
+            newLessonName: ''
         };
     },
     computed: {
@@ -233,6 +286,7 @@ export default {
         document.onkeyup = function(e) {
             if (e.keyCode == 13 && this.canAdd) this.addOrUpdate();
         }.bind(this);
+        this.clearNewName();
     },
     methods: {
         selectWord(word) {
@@ -241,6 +295,20 @@ export default {
         },
         deselect() {
             this.currentWord = makeEmptyWord();
+        },
+        clearNewName() {
+            this.newLessonName = this.lessonName;
+        },
+        async renameLesson() {
+            let id = this.$route.params.lessonId;
+            await Api.Lessons.rename(
+                this.$route.params.lessonId,
+                this.newLessonName
+            );
+
+            for (let lesson of this.$store.getters.Lessons)
+                if (lesson.id == id) lesson.name = this.newLessonName;
+            this.clearNewName();
         },
         async addOrUpdate() {
             if (this.isEditing) {

@@ -17,6 +17,9 @@ export default {
         },
         delete(id) {
             return axios.delete(`lessons/${id}`);
+        },
+        rename(id, newName) {
+            return axios.put(`lessons/${id}`, { name: newName });
         }
     },
 
