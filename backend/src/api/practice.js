@@ -24,11 +24,11 @@ module.exports = (app, db) => {
 
         let wordAge = getWordAge(word);
 
-        // If the word is older than 50% of the 
-        // current word set, then there's a 10%
+        // If the word is newer than 50% of the 
+        // current word set, then there's a 40%
         // chance another word will be selected
         // instead
-        if (wordAge < 0.5 && Math.random() <= 0.1) {
+        if (wordAge > 0.5 && Math.random() <= 0.4) {
             return pickRandomWord(words);
         }
 
