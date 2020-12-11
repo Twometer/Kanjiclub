@@ -3,15 +3,23 @@
 Words are identified using their randomly generated word id
 
 ## Get words
-To get all words in a lesson, omit `strength`, and to get all words with a specific strength, omit `lesson`.
+Gets a list of words from your account
 ```
-GET /api/words?lang={languageCode}&strength={wordStrength}&lesson={lessonId}
+GET /api/words
 ```
 ```json
 {
 	"words": [ WordInfo ]
 }
 ```
+
+This endpoint has multiple query parameters to filter the returned words:
+
+ - `lang`: Filter by language code
+ - `strength`: Filter by word strength. May be `weak`, `medium`, `strong`
+ - `lesson`:  Filter by lesson id.
+ - `query`: Search in the contents of the word (any one of the four content fields)
+ 
 
 ## Create word
 ```

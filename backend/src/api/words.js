@@ -2,6 +2,10 @@ const utils = require('../util/utils.js');
 const { v4: uuidv4 } = require('uuid');
 const strength = require('../util/strength');
 
+function escapeRegex(string) {
+    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
 module.exports = (app, db) => {
 
     app.get("/api/words", (req, res, next) => {
@@ -10,11 +14,32 @@ module.exports = (app, db) => {
         }
 
         const query = req.query;
-        if (!query.lang || (query.strength && query.lesson) || (!query.strength && !query.lesson)) {
-            return res.status(400).send();
+
+        let dbQuery = {
+            account: req.session.accountId
+        };
+
+        if (query.lang) dbQuery.language = query.lang;
+        if (query.strength) dbQuery.strength = strength[query.strength];
+        if (query.lesson) dbQuery.lesson = query.lesson;
+
+        if (query.query) {
+            let searchString = query.query.trim();
+            if (searchString.length > 0) {
+                var queryObj = {
+                    $regex: escapeRegex(searchString),
+                    $options: 'i'
+                };
+                dbQuery.$or = [{ "data.foreign": queryObj }, { "data.synonym": queryObj }, { "data.native": queryObj }, { "data.comment": queryObj }];
+            }
         }
 
-        function dbCallback(err, words) {
+        db.Word.find(dbQuery, (err, words) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send();
+            }
+
             const response = words.map(w => {
                 return {
                     id: w._id,
@@ -27,11 +52,7 @@ module.exports = (app, db) => {
             })
 
             return res.json(response);
-        }
-        if (query.strength)
-            db.Word.find({ account: req.session.accountId, language: query.lang, strength: strength[query.strength] }, dbCallback)
-        else if (query.lesson)
-            db.Word.find({ account: req.session.accountId, language: query.lang, lesson: query.lesson }, dbCallback)
+        });
     })
 
     app.post("/api/words/new", (req, res, next) => {
