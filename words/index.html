@@ -387,13 +387,20 @@
                 <h1 id="words-api">Words API</h1>
 <p>Words are identified using their randomly generated word id</p>
 <h2 id="get-words">Get words</h2>
-<p>To get all words in a lesson, omit <code>strength</code>, and to get all words with a specific strength, omit <code>lesson</code>.</p>
-<pre><code>GET /api/words?lang={languageCode}&amp;strength={wordStrength}&amp;lesson={lessonId}
+<p>Gets a list of words from your account</p>
+<pre><code>GET /api/words
 </code></pre>
 <pre><code class="language-json">{
     &quot;words&quot;: [ WordInfo ]
 }
 </code></pre>
+<p>This endpoint has multiple query parameters to filter the returned words:</p>
+<ul>
+<li><code>lang</code>: Filter by language code</li>
+<li><code>strength</code>: Filter by word strength. May be <code>weak</code>, <code>medium</code>, <code>strong</code></li>
+<li><code>lesson</code>:  Filter by lesson id.</li>
+<li><code>query</code>: Search in the contents of the word (any one of the four content fields)</li>
+</ul>
 <h2 id="create-word">Create word</h2>
 <pre><code>POST /api/words/new
 </code></pre>
