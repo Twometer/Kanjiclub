@@ -78,6 +78,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    // Unbind keyboard handlers from previous page
+    document.onkeyup = null;
     if (to.matched.some(record => record.meta.unauthorizedOnly)) {
         // This route is only accessible while not logged in
 
