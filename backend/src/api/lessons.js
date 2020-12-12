@@ -117,7 +117,7 @@ module.exports = (app, db) => {
 
         let extension = filename.substr(filename.lastIndexOf('.') + 1);
         let lessonName = filename.substr(0, filename.length - extension.length - 1);
-
+        
         let result = await importers.import(extension, lessonName, dataUri);
         if (result == null)
             return res.status(422).send();
