@@ -21,43 +21,35 @@
         </h1>
         <hr />
         <spinner v-if="loading" />
-        <div class="list-group mb-5 shadow" v-if="!loading && words.length > 0">
-            <div class="list-group-item" v-for="word in words" :key="word.id">
-                <h5 class="lang-jp">
-                    {{ word.data.foreign }}
-                    {{
-                        word.data.synonym != null
-                            ? `(${word.data.synonym})`
-                            : ''
-                    }}
-                </h5>
-                {{ word.data.native }}
-            </div>
-        </div>
-        <div v-if="!loading && words.length == 0">
-            <div class="text-muted text-center">
-                You currently don't have any {{ $route.params.strength }} words
-            </div>
-        </div>
+        <word-list
+            v-if="!loading"
+            :emptyText="
+                'You currently don\'t have any ' +
+                $route.params.strength +
+                ' words'
+            "
+            :words="words"
+        />
     </div>
 </template>
 
 <script>
 import Api from '../services/api';
 import Spinner from '../components/Spinner.vue';
+import WordList from '../components/WordList.vue';
 const strengthStrings = {
     weak: 'Weak',
     medium: 'Medium',
-    strong: 'Strong'
+    strong: 'Strong',
 };
 
 export default {
-    components: { Spinner },
+    components: { Spinner, WordList },
     name: 'Dashboard',
     data() {
         return {
             loading: true,
-            words: []
+            words: [],
         };
     },
     methods: {
@@ -69,10 +61,10 @@ export default {
 
             await this.$store.dispatch('NewPractice', {
                 target: 'strength',
-                strength: strength
+                strength: strength,
             });
             this.$router.push('/practice');
-        }
+        },
     },
     async mounted() {
         let strength = this.$route.params.strength;
@@ -84,6 +76,6 @@ export default {
         let language = this.$store.getters.Language;
         this.words = (await Api.Words.getByStrength(language, strength)).data;
         this.loading = false;
-    }
+    },
 };
 </script>
