@@ -159,7 +159,7 @@ export default {
                             file.state = UploadState.InvalidFormat;
                             break;
                         default:
-                            file.state = UploadState.Error;
+                            file.state = UploadState.UnknownError;
                     }
                     isFail = true;
                 }

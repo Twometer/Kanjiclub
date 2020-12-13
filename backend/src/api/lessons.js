@@ -118,8 +118,14 @@ module.exports = (app, db) => {
         let extension = filename.substr(filename.lastIndexOf('.') + 1);
         let lessonName = filename.substr(0, filename.length - extension.length - 1);
         
-        let result = await importers.import(extension, lessonName, dataUri);
-        if (result == null)
+        let result;
+        try {
+            result = await importers.import(extension, lessonName, dataUri);
+        } catch (e) {
+            console.error(e);
+            return res.status(500).send();
+        }
+        if (result == null || result.length == 0)
             return res.status(422).send();
 
         let lessonId;
@@ -141,7 +147,10 @@ module.exports = (app, db) => {
         });
 
         db.Word.collection.insertMany(wordObjects, (err, docs) => {
-            if (err) return res.status(500).send();
+            if (err) {
+                console.error(err);
+                return res.status(500).send();
+            }
             else return res.status(200).send();
         })       
     })
