@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: "EmptyMessage",
+    name: 'EmptyMessage',
     props: {
         main: Boolean,
         empty: Boolean,
@@ -19,5 +19,5 @@ export default {
         emptyText: String,
         noResultsText: String
     }
-}
+};
 </script>

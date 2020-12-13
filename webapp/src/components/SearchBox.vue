@@ -45,5 +45,5 @@ export default {
         value: String,
         disabled: Boolean
     }
-}
+};
 </script>

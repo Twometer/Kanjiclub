@@ -49,10 +49,10 @@ export default {
             return user == null ? '' : user.username;
         },
         language() {
-            let languages = this.$store.getters.UserLanguages;           
-            return languages
-                .filter(l => l.code == this.$store.getters.Language)[0]
-                .name;
+            let languages = this.$store.getters.UserLanguages;
+            return languages.filter(
+                l => l.code == this.$store.getters.Language
+            )[0].name;
         }
     },
     components: {

@@ -31,7 +31,7 @@ export default {
     name: 'WordList',
     props: {
         emptyText: String,
-        words: Array,
+        words: Array
     },
     methods: {
         resolveLessonId(lessonId) {
@@ -39,8 +39,8 @@ export default {
             for (let lesson of lessons)
                 if (lesson.id == lessonId) return lesson.name;
             return '';
-        },
-    },
+        }
+    }
 };
 </script>
 

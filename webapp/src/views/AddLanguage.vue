@@ -62,8 +62,6 @@
         </ul>
 
         <spinner v-if="loading" />
-
-
     </div>
 </template>
 
@@ -87,17 +85,17 @@ export default {
             loading: true,
             error: false,
             languages: {},
-            query: '',
+            query: ''
         };
     },
     computed: {
         filteredLanguages() {
             var userLanguages = this.$store.getters.UserLanguages;
             return Object.keys(this.languages)
-                .map((k) => {
+                .map(k => {
                     return { code: k, name: this.languages[k] };
                 })
-                .filter((lang) => {
+                .filter(lang => {
                     if (userLanguages != null)
                         for (let existingLanguage of userLanguages)
                             if (existingLanguage.code == lang.code)
@@ -109,11 +107,11 @@ export default {
                             .indexOf(this.query.toLowerCase()) != -1
                     );
                 });
-        },
+        }
     },
     components: {
         Spinner,
-        EmptyMessage,
+        EmptyMessage
     },
     async mounted() {
         this.languages = (await Api.Languages.getSupported()).data;
@@ -137,7 +135,7 @@ export default {
                 this.loading = false;
                 this.error = true;
             }
-        },
-    },
+        }
+    }
 };
 </script>

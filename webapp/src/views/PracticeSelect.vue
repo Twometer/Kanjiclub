@@ -64,7 +64,7 @@ export default {
             lessons: [],
             selected: [],
             error: false,
-            query: '',
+            query: ''
         };
     },
     computed: {
@@ -78,12 +78,12 @@ export default {
             return this.selected.length;
         },
         filteredLessons() {
-            return this.lessons.filter((l) => {
+            return this.lessons.filter(l => {
                 return (
                     l.name.toLowerCase().indexOf(this.query.toLowerCase()) != -1
                 );
             });
-        },
+        }
     },
     components: {
         Spinner,
@@ -97,7 +97,7 @@ export default {
         this.selected = this.$store.getters.SelectedPractices;
         this.loading = false;
 
-        document.onkeyup = function (e) {
+        document.onkeyup = function(e) {
             if (e.keyCode == 13) this.createPractice();
         }.bind(this);
     },
@@ -108,14 +108,14 @@ export default {
         toggleLesson(lessonId) {
             this.error = false;
             if (this.selected.includes(lessonId))
-                this.selected = this.selected.filter((l) => l != lessonId);
+                this.selected = this.selected.filter(l => l != lessonId);
             else this.selected.push(lessonId);
             this.saveSelection();
         },
         toggleAll() {
             this.error = false;
             if (this.allSelected) this.selected = [];
-            else this.selected = this.lessons.map((l) => l.id);
+            else this.selected = this.lessons.map(l => l.id);
             this.saveSelection();
         },
         async createPractice() {
@@ -125,7 +125,7 @@ export default {
             try {
                 await this.$store.dispatch('NewPractice', {
                     target: 'lesson',
-                    lessons: this.selected,
+                    lessons: this.selected
                 });
                 this.$router.push('/practice');
             } catch (e) {
@@ -133,8 +133,8 @@ export default {
                     this.error = true;
                 }
             }
-        },
-    },
+        }
+    }
 };
 </script>
 

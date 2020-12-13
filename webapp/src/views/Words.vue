@@ -25,8 +25,8 @@
             v-if="!loading"
             :emptyText="
                 'You currently don\'t have any ' +
-                $route.params.strength +
-                ' words'
+                    $route.params.strength +
+                    ' words'
             "
             :words="words"
         />
@@ -40,7 +40,7 @@ import WordList from '../components/WordList.vue';
 const strengthStrings = {
     weak: 'Weak',
     medium: 'Medium',
-    strong: 'Strong',
+    strong: 'Strong'
 };
 
 export default {
@@ -49,7 +49,7 @@ export default {
     data() {
         return {
             loading: true,
-            words: [],
+            words: []
         };
     },
     methods: {
@@ -61,10 +61,10 @@ export default {
 
             await this.$store.dispatch('NewPractice', {
                 target: 'strength',
-                strength: strength,
+                strength: strength
             });
             this.$router.push('/practice');
-        },
+        }
     },
     async mounted() {
         let strength = this.$route.params.strength;
@@ -76,6 +76,6 @@ export default {
         let language = this.$store.getters.Language;
         this.words = (await Api.Words.getByStrength(language, strength)).data;
         this.loading = false;
-    },
+    }
 };
 </script>

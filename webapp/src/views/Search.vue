@@ -41,7 +41,7 @@ export default {
             loading: false,
             searchStarted: false,
             results: [],
-            query: '',
+            query: ''
         };
     },
     components: { SearchBox, Spinner, EmptyMessage, WordList, Button },
@@ -49,10 +49,10 @@ export default {
     computed: {
         maySearch() {
             return this.query.trim().length > 1;
-        },
+        }
     },
     mounted() {
-        document.onkeyup = function (e) {
+        document.onkeyup = function(e) {
             if (e.keyCode == 13 && this.maySearch) this.runSearch();
         }.bind(this);
     },
@@ -64,7 +64,7 @@ export default {
             let response = await Api.Words.search(language, this.query);
             this.results = response.data;
             this.loading = false;
-        },
-    },
+        }
+    }
 };
 </script>
