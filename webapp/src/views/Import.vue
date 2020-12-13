@@ -8,10 +8,13 @@
         </p>
 
         <div class="alert alert-secondary">
-            <strong class="mb-3">Supported formats</strong>
+            <div class="d-flex w-100 justify-content-between">
+                <strong>Supported formats</strong>
+                <a class="text-primary" href="https://twometer.github.io/Kanjiclub/adding-vocabulary/#2-custom-text-data" target="_blank" rel="noopener">Need help?</a>
+            </div>
             <ul class="mb-1">
-                <li>Plain text (*.txt)</li>
-                <li>Comma separated (*.csv)</li>
+                <li>Plain text with template (*.txt)</li>
+                <!-- <li>Comma separated (*.csv)</li> -->
                 <li>Vocup (*.vhf)</li>
                 <li>ebVocab (*.vocab)</li>
             </ul>
@@ -80,7 +83,7 @@ const UploadState = {
     Completed: 2,
     AlreadyExists: 3,
     InvalidFormat: 4,
-    UnknownError: 5
+    UnknownError: 5,
 };
 
 const StateStrings = [
@@ -89,7 +92,7 @@ const StateStrings = [
     'Completed',
     'Lesson exists',
     'Unknown format',
-    'Failed'
+    'Failed',
 ];
 
 function readFile(file) {
@@ -97,7 +100,7 @@ function readFile(file) {
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
+        reader.onerror = (error) => reject(error);
     });
 }
 
@@ -108,7 +111,7 @@ export default {
             files: [],
             loading: false,
             error: false,
-            success: false
+            success: false,
         };
     },
     methods: {
@@ -119,7 +122,7 @@ export default {
                 this.files.push({
                     name: file.name,
                     state: UploadState.NotUploaded,
-                    obj: file
+                    obj: file,
                 });
             }
         },
@@ -167,7 +170,7 @@ export default {
             let data = await readFile(file);
             let lang = this.$store.getters.Language;
             await Api.Lessons.import(file.name, lang, data);
-        }
-    }
+        },
+    },
 };
 </script>
