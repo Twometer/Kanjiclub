@@ -88,17 +88,21 @@ export default {
         }.bind(this);
     },
     methods: {
+        saveSelection() {
+            this.$store.commit('setPracticeSelection', this.selected);
+        },
         toggleLesson(lessonId) {
             this.error = false;
             if (this.selected.includes(lessonId))
                 this.selected = this.selected.filter(l => l != lessonId);
             else this.selected.push(lessonId);
-            this.$store.commit('setPracticeSelection', this.selected);
+            this.saveSelection();
         },
         toggleAll() {
             this.error = false;
             if (this.allSelected) this.selected = [];
             else this.selected = this.lessons.map(l => l.id);
+            this.saveSelection();
         },
         async createPractice() {
             this.error = false;
