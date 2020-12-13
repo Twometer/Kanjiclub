@@ -15,10 +15,11 @@
             </button>
         </p>
         <div v-if="!loading">
+            <search-box v-model="query" />
             <div class="list-group shadow">
                 <router-link
                     class="list-group-item list-group-item-action"
-                    v-for="lesson in lessons"
+                    v-for="lesson in filteredLessons"
                     :key="lesson.name"
                     :to="{ name: 'Edit', params: { lessonId: lesson.id } }"
                 >
@@ -28,12 +29,13 @@
         </div>
         <Spinner v-if="loading" />
 
-        <div
-            class="text-muted text-center"
-            v-if="lessons.length == 0 && !loading"
-        >
-            You currently don't have any lessons
-        </div>
+        <empty-message
+            :main="!loading"
+            :empty="lessons.length == 0"
+            :noResults="lessons.length != 0 && filteredLessons.length == 0"
+            emptyText="You currently don't have any lessons"
+            noResultsText="No search results"
+        />
 
         <div
             class="modal fade"
@@ -95,6 +97,8 @@
 <script>
 import Spinner from '@/components/Spinner.vue';
 import Api from '../services/api';
+import SearchBox from '../components/SearchBox.vue';
+import EmptyMessage from '../components/EmptyMessage.vue';
 
 export default {
     name: 'EditSelect',
@@ -102,11 +106,23 @@ export default {
         return {
             loading: true,
             lessons: [],
-            lessonName: ''
+            lessonName: '',
+            query: '',
         };
     },
     components: {
-        Spinner
+        Spinner,
+        SearchBox,
+        EmptyMessage,
+    },
+    computed: {
+        filteredLessons() {
+            return this.lessons.filter((l) => {
+                return (
+                    l.name.toLowerCase().indexOf(this.query.toLowerCase()) != -1
+                );
+            });
+        },
     },
     methods: {
         clearLessonInput() {
@@ -128,11 +144,11 @@ export default {
             await this.$store.dispatch('GetLessons');
             this.lessons = this.$store.getters.Lessons;
             this.loading = false;
-        }
+        },
     },
     async mounted() {
         await this.reload();
-    }
+    },
 };
 </script>
 

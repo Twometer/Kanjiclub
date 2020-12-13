@@ -25,17 +25,12 @@
                 />
             </div>
         </div>
-        <div
-            class="text-muted text-center"
-            v-if="lessons.length == 0 && !loading"
-        >
-            You currently don't have any lessons
-        </div>
         <div v-if="!loading">
+            <search-box v-model="query" />
             <ul class="list-group shadow">
                 <li
                     class="list-group-item list-group-item-action"
-                    v-for="lesson in lessons"
+                    v-for="lesson in filteredLessons"
                     :key="lesson.name"
                     :class="{ active: selected.includes(lesson.id) }"
                     v-on:click="toggleLesson(lesson.id)"
@@ -45,12 +40,21 @@
             </ul>
         </div>
         <Spinner v-if="loading" />
+        <empty-message
+            :main="!loading"
+            :empty="lessons.length == 0"
+            :noResults="lessons.length != 0 && filteredLessons.length == 0"
+            emptyText="You currently don't have any lessons"
+            noResultsText="No search results"
+        />
     </div>
 </template>
 
 <script>
 import Spinner from '@/components/Spinner.vue';
 import Button from '@/components/Button.vue';
+import SearchBox from '../components/SearchBox.vue';
+import EmptyMessage from '../components/EmptyMessage.vue';
 
 export default {
     name: 'PracticeSelect',
@@ -59,7 +63,8 @@ export default {
             loading: true,
             lessons: [],
             selected: [],
-            error: false
+            error: false,
+            query: '',
         };
     },
     computed: {
@@ -71,11 +76,20 @@ export default {
         },
         anySelected() {
             return this.selected.length;
-        }
+        },
+        filteredLessons() {
+            return this.lessons.filter((l) => {
+                return (
+                    l.name.toLowerCase().indexOf(this.query.toLowerCase()) != -1
+                );
+            });
+        },
     },
     components: {
         Spinner,
-        Button
+        Button,
+        SearchBox,
+        EmptyMessage
     },
     async mounted() {
         await this.$store.dispatch('GetLessons');
@@ -83,7 +97,7 @@ export default {
         this.selected = this.$store.getters.SelectedPractices;
         this.loading = false;
 
-        document.onkeyup = function(e) {
+        document.onkeyup = function (e) {
             if (e.keyCode == 13) this.createPractice();
         }.bind(this);
     },
@@ -94,14 +108,14 @@ export default {
         toggleLesson(lessonId) {
             this.error = false;
             if (this.selected.includes(lessonId))
-                this.selected = this.selected.filter(l => l != lessonId);
+                this.selected = this.selected.filter((l) => l != lessonId);
             else this.selected.push(lessonId);
             this.saveSelection();
         },
         toggleAll() {
             this.error = false;
             if (this.allSelected) this.selected = [];
-            else this.selected = this.lessons.map(l => l.id);
+            else this.selected = this.lessons.map((l) => l.id);
             this.saveSelection();
         },
         async createPractice() {
@@ -111,7 +125,7 @@ export default {
             try {
                 await this.$store.dispatch('NewPractice', {
                     target: 'lesson',
-                    lessons: this.selected
+                    lessons: this.selected,
                 });
                 this.$router.push('/practice');
             } catch (e) {
@@ -119,8 +133,8 @@ export default {
                     this.error = true;
                 }
             }
-        }
-    }
+        },
+    },
 };
 </script>
 
