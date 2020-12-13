@@ -9,19 +9,19 @@
       
       
       
-      <link rel="shortcut icon" href="/img/favicon.ico">
+      <link rel="shortcut icon" href="../../img/favicon.ico">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
     
     
       
-        <title>Kanjiclub</title>
+        <title>Lessons API - Kanjiclub</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.21aed14c.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
         
       
     
@@ -56,6 +56,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#lessons-api" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -65,9 +70,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="/." title="Kanjiclub" class="md-header-nav__button md-logo" aria-label="Kanjiclub">
+    <a href="../.." title="Kanjiclub" class="md-header-nav__button md-logo" aria-label="Kanjiclub">
       
-  <img src="/img/logo.png" alt="logo">
+  <img src="../../img/logo.png" alt="logo">
 
     </a>
     <label class="md-header-nav__button md-icon" for="__drawer">
@@ -81,7 +86,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              
+              Lessons API
             
           </span>
         </div>
@@ -138,9 +143,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Kanjiclub" class="md-nav__button md-logo" aria-label="Kanjiclub">
+    <a href="../.." title="Kanjiclub" class="md-nav__button md-logo" aria-label="Kanjiclub">
       
-  <img src="/img/logo.png" alt="logo">
+  <img src="../../img/logo.png" alt="logo">
 
     </a>
     Kanjiclub
@@ -154,7 +159,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/." class="md-nav__link">
+    <a href="../.." class="md-nav__link">
       Overview
     </a>
   </li>
@@ -166,7 +171,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/adding-vocabulary/" class="md-nav__link">
+    <a href="../../adding-vocabulary/" class="md-nav__link">
       Adding vocabulary
     </a>
   </li>
@@ -178,7 +183,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/practicing/" class="md-nav__link">
+    <a href="../../practicing/" class="md-nav__link">
       Practicing
     </a>
   </li>
@@ -188,10 +193,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     <label class="md-nav__link" for="nav-4">
       API
       <span class="md-nav__icon md-icon"></span>
@@ -210,7 +217,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/API/about/" class="md-nav__link">
+    <a href="../about/" class="md-nav__link">
       About the Web API
     </a>
   </li>
@@ -222,7 +229,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/API/accounts/" class="md-nav__link">
+    <a href="../accounts/" class="md-nav__link">
       Accounts API
     </a>
   </li>
@@ -234,7 +241,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/API/languages/" class="md-nav__link">
+    <a href="../languages/" class="md-nav__link">
       Languages API
     </a>
   </li>
@@ -244,11 +251,77 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="/API/lessons/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Lessons API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Lessons API
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#get-lessons" class="md-nav__link">
+    Get lessons
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-lesson" class="md-nav__link">
+    Create lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-lesson" class="md-nav__link">
+    Edit lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-lesson" class="md-nav__link">
+    Delete lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-vocabulary" class="md-nav__link">
+    Import vocabulary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -258,7 +331,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/API/objects/" class="md-nav__link">
+    <a href="../objects/" class="md-nav__link">
       API objects
     </a>
   </li>
@@ -270,7 +343,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/API/practice/" class="md-nav__link">
+    <a href="../practice/" class="md-nav__link">
       Practice API
     </a>
   </li>
@@ -282,7 +355,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/API/stats/" class="md-nav__link">
+    <a href="../stats/" class="md-nav__link">
       Stats API
     </a>
   </li>
@@ -294,7 +367,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/API/words/" class="md-nav__link">
+    <a href="../words/" class="md-nav__link">
       Words API
     </a>
   </li>
@@ -331,7 +404,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/developing/database/" class="md-nav__link">
+    <a href="../../developing/database/" class="md-nav__link">
       Database
     </a>
   </li>
@@ -349,12 +422,113 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#get-lessons" class="md-nav__link">
+    Get lessons
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-lesson" class="md-nav__link">
+    Create lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-lesson" class="md-nav__link">
+    Edit lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-lesson" class="md-nav__link">
+    Delete lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-vocabulary" class="md-nav__link">
+    Import vocabulary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
-
+                
+                
+                <h1 id="lessons-api">Lessons API</h1>
+<p>Lessons are identified across languages using the UUID generated by the server. A lesson always belongs to a language.</p>
+<h2 id="get-lessons">Get lessons</h2>
+<pre><code>GET /api/lessons?lang={languageCode}
+</code></pre>
+<pre><code class="language-json">{
+    &quot;lessons&quot;: [ LessonInfo ]
+}
+</code></pre>
+<h2 id="create-lesson">Create lesson</h2>
+<pre><code>POST /api/lessons/new
+</code></pre>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;&quot;,
+    &quot;language&quot;: &quot;languageCode&quot;
+}
+</code></pre>
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;&quot;
+}
+</code></pre>
+<h2 id="edit-lesson">Edit lesson</h2>
+<pre><code>PUT /api/lessons/{lessonId}
+</code></pre>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;&quot;,
+    &quot;language&quot;: &quot;newLanguageCode&quot;
+}
+</code></pre>
+<h2 id="delete-lesson">Delete lesson</h2>
+<pre><code>DELETE /api/lessons/{lessonId}
+</code></pre>
+<h2 id="import-vocabulary">Import vocabulary</h2>
+<pre><code>POST /api/lessons/import
+</code></pre>
+<pre><code class="language-json">{
+    &quot;filename&quot;: &quot;&quot;,
+    &quot;language&quot;: &quot;languageCode&quot;,
+    &quot;content&quot;: &quot;&lt;dataUri&gt;&quot;
+}
+</code></pre>
+                
+              
               
                 
 
@@ -367,6 +541,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../languages/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Languages API
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../objects/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                API objects
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -384,15 +593,15 @@
       
     </div>
     
-      <script src="/assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="/assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.7e0ee788.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
-          base: "/",
+          base: "../..",
           features: [],
           search: Object.assign({
-            worker: "/assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
