@@ -32,14 +32,14 @@ const routes = [
         component: () => import('../views/EditSelect.vue')
     },
     {
+        path: '/edit/import',
+        name: 'Import',
+        component: () => import('../views/Import.vue')
+    },
+    {
         path: '/edit/:lessonId',
         name: 'Edit',
         component: () => import('../views/Edit.vue')
-    },
-    {
-        path: '/import',
-        name: 'Import',
-        component: () => import('../views/Import.vue')
     },
     {
         path: '/language',
@@ -50,6 +50,11 @@ const routes = [
         path: '/settings',
         name: 'Settings',
         component: () => import('../views/Settings.vue')
+    },
+    {
+        path: '/search',
+        name: 'Search',
+        component: () => import('../views/Search.vue')
     },
     {
         path: '/login',

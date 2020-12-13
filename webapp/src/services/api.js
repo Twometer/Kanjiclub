@@ -46,6 +46,11 @@ export default {
                 params: { lang: lang, strength: strength }
             });
         },
+        search(lang, query) {
+            return axios.get('words', {
+                params: { lang: lang, query: query }
+            });
+        },
         create(lessonId, data) {
             return axios.post('words/new', {
                 lesson: lessonId,

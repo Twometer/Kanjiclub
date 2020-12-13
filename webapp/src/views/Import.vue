@@ -42,7 +42,7 @@
                 </div>
             </div>
             <button
-                class="btn btn-success ml-3"
+                class="btn btn-primary ml-3"
                 type="submit"
                 :disabled="loading"
                 :class="{ disabled: loading }"

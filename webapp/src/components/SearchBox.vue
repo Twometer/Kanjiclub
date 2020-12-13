@@ -1,5 +1,5 @@
 <template>
-    <div class="input-group mb-4 shadow">
+    <div class="input-group mb-4 shadow rounded">
         <div class="input-group-prepend">
             <span class="input-group-text">
                 <svg
@@ -28,6 +28,7 @@
             autocomplete="off"
             :value="value"
             v-on:input="updateValue($event.target.value)"
+            :disabled="disabled"
         />
     </div>
 </template>
@@ -41,7 +42,8 @@ export default {
         }
     },
     props: {
-        value: String
+        value: String,
+        disabled: Boolean
     }
 }
 </script>

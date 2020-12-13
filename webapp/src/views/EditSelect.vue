@@ -2,18 +2,23 @@
     <div class="edit-select">
         <h1>Edit</h1>
         <hr />
-        <p class="lead clearfix">
+        <div class="lead clearfix mb-3">
             <span class="d-inline-block pt-1"
                 >Select lesson you want to edit</span
             >
-            <button
-                class="btn btn-success float-right"
-                data-toggle="modal"
-                data-target="#lessonNameModal"
-            >
-                New lesson
-            </button>
-        </p>
+            <div class="d-inline-block float-right">
+                <router-link class="btn btn-secondary mr-3" to="import"
+                    >Import</router-link
+                >
+                <button
+                    class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#lessonNameModal"
+                >
+                    New lesson
+                </button>
+            </div>
+        </div>
         <div v-if="!loading">
             <search-box v-model="query" />
             <div class="list-group shadow">

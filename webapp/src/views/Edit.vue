@@ -4,7 +4,7 @@
             {{ lessonName }}
             <div class="float-right">
                 <button
-                    class="btn btn-dark btn-sm mr-2"
+                    class="btn btn-secondary btn-sm mr-2"
                     data-toggle="modal"
                     data-target="#lessonNameModal"
                 >
