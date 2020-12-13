@@ -38,7 +38,13 @@
         <div class="alert alert-danger" v-if="error">
             Could not create language. Please try again later.
         </div>
-
+        <empty-message
+            :main="!loading"
+            :empty="false"
+            :noResults="filteredLanguages.length == 0"
+            emptyText=""
+            noResultsText="No search results"
+        />
         <ul class="list-group shadow mb-5 select-panel" v-if="!loading">
             <li
                 class="list-group-item list-group-item-action"
@@ -56,6 +62,8 @@
         </ul>
 
         <spinner v-if="loading" />
+
+
     </div>
 </template>
 
@@ -70,6 +78,7 @@
 import Api from '@/services/api';
 import Spinner from '../components/Spinner.vue';
 import * as flags from '@/config/flags.json';
+import EmptyMessage from '../components/EmptyMessage.vue';
 
 export default {
     name: 'AddLanguage',
@@ -78,17 +87,17 @@ export default {
             loading: true,
             error: false,
             languages: {},
-            query: ''
+            query: '',
         };
     },
     computed: {
         filteredLanguages() {
             var userLanguages = this.$store.getters.UserLanguages;
             return Object.keys(this.languages)
-                .map(k => {
+                .map((k) => {
                     return { code: k, name: this.languages[k] };
                 })
-                .filter(lang => {
+                .filter((lang) => {
                     if (userLanguages != null)
                         for (let existingLanguage of userLanguages)
                             if (existingLanguage.code == lang.code)
@@ -100,10 +109,11 @@ export default {
                             .indexOf(this.query.toLowerCase()) != -1
                     );
                 });
-        }
+        },
     },
     components: {
-        Spinner
+        Spinner,
+        EmptyMessage,
     },
     async mounted() {
         this.languages = (await Api.Languages.getSupported()).data;
@@ -127,7 +137,7 @@ export default {
                 this.loading = false;
                 this.error = true;
             }
-        }
-    }
+        },
+    },
 };
 </script>
