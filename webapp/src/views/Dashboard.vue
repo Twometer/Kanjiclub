@@ -5,8 +5,11 @@
 
         <div v-if="!loading" class="shadow-lg p-3 bg-white mt-5 rounded">
             <div class="card-body">
-                <h2>Welcome back, {{ username }}</h2>
-                You are on a {{ stats.streak }} day streak!
+                <h2 class="mb-2">Welcome back, {{ username }}</h2>
+                <p class="lead mb-0">
+                    Continue learning <strong>{{ language }}</strong> today!
+                </p>
+                <!--You are on a {{ stats.streak }} day streak! -->
             </div>
         </div>
 
@@ -44,6 +47,12 @@ export default {
         username: function() {
             let user = this.$store.getters.User;
             return user == null ? '' : user.username;
+        },
+        language() {
+            let languages = this.$store.getters.UserLanguages;           
+            return languages
+                .filter(l => l.code == this.$store.getters.Language)[0]
+                .name;
         }
     },
     components: {
