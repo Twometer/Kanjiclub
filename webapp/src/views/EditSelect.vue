@@ -135,10 +135,13 @@ export default {
         },
 
         async createLesson() {
+            if (this.lessonName.trim() == '')
+                return;
+
             this.loading = true;
 
             let lang = this.$store.getters.Language;
-            await Api.Lessons.create(this.lessonName, lang);
+            await Api.Lessons.create(this.lessonName.trim(), lang);
             await this.reload();
 
             this.loading = false;
