@@ -29,6 +29,9 @@
                         <router-link class="nav-link" to="/edit/select"
                             >Edit</router-link
                         >
+                        <router-link class="nav-link" to="/note/select"
+                            >Notes</router-link
+                        >
                         <router-link class="nav-link" to="/search"
                             >Search</router-link
                         >
@@ -61,7 +64,7 @@ export default {
         async handleLogout() {
             await this.LogOut();
             this.$router.push('/login');
-        }
+        },
     },
     async mounted() {
         if (!this.$store.getters.LoggedIn) return;
@@ -76,7 +79,7 @@ export default {
                 console.warn('Unknown failure while getting user info');
             }
         }
-    }
+    },
 };
 </script>
 
