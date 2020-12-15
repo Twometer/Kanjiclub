@@ -1,8 +1,8 @@
 # Practicing
-Kanjiclub uses a custom spaced-repetition like algorithm to help you learn new vocabulary faster, and keep it in memory
+Kanjiclub uses an algorithm similar to spaced-repetition systems to help you learn new vocabulary faster, and keep it in memory
 for longer.
 
-Simply select the lessons you want to practice from the `Practice` menu:
+To start, simply select the lessons you want to practice from the `Practice` menu:
 
 ![Lesson list](img/practice.png)
 
