@@ -30,7 +30,7 @@ POST /api/notes/new
 
 ```json
 {
-	"name": "",
+	"title": "",
 	"language": "languageCode"
 }
 ```
@@ -47,7 +47,7 @@ PUT /api/notes/{noteId}
 
 ```json
 {
-	"name": "",
+	"title": "",
 	"content": ""
 }
 ```

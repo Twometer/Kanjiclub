@@ -48,6 +48,16 @@ exports.Word = mongoose.model('Word', {
     }
 })
 
+exports.Note = mongoose.model('Note', {
+    _id: String,
+    account: String,
+    language: String,
+    createdOn: { type: Date, default: Date.now },
+    lastModified: { type: Date, default: Date.now },
+    title: String,
+    content: String
+})
+
 exports.connect = (url) => {
     mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
         .then(() => console.log("Connected to MongoDB"));
