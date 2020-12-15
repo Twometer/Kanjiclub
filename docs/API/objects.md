@@ -29,6 +29,17 @@
 }
 ```
 
+## `NoteInfo`
+```json
+{
+    "id": "",
+    "language": "",
+	"createdOn": "",
+	"lastModified": "",
+    "title": ""
+}
+```
+
 ## `WordStrength`
 - weak
 - medium

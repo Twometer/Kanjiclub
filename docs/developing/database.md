@@ -41,7 +41,7 @@
     "account": Account.id,
     "language": "",
     "lesson": Lesson.id,
-    "createdOn": "",
+    "createdOn": Date,
     "strength": "weak",
     "stats": {
         "lastPracticed": Date,
@@ -54,5 +54,18 @@
         "native": "",
         "comment": ""
     }
+}
+```
+
+## Notes
+```json
+{
+    "_id": "",
+    "account": Account.id,
+    "language": "",
+    "createdOn": Date,
+    "lastModified": Date,
+    "title": "",
+    "content": ""
 }
 ```
