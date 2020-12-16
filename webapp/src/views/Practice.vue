@@ -51,80 +51,90 @@
                     <h2
                         :class="{
                             'text-danger': isWrong,
-                            'text-success': !isWrong
+                            'text-success': !isWrong,
                         }"
                     >
                         {{ isWrong ? 'Wrong' : 'Correct' }}
+                        <div class="float-right">
+                            <Button
+                                v-if="isWrong"
+                                class="btn-danger w-100"
+                                text="This was correct"
+                                v-on:click="forceCorrect"
+                            />
+                        </div>
                     </h2>
                     <table>
                         <tr v-if="currentInput">
                             <td class="text-muted pb-2">Answer</td>
-                            <td class="pb-2">{{ currentInput }}</td>
+                            <td class="pb-2 vocab-font">{{ currentInput }}</td>
                         </tr>
                         <tr v-if="currentWord.data.foreign">
                             <td class="text-muted">Foreign</td>
-                            <td class="lang-jp">
+                            <td class="vocab-font">
                                 {{ currentWord.data.foreign }}
                             </td>
                         </tr>
                         <tr v-if="currentWord.data.synonym">
                             <td class="text-muted">Synonyms</td>
-                            <td class="lang-jp">
+                            <td class="vocab-font">
                                 {{ currentWord.data.synonym }}
                             </td>
                         </tr>
                         <tr v-if="currentWord.data.gender">
                             <td class="text-muted">Gender</td>
-                            <td>{{ currentWord.data.gender }}</td>
+                            <td class="vocab-font">
+                                {{ currentWord.data.gender }}
+                            </td>
                         </tr>
                         <tr v-if="currentWord.data.native">
                             <td class="text-muted">Native</td>
-                            <td>{{ currentWord.data.native }}</td>
+                            <td class="vocab-font">
+                                {{ currentWord.data.native }}
+                            </td>
                         </tr>
                         <tr v-if="currentWord.data.comment">
                             <td class="text-muted">Comment</td>
-                            <td>{{ currentWord.data.comment }}</td>
+                            <td class="vocab-font">
+                                {{ currentWord.data.comment }}
+                            </td>
                         </tr>
                     </table>
 
-                    <Button
-                        class="btn-secondary d-block w-100 mt-auto"
-                        text="This was correct"
-                        v-on:click="forceCorrect"
-                    />
-                    <Button
-                        class="btn-success d-block w-100 mt-2"
-                        text="Next"
-                        v-on:click="next"
-                    />
+                    <div class="mt-auto">
+                        <Button
+                            class="btn-success w-100"
+                            text="Next"
+                            v-on:click="next"
+                        />
+                    </div>
                 </div>
 
-                <div class="card-body" v-if="!showsResults && !complete">
-                    <h2 class="lang-jp text-center">{{ currentPrompt }}</h2>
+                <div class="card-body d-flex flex-column" v-if="!showsResults && !complete">
+                    <h2 class="vocab-font text-center my-auto">{{ currentPrompt }}</h2>
 
                     <div class="input-group">
                         <input
                             type="text"
                             id="vocabInput"
-                            class="form-control my-5 lang-jp mx-lg-5"
+                            class="form-control my-auto vocab-font mx-lg-5"
                             placeholder="Translation"
                             v-model="currentInput"
                             autocomplete="off"
                         />
                     </div>
+                    <div class="my-auto text-center text-muted">
+                        No clue? Leave the field empty
+                    </div>
 
-                    <Button
-                        class="btn-secondary d-block w-100 mt-auto"
-                        text="I don't know"
-                        v-on:click="dontKnow"
-                        :disabled="showsResults"
-                    />
-                    <Button
-                        class="btn-success d-block w-100 mt-2"
-                        text="Check"
-                        v-on:click="check"
-                        :disabled="showsResults"
-                    />
+                    <div class="mt-auto">
+                        <Button
+                            class="btn-success d-block w-100"
+                            text="Check"
+                            v-on:click="check"
+                            :disabled="showsResults"
+                        />
+                    </div>
                 </div>
                 <span class="text-muted" v-if="!complete">
                     Lesson: {{ lesson }}
@@ -177,11 +187,11 @@ export default {
             isWrong: false,
             showsResults: true,
             expects: NATIVE,
-            complete: false
+            complete: false,
         };
     },
     components: {
-        Button
+        Button,
     },
     computed: {
         hasPractice() {
@@ -198,18 +208,18 @@ export default {
             return null;
         },
         correctWords() {
-            return this.currentPractice.filter(w => !w.ref && w.attempts == 0)
+            return this.currentPractice.filter((w) => !w.ref && w.attempts == 0)
                 .length;
         },
         wrongWords() {
-            return this.currentPractice.filter(w => !w.ref && w.attempts > 0)
+            return this.currentPractice.filter((w) => !w.ref && w.attempts > 0)
                 .length;
-        }
+        },
     },
     mounted() {
         this.currentPractice = this.$store.getters.CurrentPractice;
         this.next();
-        document.onkeyup = function(e) {
+        document.onkeyup = function (e) {
             if (e.keyCode == 13) this.checkOrNext();
         }.bind(this);
     },
@@ -227,8 +237,8 @@ export default {
             return input
                 .replace(/[.?!,_\-'":´`;]/g, '') // Drop punctuation
                 .split(/[\s]+/) // Split to words
-                .map(w => w.trim()) // Trim
-                .filter(w => w.length > 0) // Remove empty words
+                .map((w) => w.trim()) // Trim
+                .filter((w) => w.length > 0) // Remove empty words
                 .join(' '); // Join back together
         },
         fuzzyMatches(input, solution) {
@@ -273,14 +283,14 @@ export default {
                 );
             }
 
-            return possibilities.some(s => this.fuzzyMatches(input, s));
+            return possibilities.some((s) => this.fuzzyMatches(input, s));
         },
         forceCorrect() {
             this.isWrong = false;
             if (this.currentWord.attempts > 0) this.currentWord.attempts--;
             soundCorrect.play();
             this.currentPractice = this.currentPractice.filter(
-                w => w.ref == null || w.ref !== this.currentIndex - 1
+                (w) => w.ref == null || w.ref !== this.currentIndex - 1
             );
             this.next();
         },
@@ -305,10 +315,10 @@ export default {
                 `practice/${this.$store.getters.Language}/complete`,
                 {
                     results: this.currentPractice
-                        .filter(w => w.ref == undefined)
-                        .map(w => {
+                        .filter((w) => w.ref == undefined)
+                        .map((w) => {
                             return { wordId: w.id, attempts: w.attempts };
-                        })
+                        }),
                 }
             );
             this.$store.commit('setPractice', null);
@@ -373,8 +383,8 @@ export default {
             Vue.nextTick().then(() => {
                 document.getElementById('vocabInput').focus();
             });
-        }
-    }
+        },
+    },
 };
 </script>
 

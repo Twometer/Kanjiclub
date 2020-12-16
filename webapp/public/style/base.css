@@ -66,7 +66,8 @@ body {
     }
 }
 
-.lang-jp {
+.vocab-font {
+    /* TODO: Customizable */
     font-family: "Noto Sans CJK JP", sans-serif;
 }
 

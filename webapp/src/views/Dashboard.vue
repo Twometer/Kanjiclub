@@ -21,6 +21,10 @@
             v-on:select="showStrengthDetails"
         />
         <Spinner v-if="loading" />
+
+        <div class="text-center text-muted my-5">
+            You can do this!
+        </div>
     </div>
 </template>
 

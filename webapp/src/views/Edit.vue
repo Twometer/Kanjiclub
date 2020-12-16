@@ -45,11 +45,11 @@
                             }"
                             v-on:click="selectWord(word)"
                         >
-                            <td class="lang-jp">{{ word.data.foreign }}</td>
-                            <td class="lang-jp">{{ word.data.synonym }}</td>
-                            <td class="lang-jp">{{ word.data.gender }}</td>
-                            <td class="lang-jp">{{ word.data.native }}</td>
-                            <td class="lang-jp">{{ word.data.comment }}</td>
+                            <td class="vocab-font">{{ word.data.foreign }}</td>
+                            <td class="vocab-font">{{ word.data.synonym }}</td>
+                            <td class="vocab-font">{{ word.data.gender }}</td>
+                            <td class="vocab-font">{{ word.data.native }}</td>
+                            <td class="vocab-font">{{ word.data.comment }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -84,7 +84,7 @@
             <div class="input-group mb-3">
                 <input
                     type="text"
-                    class="form-control lang-jp"
+                    class="form-control vocab-font"
                     placeholder="Foreign"
                     ref="foreignInput"
                     v-model="currentWord.data.foreign"
@@ -93,7 +93,7 @@
             <div class="input-group mb-3">
                 <input
                     type="text"
-                    class="form-control lang-jp"
+                    class="form-control vocab-font"
                     placeholder="Synonyms"
                     v-model="currentWord.data.synonym"
                 />
@@ -101,7 +101,7 @@
             <div class="input-group mb-3">
                 <input
                     type="text"
-                    class="form-control lang-jp"
+                    class="form-control vocab-font"
                     placeholder="Gender"
                     v-model="currentWord.data.gender"
                 />
@@ -109,14 +109,14 @@
             <div class="input-group mb-3">
                 <input
                     type="text"
-                    class="form-control lang-jp"
+                    class="form-control vocab-font"
                     placeholder="Native"
                     v-model="currentWord.data.native"
                 />
             </div>
             <div class="input-group mb-3">
                 <textarea
-                    class="form-control lang-jp"
+                    class="form-control vocab-font"
                     placeholder="Comment"
                     rows="4"
                     v-model="currentWord.data.comment"

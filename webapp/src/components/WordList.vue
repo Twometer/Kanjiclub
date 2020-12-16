@@ -3,7 +3,7 @@
         <div class="list-group mb-5 shadow" v-if="words.length > 0">
             <div class="list-group-item" v-for="word in words" :key="word.id">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="lang-jp">
+                    <h5 class="vocab-font">
                         {{ word.data.foreign }}
                         {{
                             word.data.synonym != null
