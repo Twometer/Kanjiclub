@@ -2,7 +2,7 @@
     <div class="settings">
         <h1>Settings</h1>
         <hr />
-
+        <p class="lead">Customize your Kanjiclub experience</p>
         <h3 class="mt-5 clearfix">
             Languages
             <router-link to="/language">
@@ -96,18 +96,19 @@
             made by <a href="https://github.com/Twometer/Kanjiclub">Twometer</a>
         </p>
         <p class="text-muted">
-            Icons by
-            <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+            Icons from
+            <a href="https://feathericons.com/" title="Feather">Feather</a>
+            and
+            <a href="https://www.flaticon.com/" title="Flaticon">
+                flaticon.com</a
+            >
+            (<a href="https://www.flaticon.com/authors/freepik" title="Freepik"
                 >Freepik</a
             >
             and
             <a href="https://www.flaticon.com/authors/turkkub" title="turkkub"
                 >turkkub</a
-            >
-            from
-            <a href="https://www.flaticon.com/" title="Flaticon">
-                flaticon.com</a
-            >
+            >)
         </p>
     </div>
 </template>
