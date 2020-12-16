@@ -183,7 +183,7 @@ import {
     Strike,
     Underline,
     History,
-    Placeholder,
+    Placeholder
 } from 'tiptap-extensions';
 
 import {
@@ -195,7 +195,7 @@ import {
     CornerUpLeftIcon,
     CornerUpRightIcon,
     ListIcon,
-    TypeIcon,
+    TypeIcon
 } from 'vue-feather-icons';
 
 var oldContent = '';
@@ -213,7 +213,7 @@ export default {
         CornerUpLeftIcon,
         CornerUpRightIcon,
         ListIcon,
-        TypeIcon,
+        TypeIcon
     },
     data() {
         return {
@@ -240,14 +240,14 @@ export default {
                         emptyNodeClass: 'is-empty',
                         emptyNodeText: 'Write something …',
                         showOnlyWhenEditable: true,
-                        showOnlyCurrent: true,
-                    }),
+                        showOnlyCurrent: true
+                    })
                 ],
                 content: '',
-                editable: false,
+                editable: false
             }),
             editMode: false,
-            saving: false,
+            saving: false
         };
     },
     beforeDestroy() {
@@ -308,10 +308,10 @@ export default {
     watch: {
         editMode() {
             this.editor.setOptions({
-                editable: this.editMode,
+                editable: this.editMode
             });
-        },
-    },
+        }
+    }
 };
 </script>
 

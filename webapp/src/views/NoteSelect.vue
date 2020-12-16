@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import Api from '../services/api'
+import Api from '../services/api';
 import EmptyMessage from '../components/EmptyMessage.vue';
 import SearchBox from '../components/SearchBox.vue';
 import Spinner from '../components/Spinner.vue';
@@ -115,7 +115,12 @@ export default {
     },
     computed: {
         filteredNotes() {
-            return this.notes.filter(note => note.title.toLowerCase().indexOf(this.query.toLowerCase()) != -1);
+            return this.notes.filter(
+                note =>
+                    note.title
+                        .toLowerCase()
+                        .indexOf(this.query.toLowerCase()) != -1
+            );
         }
     },
     methods: {
@@ -140,6 +145,6 @@ export default {
     },
     async mounted() {
         await this.reload();
-    },
+    }
 };
 </script>

@@ -140,7 +140,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Really delete lesson <strong>{{ lessonName }}</strong>?</p>
+                        <p>
+                            Really delete lesson
+                            <strong>{{ lessonName }}</strong
+                            >?
+                        </p>
                         <p>
                             <strong class="text-danger"
                                 >This will delete all words within this lesson
