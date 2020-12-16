@@ -135,8 +135,7 @@ export default {
         },
 
         async createLesson() {
-            if (this.lessonName.trim() == '')
-                return;
+            if (this.lessonName.trim() == '') return;
 
             this.loading = true;
 

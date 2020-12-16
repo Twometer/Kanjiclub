@@ -64,7 +64,7 @@ export default {
         async handleLogout() {
             await this.LogOut();
             this.$router.push('/login');
-        },
+        }
     },
     async mounted() {
         if (!this.$store.getters.LoggedIn) return;
@@ -79,7 +79,7 @@ export default {
                 console.warn('Unknown failure while getting user info');
             }
         }
-    },
+    }
 };
 </script>
 

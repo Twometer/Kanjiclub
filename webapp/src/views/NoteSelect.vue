@@ -18,7 +18,7 @@
         <!-- List of notes -->
         <div v-if="!loading">
             <search-box v-model="query" />
-             <div class="list-group shadow">
+            <div class="list-group shadow">
                 <router-link
                     class="list-group-item list-group-item-action"
                     v-for="note in filteredNotes"
@@ -114,7 +114,7 @@ export default {
     computed: {
         filteredNotes() {
             return [];
-        },
+        }
     },
     methods: {
         clearNoteName() {
@@ -124,7 +124,7 @@ export default {
         createNote() {
             console.log('Creating note', this.noteName);
             this.clearNoteName();
-        },
-    },
+        }
+    }
 };
 </script>

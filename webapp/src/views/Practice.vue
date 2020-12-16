@@ -63,11 +63,15 @@
                         </tr>
                         <tr v-if="currentWord.data.foreign">
                             <td class="text-muted">Foreign</td>
-                            <td>{{ currentWord.data.foreign }}</td>
+                            <td class="lang-jp">
+                                {{ currentWord.data.foreign }}
+                            </td>
                         </tr>
                         <tr v-if="currentWord.data.synonym">
                             <td class="text-muted">Synonyms</td>
-                            <td>{{ currentWord.data.synonym }}</td>
+                            <td class="lang-jp">
+                                {{ currentWord.data.synonym }}
+                            </td>
                         </tr>
                         <tr v-if="currentWord.data.gender">
                             <td class="text-muted">Gender</td>
@@ -273,7 +277,7 @@ export default {
         },
         forceCorrect() {
             this.isWrong = false;
-            this.currentWord.attempts = 0;
+            if (this.currentWord.attempts > 0) this.currentWord.attempts--;
             soundCorrect.play();
             this.currentPractice = this.currentPractice.filter(
                 w => w.ref == null || w.ref !== this.currentIndex - 1
