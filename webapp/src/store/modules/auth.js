@@ -6,7 +6,7 @@ const state = {
 
 const getters = {
     User: state => state.user,
-    Language: state => state.user.settings.currentLanguage,
+    Language: state => state.user.settings != null ? state.user.settings.currentLanguage : null,
     LoggedIn: state => state.user != null
 };
 
