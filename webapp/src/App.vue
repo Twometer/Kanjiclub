@@ -40,7 +40,11 @@
                         <router-link class="nav-link" to="/settings"
                             >Settings</router-link
                         >
-                        <a class="nav-link" href="#" v-on:click="handleLogout"
+                        <a
+                            class="nav-link"
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#deleteModal"
                             >Log out</a
                         >
                     </nav>
@@ -48,6 +52,44 @@
 
                 <div class="col-md-8 col-lg-9">
                     <router-view />
+                </div>
+            </div>
+        </div>
+
+        <div id="deleteModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Log out?</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you really want to log out?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            data-dismiss="modal"
+                            v-on:click="handleLogout"
+                        >
+                            Log out
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
