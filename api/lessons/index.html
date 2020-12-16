@@ -14,7 +14,7 @@
     
     
       
-        <title>Languages API - Kanjiclub</title>
+        <title>Lessons API - Kanjiclub</title>
       
     
     
@@ -57,7 +57,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#languages-api" class="md-skip">
+        <a href="#lessons-api" class="md-skip">
           Skip to content
         </a>
       
@@ -86,7 +86,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Languages API
+              Lessons API
             
           </span>
         </div>
@@ -200,13 +200,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     <label class="md-nav__link" for="nav-4">
-      API
+      Api
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="API" data-md-level="1">
+    <nav class="md-nav" aria-label="Api" data-md-level="1">
       <label class="md-nav__title" for="nav-4">
         <span class="md-nav__icon md-icon"></span>
-        API
+        Api
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -239,6 +239,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../languages/" class="md-nav__link">
+      Languages API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -250,12 +262,12 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Languages API
+        Lessons API
         <span class="md-nav__icon md-icon"></span>
       </label>
     
     <a href="./" class="md-nav__link md-nav__link--active">
-      Languages API
+      Lessons API
     </a>
     
       
@@ -272,22 +284,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#add-new-language" class="md-nav__link">
-    Add new language
+  <a href="#get-lessons" class="md-nav__link">
+    Get lessons
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-list-of-the-users-languages" class="md-nav__link">
-    Get list of the users languages
+  <a href="#create-lesson" class="md-nav__link">
+    Create lesson
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-list-of-all-supported-languages" class="md-nav__link">
-    Get list of all supported languages
+  <a href="#edit-lesson" class="md-nav__link">
+    Edit lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-lesson" class="md-nav__link">
+    Delete lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-vocabulary" class="md-nav__link">
+    Import vocabulary
   </a>
   
 </li>
@@ -296,18 +322,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../lessons/" class="md-nav__link">
-      Lessons API
-    </a>
   </li>
 
         
@@ -385,13 +399,13 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     <label class="md-nav__link" for="nav-5">
-      Developing
+      Developers
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="Developing" data-md-level="1">
+    <nav class="md-nav" aria-label="Developers" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
         <span class="md-nav__icon md-icon"></span>
-        Developing
+        Developers
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -402,7 +416,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../developing/database/" class="md-nav__link">
+    <a href="../../developers/database/" class="md-nav__link">
       Database
     </a>
   </li>
@@ -437,22 +451,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#add-new-language" class="md-nav__link">
-    Add new language
+  <a href="#get-lessons" class="md-nav__link">
+    Get lessons
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-list-of-the-users-languages" class="md-nav__link">
-    Get list of the users languages
+  <a href="#create-lesson" class="md-nav__link">
+    Create lesson
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-list-of-all-supported-languages" class="md-nav__link">
-    Get list of all supported languages
+  <a href="#edit-lesson" class="md-nav__link">
+    Edit lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-lesson" class="md-nav__link">
+    Delete lesson
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-vocabulary" class="md-nav__link">
+    Import vocabulary
   </a>
   
 </li>
@@ -470,33 +498,46 @@
               
                 
                 
-                <h1 id="languages-api">Languages API</h1>
-<p>Languages are identified by their language code, which is a 2-letter ISO code (<code>ISO-639-1</code>)</p>
-<h2 id="add-new-language">Add new language</h2>
-<pre><code>POST /api/languages/new
+                <h1 id="lessons-api">Lessons API</h1>
+<p>Lessons are identified across languages using the UUID generated by the server. A lesson always belongs to a language.</p>
+<h2 id="get-lessons">Get lessons</h2>
+<pre><code>GET /api/lessons?lang={languageCode}
 </code></pre>
 <pre><code class="language-json">{
-    &quot;languageCode&quot;: &quot;&quot;
+    &quot;lessons&quot;: [ LessonInfo ]
 }
 </code></pre>
-<h2 id="get-list-of-the-users-languages">Get list of the users languages</h2>
-<pre><code>GET /api/languages
+<h2 id="create-lesson">Create lesson</h2>
+<pre><code>POST /api/lessons/new
 </code></pre>
-<pre><code class="language-json">[ 
-    {
-        &quot;code&quot;: &quot;languageCode&quot;,
-        &quot;name&quot;: &quot;languageName&quot;
-    }
-]
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;&quot;,
+    &quot;language&quot;: &quot;languageCode&quot;
+}
 </code></pre>
-<h2 id="get-list-of-all-supported-languages">Get list of all supported languages</h2>
-<pre><code>GET /api/languages/all
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;&quot;
+}
 </code></pre>
-<pre><code class="language-json">[
-    {
-        &quot;&lt;code&gt;&quot;: &quot;&lt;name&gt;&quot;
-    }
-]
+<h2 id="edit-lesson">Edit lesson</h2>
+<pre><code>PUT /api/lessons/{lessonId}
+</code></pre>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;&quot;,
+    &quot;language&quot;: &quot;newLanguageCode&quot;
+}
+</code></pre>
+<h2 id="delete-lesson">Delete lesson</h2>
+<pre><code>DELETE /api/lessons/{lessonId}
+</code></pre>
+<h2 id="import-vocabulary">Import vocabulary</h2>
+<pre><code>POST /api/lessons/import
+</code></pre>
+<pre><code class="language-json">{
+    &quot;filename&quot;: &quot;&quot;,
+    &quot;language&quot;: &quot;languageCode&quot;,
+    &quot;content&quot;: &quot;&lt;dataUri&gt;&quot;
+}
 </code></pre>
                 
               
@@ -516,7 +557,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../accounts/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../languages/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -525,19 +566,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Accounts API
+                Languages API
               </div>
             </div>
           </a>
         
         
-          <a href="../lessons/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../notes/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Lessons API
+                Notes API
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
