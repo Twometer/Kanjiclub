@@ -72,6 +72,7 @@
                                 type="text"
                                 placeholder="Name"
                                 v-model="lessonName"
+                                maxlength="30"
                             />
                         </div>
                     </div>
@@ -112,22 +113,22 @@ export default {
             loading: true,
             lessons: [],
             lessonName: '',
-            query: ''
+            query: '',
         };
     },
     components: {
         Spinner,
         SearchBox,
-        EmptyMessage
+        EmptyMessage,
     },
     computed: {
         filteredLessons() {
-            return this.lessons.filter(l => {
+            return this.lessons.filter((l) => {
                 return (
                     l.name.toLowerCase().indexOf(this.query.toLowerCase()) != -1
                 );
             });
-        }
+        },
     },
     methods: {
         clearLessonInput() {
@@ -151,11 +152,11 @@ export default {
             await this.$store.dispatch('GetLessons');
             this.lessons = this.$store.getters.Lessons;
             this.loading = false;
-        }
+        },
     },
     async mounted() {
         await this.reload();
-    }
+    },
 };
 </script>
 

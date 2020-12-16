@@ -10,7 +10,10 @@
   "dependencies": {
     "axios": "^0.21.0",
     "core-js": "^3.8.1",
+    "tiptap": "^1.30.0",
+    "tiptap-extensions": "^1.33.2",
     "vue": "^2.6.11",
+    "vue-feather-icons": "^5.1.0",
     "vue-router": "^3.2.0",
     "vuex": "^3.6.0",
     "vuex-persistedstate": "^4.0.0-beta.1"

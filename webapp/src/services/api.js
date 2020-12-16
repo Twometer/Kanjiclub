@@ -23,6 +23,24 @@ export default {
         }
     },
 
+    Notes: {
+        getByLanguage(lang) {
+            return axios.get('notes', { params: { lang: lang } });
+        },
+        getById(id) {
+            return axios.get(`notes/${id}`);
+        },
+        create(title, lang) {
+            return axios.post('notes/new', { title: title, language: lang });
+        },
+        edit(id, title, content) {
+            return axios.put(`notes/${id}`, { title: title, content: content });
+        },
+        delete(id) {
+            return axios.delete(`notes/${id}`);
+        }
+    },
+
     Languages: {
         get() {
             return axios.get('languages');

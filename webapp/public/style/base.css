@@ -29,6 +29,7 @@ body {
     margin: 10px;
     width: 64px;
     height: 64px;
+    user-select: none;
 }
 
 .mobile-nav {

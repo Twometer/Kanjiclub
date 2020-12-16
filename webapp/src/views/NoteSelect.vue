@@ -70,6 +70,7 @@
                                 type="text"
                                 placeholder="Name"
                                 v-model="noteName"
+                                maxlength="30"
                             />
                         </div>
                     </div>
@@ -98,6 +99,7 @@
 </template>
 
 <script>
+import Api from '../services/api'
 import EmptyMessage from '../components/EmptyMessage.vue';
 import SearchBox from '../components/SearchBox.vue';
 import Spinner from '../components/Spinner.vue';
@@ -105,7 +107,7 @@ export default {
     components: { EmptyMessage, Spinner, SearchBox },
     data() {
         return {
-            loading: false,
+            loading: true,
             noteName: '',
             notes: [],
             query: ''
@@ -113,7 +115,7 @@ export default {
     },
     computed: {
         filteredNotes() {
-            return [];
+            return this.notes.filter(note => note.title.toLowerCase().indexOf(this.query.toLowerCase()) != -1);
         }
     },
     methods: {
@@ -121,10 +123,23 @@ export default {
             this.noteName = '';
         },
 
-        createNote() {
+        async reload() {
+            this.loading = true;
+            let language = this.$store.getters.Language;
+            this.notes = (await Api.Notes.getByLanguage(language)).data;
+            this.loading = false;
+        },
+
+        async createNote() {
             console.log('Creating note', this.noteName);
+            let language = this.$store.getters.Language;
+            await Api.Notes.create(this.noteName, language);
+            await this.reload();
             this.clearNoteName();
         }
-    }
+    },
+    async mounted() {
+        await this.reload();
+    },
 };
 </script>

@@ -4,18 +4,18 @@
             {{ lessonName }}
             <div class="float-right">
                 <button
-                    class="btn btn-secondary btn-sm mr-2"
-                    data-toggle="modal"
-                    data-target="#lessonNameModal"
-                >
-                    Rename
-                </button>
-                <button
-                    class="btn btn-danger btn-sm"
+                    class="btn btn-danger btn-sm mr-2"
                     data-toggle="modal"
                     data-target="#deleteModal"
                 >
                     Delete
+                </button>
+                <button
+                    class="btn btn-primary btn-sm"
+                    data-toggle="modal"
+                    data-target="#lessonNameModal"
+                >
+                    Rename
                 </button>
             </div>
             <div class="clearfix"></div>
@@ -140,7 +140,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Really delete lesson {{ lessonName }}?</p>
+                        <p>Really delete lesson <strong>{{ lessonName }}</strong>?</p>
                         <p>
                             <strong class="text-danger"
                                 >This will delete all words within this lesson
@@ -190,6 +190,7 @@
                                 type="text"
                                 placeholder="Enter new name"
                                 v-model="newLessonName"
+                                maxlength="30"
                             />
                         </div>
                     </div>
