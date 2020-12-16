@@ -26,3 +26,4 @@ A generic response is an HTTP response without a body. The status of the reply s
 - `/api/lessons`
 - `/api/words`
 - `/api/practice`
+- `/api/notes`
