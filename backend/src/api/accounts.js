@@ -63,7 +63,7 @@ module.exports = (app, db) => {
                         cookieRememberMe(req.session.cookie);
                     }
 
-                    account.stats.lastLogin = Date.now()
+                    account.stats.lastLogin = new Date()
                     account.save()
 
                     return res.status(200).send();
