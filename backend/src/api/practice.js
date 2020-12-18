@@ -54,7 +54,6 @@ module.exports = (app, db) => {
         let now = Date.now();
         let maxAge = now - oldestWord.stats.lastPracticed.getTime();
         let age = now - word.stats.lastPracticed.getTime();
-
         return Math.min(age / maxAge, 1.0)
     }
 
@@ -65,11 +64,14 @@ module.exports = (app, db) => {
         let absoluteWordAge = getAbsoluteWordAge(word);
         let relativeWordAge = getRelativeWordAge(word, oldestWord);
 
+        //console.log(word.data.foreign, absoluteWordAge, relativeWordAge);
+        //console.log(oldestWord);
+
         // If the word is newer than 50% of the 
         // current word set, then there's a 50%
         // chance another word will be selected
         // instead
-        if (relativeWordAge > 0.5 && Math.random() > 0.5) {
+        if (relativeWordAge < 0.5 && Math.random() > 0.5) {
             return pickRandomWord(words, oldestWord);
         }
 
