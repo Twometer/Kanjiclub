@@ -47,8 +47,12 @@ module.exports = (app, db) => {
         return now - word.stats.lastPracticed.getTime();
     }
 
+    /* 
+     * determines the relative word age in the set 
+     * where 1.0 is the oldest and 0.0 the newest
+     */
     function getRelativeWordAge(word, oldestWord) {
-        if (word.stats.lastPracticed == null || oldestWord.stats.lastPracticed == null)
+        if (word.stats.lastPracticed == null)
             return 1.0;
 
         let now = Date.now();
@@ -71,7 +75,7 @@ module.exports = (app, db) => {
         // current word set, then there's a 50%
         // chance another word will be selected
         // instead
-        if (relativeWordAge < 0.5 && Math.random() > 0.5) {
+        if (relativeWordAge < 0.5 && Math.random() < 0.5) {
             return pickRandomWord(words, oldestWord);
         }
 
@@ -85,6 +89,7 @@ module.exports = (app, db) => {
         return { idx: idx, word: word }
     }
 
+    /* picks random words from inWords that are not in the exclude list */
     function pickUniqueRandomWord(inWords, exclude, oldestWord) {
         let tries = 0;
 
@@ -92,7 +97,7 @@ module.exports = (app, db) => {
         do {
             randomWordItem = pickRandomWord(inWords, oldestWord);
 
-            if (tries++ > 50)
+            if (tries++ > 50) // avoid infinite loops
                 break;
         } while (exclude.some(w => w._id == randomWordItem.word._id));
 
@@ -100,42 +105,51 @@ module.exports = (app, db) => {
     }
 
     function populateRandomly(inWords, outWords, oldestWord) {
+        // While we still have words in the input buffer
+        // and we have not reached our practice size, add
+        // new words
         while (inWords.length > 0 && outWords.length < practiceSize) {
             let randomWordItem = pickUniqueRandomWord(inWords, outWords, oldestWord);
             if (randomWordItem == null)
                 return;
 
+            // Remove from input buffer
             inWords.splice(randomWordItem.idx, 1);
+
+            // Add to output buffer
             outWords.push(randomWordItem.word);
         }
     }
 
     function generatePractice(words) {
-        // Group by strength:
+        // Setup word groups
         let maxStrength = Object.keys(strength).length;
-
         let candidateWords = [];
         for (let i = 0; i < maxStrength; i++)
             candidateWords.push([]);
 
+        // Preprocess words
         let oldestWord = words[0];
         for (let word of words) {
+
+            // Find oldest word
             if (word.stats.lastPracticed) {
                 let lastPracticed = word.stats.lastPracticed.getTime();
-                if (oldestWord.stats.lastPracticed == null || lastPracticed < oldestWord.stats.lastPracticed.getTime()) {
+                if (oldestWord.stats.lastPracticed != null && lastPracticed < oldestWord.stats.lastPracticed.getTime()) {
                     oldestWord = word;
                 }
             }
 
+            // Group words by strength
             candidateWords[word.strength].push(word);
         }
 
-        // Select randomly
+        // Select random words, priorizing weak words
         let selectedWords = [];
         for (let i = 0; i < maxStrength; i++)
             populateRandomly(candidateWords[i], selectedWords, oldestWord);
 
-        // Shuffle resulting array
+        // Shuffle the final array
         utils.shuffle(selectedWords);
         return selectedWords;
     }
@@ -144,7 +158,6 @@ module.exports = (app, db) => {
         if (!req.session.loggedIn) {
             return res.status(401).send();
         }
-
 
         // Build word query
         let query = {
