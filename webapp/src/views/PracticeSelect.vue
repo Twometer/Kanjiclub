@@ -27,7 +27,7 @@
         </div>
         <div v-if="!loading">
             <search-box v-model="query" />
-            <ul class="list-group shadow">
+            <ul class="list-group shadow mb-5">
                 <li
                     class="list-group-item list-group-item-action"
                     v-for="lesson in filteredLessons"

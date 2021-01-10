@@ -114,7 +114,7 @@
                 </button>
             </div>
         </editor-menu-bar>
-        <editor-content :editor="editor" class="editor" />
+        <editor-content :editor="editor" class="editor mb-5" />
 
         <div id="deleteModal" class="modal fade" tabindex="-1">
             <div class="modal-dialog">
@@ -224,7 +224,7 @@ export default {
                     new BulletList(),
                     new CodeBlock(),
                     new HardBreak(),
-                    new Heading({ levels: [1, 2, 3] }),
+                    new Heading({ levels: [1, 2, 3, 4] }),
                     new HorizontalRule(),
                     new ListItem(),
                     new OrderedList(),
@@ -372,16 +372,40 @@ input[type='text'] {
     background-color: white;
     margin: 5px;
     border-radius: 4px;
-    padding: 10px;
+    padding: 15px;
     min-height: 250px;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    line-height: 1.5;
 }
 .ProseMirror[contenteditable='false'] {
-    background-color: transparent;
     min-height: 0;
-    padding: 0;
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
+.ProseMirror>:first-child {
+    margin-top: 0!important;
+}
+.ProseMirror > hr {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border-color: rgb(234, 236, 239);
+}
+.ProseMirror > h1 {
+    font-size: 2em;
+
+    padding-bottom: .3em;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgb(234, 236, 239);
+}
+.ProseMirror > h2 {
+    font-size: 1.5em;
+}
+.ProseMirror > h3 {
+    font-size: 1.25em;
+}
+.ProseMirror > h4 {
+    font-size: 1.125em;
+}
+
 [contenteditable] {
     outline: 0 !important;
 }
@@ -394,16 +418,17 @@ input[type='text'] {
 }
 
 pre {
-    background: black;
-    color: white;
+    background: rgb(246, 248, 250);
+    color: rgb(36, 41, 46);
     padding: 15px;
+    border-radius: 3px;
 }
 
-code {
-    background: #ddd;
+:not(pre) > code {
+    background: rgb(246, 248, 250);
+    color: rgb(36, 41, 46);
     border-radius: 3px;
-    padding: 2px 3px;
-    color: black;
+    padding: 3px 6px;
 }
 
 blockquote {

@@ -18,7 +18,7 @@
         <!-- List of notes -->
         <div v-if="!loading">
             <search-box v-model="query" />
-            <div class="list-group shadow">
+            <div class="list-group shadow mb-5">
                 <router-link
                     class="list-group-item list-group-item-action"
                     v-for="note in filteredNotes"

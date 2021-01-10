@@ -240,7 +240,7 @@ export default {
         },
         cleanInput(input) {
             return input
-                .replace(/[.?!,_\-'":´`;]/g, '') // Drop punctuation
+                .replace(/[.?!,_\-'":´`;。・]/g, '') // Drop punctuation
                 .split(/[\s]+/) // Split to words
                 .map(w => w.trim()) // Trim
                 .filter(w => w.length > 0) // Remove empty words

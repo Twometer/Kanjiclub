@@ -35,7 +35,7 @@
         </div>
 
         <form class="d-flex mb-3 mt-4" @submit.prevent="upload">
-            <div class="input-group flex-grow-1">
+            <div class="input-group flex-grow-1 shadow">
                 <div class="custom-file">
                     <input
                         type="file"
@@ -65,7 +65,7 @@
             </button>
         </form>
 
-        <div class="list-group">
+        <div class="list-group shadow mb-5">
             <div
                 class="list-group-item d-flex justify-content-between align-items-center"
                 v-for="file in files"

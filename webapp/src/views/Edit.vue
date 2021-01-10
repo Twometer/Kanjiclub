@@ -25,7 +25,7 @@
         <spinner v-if="loading" />
 
         <div class="editor" v-if="!loading">
-            <div class="editor-table mb-3 shadow">
+            <div class="editor-table mb-3 shadow bg-white">
                 <table class="table table-sm table-hover">
                     <thead class="thead-dark">
                         <tr>
