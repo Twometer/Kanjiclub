@@ -1,6 +1,6 @@
 {
   "name": "kanjiclub-backend",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Kanjiclub backend",
   "main": "index.js",
   "scripts": {

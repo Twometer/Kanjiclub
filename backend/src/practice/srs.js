@@ -8,6 +8,7 @@ const WORD_COOLDOWN = MS_MINUTE * 5;
 
 const strength = require('../util/strength.js');
 const utils = require('../util/utils.js');
+const db = require('../database.js');
 
 const downgradeIntervals = [
     -1, // weak
@@ -43,8 +44,7 @@ function getRelativeWordAge(word, config) {
 }
 
 function isLastWordStanding(word, config) {
-    for (let i = config.strength; i < config.groups.length; i++)
-    {
+    for (let i = config.strength; i < config.groups.length; i++) {
         let filteredGroup = config.groups[i].filter(w => w._id != word._id);
         if (filteredGroup.length != 0)
             return false;
@@ -109,12 +109,54 @@ function selectRandomWords(config) {
     }
 }
 
+function dateDaysAgo(days) {
+    var millis = Date.now();
+    millis -= days * 24 * 60 * 60 * 1000;
+    return new Date(millis);
+}
+
+function runSrsDowngrade() {
+    const threshold2 = dateDaysAgo(7);
+    const threshold1 = dateDaysAgo(14);
+
+    // Strong words degrade to medium after 14 days
+    db.Word.find({
+        "stats.lastPracticed": { $lte: threshold2.toISOString() },
+        strength: 2
+    }, (err, docs) => {
+        if (err) {
+            console.err(err);
+            return;
+        }
+
+        for (var doc of docs) {
+            doc.strength = 1;
+            doc.save();
+        }
+    });
+
+    // Medium words degrade to weak after 7 days
+    db.Word.find({
+        "stats.lastPracticed": { $lte: threshold1.toISOString() },
+        strength: 1
+    }, (err, docs) => {
+        if (err) {
+            console.err(err);
+            return;
+        }
+
+        for (var doc of docs) {
+            doc.strength = 0;
+            doc.save();
+        }
+    });
+}
+
 
 /* api */
 module.exports.initialize = function () {
-    setInterval(() => {
-
-    }, MS_HOUR);
+    setInterval(() => runSrsDowngrade(), MS_HOUR);
+    runSrsDowngrade();
     console.log("SRS task initialized")
 }
 
