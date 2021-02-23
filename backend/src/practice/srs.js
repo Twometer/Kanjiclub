@@ -2,7 +2,6 @@ const PRACTICE_SIZE = 8;
 const MS_SECOND = 1000;
 const MS_MINUTE = MS_SECOND * 60;
 const MS_HOUR = MS_MINUTE * 60;
-const MS_DAY = MS_HOUR * 24;
 
 const WORD_COOLDOWN = MS_MINUTE * 5;
 
@@ -10,11 +9,7 @@ const strength = require('../util/strength.js');
 const utils = require('../util/utils.js');
 const db = require('../database.js');
 
-const downgradeIntervals = [
-    -1, // weak
-    MS_DAY * 2,  // medium
-    MS_DAY * 8   // strong
-];
+const appConfig = require('../../conf/kanjiclub.json')
 
 /* helper methods */
 function hasLastPractice(word) {
@@ -116,12 +111,12 @@ function dateDaysAgo(days) {
 }
 
 function runSrsDowngrade() {
-    const threshold2 = dateDaysAgo(7);
-    const threshold1 = dateDaysAgo(14);
+    const threshold1 = dateDaysAgo(appConfig.srs.downgradeIntervals[0]);
+    const threshold2 = dateDaysAgo(appConfig.srs.downgradeIntervals[1]);
 
-    // Strong words degrade to medium after 14 days
+    // Strong words degrade to medium
     db.Word.find({
-        "stats.lastPracticed": { $lte: threshold2.toISOString() },
+        "stats.lastPracticed": { $lte: threshold1.toISOString() },
         strength: 2
     }, (err, docs) => {
         if (err) {
@@ -135,9 +130,9 @@ function runSrsDowngrade() {
         }
     });
 
-    // Medium words degrade to weak after 7 days
+    // Medium words degrade to weak
     db.Word.find({
-        "stats.lastPracticed": { $lte: threshold1.toISOString() },
+        "stats.lastPracticed": { $lte: threshold2.toISOString() },
         strength: 1
     }, (err, docs) => {
         if (err) {

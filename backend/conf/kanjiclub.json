@@ -1,5 +1,5 @@
 {
-    "network":  {
+    "network": {
         "port": 9080,
         "corsOrigin": "http://localhost:8080"
     },
@@ -9,5 +9,11 @@
     },
     "db": {
         "url": "mongodb://localhost:27017/kanjiclub"
+    },
+    "srs": {
+        "downgradeIntervals": [
+            7,
+            14
+        ]
     }
 }
