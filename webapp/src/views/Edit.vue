@@ -11,7 +11,13 @@
                     Delete
                 </button>
                 <button
-                    class="btn btn-primary btn-sm"
+                    class="btn btn-dark btn-sm mr-2"
+                    v-on:click="exportLesson"
+                >
+                    Export
+                </button>
+                <button
+                    class="btn btn-primary btn-sm mr-2"
                     data-toggle="modal"
                     data-target="#lessonNameModal"
                 >
@@ -41,7 +47,7 @@
                             v-for="word in words"
                             :key="word.id"
                             :class="{
-                                'table-active': word.id == currentWord.id
+                                'table-active': word.id == currentWord.id,
                             }"
                             v-on:click="selectWord(word)"
                         >
@@ -234,8 +240,8 @@ function makeEmptyWord() {
             synonym: null,
             gender: null,
             native: null,
-            comment: null
-        }
+            comment: null,
+        },
     };
 }
 
@@ -258,7 +264,7 @@ export default {
             words: [],
             currentWord: makeEmptyWord(),
             currentWordItem: null,
-            newLessonName: ''
+            newLessonName: '',
         };
     },
     computed: {
@@ -279,7 +285,7 @@ export default {
             let foreign = this.currentWord.data.foreign;
             let native = this.currentWord.data.native;
             return !isEmpty(foreign) && !isEmpty(native);
-        }
+        },
     },
     async mounted() {
         let lang = this.$store.getters.Language;
@@ -288,7 +294,7 @@ export default {
         this.words = (await Api.Words.getByLesson(lang, lessonId)).data;
         this.loading = false;
 
-        document.onkeyup = function(e) {
+        document.onkeyup = function (e) {
             if (e.keyCode == 13 && this.canAdd) this.addOrUpdate();
         }.bind(this);
         this.clearNewName();
@@ -336,7 +342,7 @@ export default {
             if (this.isEditing) {
                 await Api.Words.delete(this.currentWord.id);
                 this.words = this.words.filter(
-                    w => w.id != this.currentWord.id
+                    (w) => w.id != this.currentWord.id
                 );
                 this.deselect();
             }
@@ -344,8 +350,19 @@ export default {
         async deleteLesson() {
             await Api.Lessons.delete(this.$route.params.lessonId);
             this.$router.push('/edit/select');
-        }
-    }
+        },
+        exportLesson() {
+            let json = JSON.stringify(this.words, null, 4);
+            let element = document.createElement('a');
+            element.setAttribute(
+                'href',
+                'data:application/json;charset=utf-8,' + encodeURIComponent(json)
+            );
+            element.setAttribute('download', this.lessonName + '.json');
+            element.style.display = 'none';
+            element.click();
+        },
+    },
 };
 </script>
 
